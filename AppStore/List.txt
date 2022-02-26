@@ -1,0 +1,6 @@
+[Name] TestApp
+[Category] TestCategory
+[Icon] null
+[Size] 0
+[Link] null
+[Path] null

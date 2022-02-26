@@ -1,5 +1,5 @@
 Welcome to WoR-ControlPanel!\
-![image](https://user-images.githubusercontent.com/72354122/155861644-b0c1ae9d-b5bc-492e-8f7d-9e96aad1e093.png)\
+![image](https://user-images.githubusercontent.com/72354122/155861644-b0c1ae9d-b5bc-492e-8f7d-9e96aad1e093.png)
 
 This utility can help you with WoR in the following ways\
 
