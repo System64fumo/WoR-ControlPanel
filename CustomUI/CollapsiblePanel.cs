@@ -16,7 +16,7 @@ namespace WoRCP.CustomUI
         private int separators = 0;
         private Color panelcolor = Color.FromArgb(25, 25, 27);
         private Color currentcolor = Color.FromArgb(25, 25, 27);
-        private Font font;
+        private Font font = new Font("Segoe MDL2 Assets", 14.25f);
         #endregion
 
         #region Properties
@@ -116,10 +116,6 @@ namespace WoRCP.CustomUI
             if (Convert.ToInt32(Configuration.Build) >= 22000)
             {
                 font = new Font("Segoe Fluent Icons", 14.25f);
-            }
-            else
-            {
-                font = new Font("Segoe MDL2 Assets", 14.25f);
             }
         }
         #endregion

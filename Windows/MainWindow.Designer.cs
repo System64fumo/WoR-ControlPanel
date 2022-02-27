@@ -31,7 +31,6 @@ namespace WoRCP
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.SidePanel = new System.Windows.Forms.Panel();
-            this.Indicator = new WoRCP.RoundedPanel();
             this.PerformanceButton = new System.Windows.Forms.Button();
             this.PeripheralsButton = new System.Windows.Forms.Button();
             this.AppstoreButton = new System.Windows.Forms.Button();
@@ -43,6 +42,7 @@ namespace WoRCP
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.Tabcontainer = new System.Windows.Forms.Panel();
+            this.Indicator = new WoRCP.RoundedPanel();
             this.SidePanel.SuspendLayout();
             this.TitleBar.SuspendLayout();
             this.SuspendLayout();
@@ -65,16 +65,6 @@ namespace WoRCP
             this.SidePanel.TabIndex = 0;
             this.SidePanel.Tag = "Acrylic";
             // 
-            // Indicator
-            // 
-            this.Indicator.BackColor = System.Drawing.Color.Transparent;
-            this.Indicator.color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
-            this.Indicator.Location = new System.Drawing.Point(0, 210);
-            this.Indicator.Name = "Indicator";
-            this.Indicator.rounding = 2;
-            this.Indicator.Size = new System.Drawing.Size(4, 30);
-            this.Indicator.TabIndex = 0;
-            // 
             // PerformanceButton
             // 
             this.PerformanceButton.BackColor = System.Drawing.Color.Transparent;
@@ -84,17 +74,17 @@ namespace WoRCP
             this.PerformanceButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PerformanceButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PerformanceButton.Image = ((System.Drawing.Image)(resources.GetObject("PerformanceButton.Image")));
             this.PerformanceButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PerformanceButton.Location = new System.Drawing.Point(0, 200);
             this.PerformanceButton.Name = "PerformanceButton";
             this.PerformanceButton.Size = new System.Drawing.Size(175, 50);
             this.PerformanceButton.TabIndex = 8;
-            this.PerformanceButton.Text = "Performance";
+            this.PerformanceButton.Text = "           Performance";
             this.PerformanceButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PerformanceButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.PerformanceButton.UseVisualStyleBackColor = false;
             this.PerformanceButton.Click += new System.EventHandler(this.PerformanceButton_Click);
+            this.PerformanceButton.Paint += new System.Windows.Forms.PaintEventHandler(this.PerformanceButton_Paint);
             // 
             // PeripheralsButton
             // 
@@ -105,17 +95,17 @@ namespace WoRCP
             this.PeripheralsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PeripheralsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PeripheralsButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PeripheralsButton.Image = ((System.Drawing.Image)(resources.GetObject("PeripheralsButton.Image")));
             this.PeripheralsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PeripheralsButton.Location = new System.Drawing.Point(0, 250);
             this.PeripheralsButton.Name = "PeripheralsButton";
             this.PeripheralsButton.Size = new System.Drawing.Size(175, 50);
             this.PeripheralsButton.TabIndex = 7;
-            this.PeripheralsButton.Text = "Peripherals";
+            this.PeripheralsButton.Text = "           Peripherals";
             this.PeripheralsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PeripheralsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.PeripheralsButton.UseVisualStyleBackColor = false;
             this.PeripheralsButton.Click += new System.EventHandler(this.GPIOButton_Click);
+            this.PeripheralsButton.Paint += new System.Windows.Forms.PaintEventHandler(this.PeripheralsButton_Paint);
             // 
             // AppstoreButton
             // 
@@ -126,17 +116,17 @@ namespace WoRCP
             this.AppstoreButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.AppstoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AppstoreButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AppstoreButton.Image = ((System.Drawing.Image)(resources.GetObject("AppstoreButton.Image")));
             this.AppstoreButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AppstoreButton.Location = new System.Drawing.Point(0, 300);
             this.AppstoreButton.Name = "AppstoreButton";
             this.AppstoreButton.Size = new System.Drawing.Size(175, 50);
             this.AppstoreButton.TabIndex = 6;
-            this.AppstoreButton.Text = "Applications";
+            this.AppstoreButton.Text = "           Applications";
             this.AppstoreButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AppstoreButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.AppstoreButton.UseVisualStyleBackColor = false;
             this.AppstoreButton.Click += new System.EventHandler(this.AppstoreButton_Click);
+            this.AppstoreButton.Paint += new System.Windows.Forms.PaintEventHandler(this.AppstoreButton_Paint);
             // 
             // AboutButton
             // 
@@ -147,17 +137,17 @@ namespace WoRCP
             this.AboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.AboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.AboutButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AboutButton.Image = ((System.Drawing.Image)(resources.GetObject("AboutButton.Image")));
             this.AboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AboutButton.Location = new System.Drawing.Point(0, 350);
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.Size = new System.Drawing.Size(175, 50);
             this.AboutButton.TabIndex = 5;
-            this.AboutButton.Text = "About";
+            this.AboutButton.Text = "           About";
             this.AboutButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.AboutButton.UseVisualStyleBackColor = false;
             this.AboutButton.Click += new System.EventHandler(this.AboutButton_Click);
+            this.AboutButton.Paint += new System.Windows.Forms.PaintEventHandler(this.AboutButton_Paint);
             // 
             // OverlayButton
             // 
@@ -168,17 +158,17 @@ namespace WoRCP
             this.OverlayButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.OverlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OverlayButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OverlayButton.Image = ((System.Drawing.Image)(resources.GetObject("OverlayButton.Image")));
             this.OverlayButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.OverlayButton.Location = new System.Drawing.Point(0, 400);
             this.OverlayButton.Name = "OverlayButton";
             this.OverlayButton.Size = new System.Drawing.Size(175, 50);
             this.OverlayButton.TabIndex = 4;
-            this.OverlayButton.Text = "Overlay";
+            this.OverlayButton.Text = "           Overlay";
             this.OverlayButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.OverlayButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.OverlayButton.UseVisualStyleBackColor = false;
             this.OverlayButton.Click += new System.EventHandler(this.OverlayButton_Click);
+            this.OverlayButton.Paint += new System.Windows.Forms.PaintEventHandler(this.OverlayButton_Paint);
             // 
             // SettingsButton
             // 
@@ -189,17 +179,17 @@ namespace WoRCP
             this.SettingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SettingsButton.Font = new System.Drawing.Font("Segoe UI", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SettingsButton.Image = ((System.Drawing.Image)(resources.GetObject("SettingsButton.Image")));
             this.SettingsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SettingsButton.Location = new System.Drawing.Point(0, 450);
             this.SettingsButton.Name = "SettingsButton";
             this.SettingsButton.Size = new System.Drawing.Size(175, 50);
             this.SettingsButton.TabIndex = 3;
-            this.SettingsButton.Text = "Settings";
+            this.SettingsButton.Text = "           Settings";
             this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SettingsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.SettingsButton.UseVisualStyleBackColor = false;
             this.SettingsButton.Click += new System.EventHandler(this.SettingsButton_Click);
+            this.SettingsButton.Paint += new System.Windows.Forms.PaintEventHandler(this.SettingsButton_Paint);
             // 
             // Greeting
             // 
@@ -238,7 +228,7 @@ namespace WoRCP
             this.MinimizeButton.Name = "MinimizeButton";
             this.MinimizeButton.Size = new System.Drawing.Size(45, 30);
             this.MinimizeButton.TabIndex = 3;
-            this.MinimizeButton.Text = "";
+            this.MinimizeButton.Text = "";
             this.MinimizeButton.UseVisualStyleBackColor = true;
             this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
             // 
@@ -265,6 +255,16 @@ namespace WoRCP
             this.Tabcontainer.Name = "Tabcontainer";
             this.Tabcontainer.Size = new System.Drawing.Size(660, 470);
             this.Tabcontainer.TabIndex = 2;
+            // 
+            // Indicator
+            // 
+            this.Indicator.BackColor = System.Drawing.Color.Transparent;
+            this.Indicator.color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.Indicator.Location = new System.Drawing.Point(0, 210);
+            this.Indicator.Name = "Indicator";
+            this.Indicator.rounding = 2;
+            this.Indicator.Size = new System.Drawing.Size(4, 30);
+            this.Indicator.TabIndex = 0;
             // 
             // MainWindow
             // 
