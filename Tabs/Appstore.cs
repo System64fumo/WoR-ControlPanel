@@ -35,26 +35,20 @@ namespace WoRCP.Tabs
                 Container.Visible = true;
                 try
                 {
-                    using (var client = new WebClient())
+                    using (WebClient wc = new WebClient())
                     {
-                        using (WebClient wc = new WebClient())
-                        {
-                            wc.DownloadFile(
-                                new Uri("https://raw.githubusercontent.com/AmirDahan/WoR-ControlPanel/main/AppStore/List.txt"),
-                                ListPath
-                            );
-                        }
+                        wc.DownloadFile(new Uri("https://raw.githubusercontent.com/AmirDahan/WoR-CP-Apps/main/List.txt"), ListPath);
                     }
                 }
                 catch
                 {
-                    Program.Log("[Error] Unable to download appstore list");
                     Container.Visible = false;
-                    MessageBox.Show("Unable to download the appstore list file.\n Please open the debugger and send the log to the developer.");
+                    Program.Log("[Error] Unable to download the appstore list file.\n Please open the debugger and send the log to the developer.");
                 }
                 if (File.Exists(ListPath))
                 {
                     string[] lines = File.ReadAllLines(ListPath);
+                    Configuration.ApplicationsFound = 0;
                     foreach (string line in lines)
                     {
                         if (line.Contains("[Name]")) { Name = line.Remove(0, 7); Configuration.ApplicationsFound += 1; }
@@ -64,7 +58,7 @@ namespace WoRCP.Tabs
                         if (line.Contains("[Link]")) { Url = line.Remove(0, 7); }
                         if (line.Contains("[Path]")) { ExtractLocation = line.Remove(0, 6); AddApp(Name, Category, Background, Url, ExtractLocation, AppSize); }
                     }
-                    Program.Log("[Info] Apps found : " + Configuration.ApplicationsFound.ToString());
+                    Program.Log("[Info] Apps found : " + Configuration.ApplicationsFound);
                 }
             }
         }

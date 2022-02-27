@@ -21,6 +21,7 @@ namespace WoRCP
         private readonly WebClient webClient = new WebClient();
         private bool AnimationState = true;
         private Color clr = Theme.BrightAccent;
+        private SolidBrush drawBrush = new SolidBrush(Theme.Text);
         #endregion
 
         #region Loading and Initialization
@@ -30,8 +31,7 @@ namespace WoRCP
         }
         private async void AppUI_Load(object sender, EventArgs e)
         {
-            ImagePanel.BackgroundImage = WoRCP.Properties.Resources.Error;
-            await Task.Run(() => { try { ImagePanel.BackgroundImage = (Bitmap)DownloadImage(Icon); } catch { Program.Log("[Warn] Unable to download application background image"); } });
+            await Task.Run(() => { try { ImagePanel.BackgroundImage = (Bitmap)DownloadImage(Icon); ImagePanel.Invalidate(); } catch { Program.Log("[Warn] Unable to download application background image"); } });
             if (Directory.Exists(AppPath)) { Installed = true; InstallButton.Color = Theme.Accent; InstallButton.ButtonText = "Uninstall"; } //Check if the application is installed
         }
         #endregion
@@ -84,6 +84,7 @@ namespace WoRCP
             {
                 InstallButton.ButtonText = "Error";
                 InstallButton.Enabled = false;
+                Animation.Enabled = false;
                 InstallButton.Color = Color.FromArgb(235, 0, 65);
                 Program.Log("[Error] Unable to install " + AppName.Text);
             }
@@ -126,6 +127,18 @@ namespace WoRCP
                 }
             }
             Animation.Enabled = false;
+        }
+        #endregion
+
+        #region Paint events
+
+        private void ImagePanel_Paint(object sender, PaintEventArgs e)
+        {
+            if (ImagePanel.BackgroundImage == null)
+            {
+                e.Graphics.DrawString("●", new Font("Segoe UI", 110f), new SolidBrush(Theme.Inactive), -37, -85);
+                e.Graphics.DrawString("?", new Font("Segoe UI", 30f), new SolidBrush(Theme.Text), 17, 5);
+            }
         }
         #endregion
     }

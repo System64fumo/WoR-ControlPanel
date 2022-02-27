@@ -383,7 +383,6 @@
     <None Include="Resources\PiLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Error.png" />
     <None Include="Resources\BackgroundDark.png" />
     <None Include="Resources\Graph.png" />
     <Content Include="Other\worcpicon.ico" />

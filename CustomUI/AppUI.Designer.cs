@@ -47,6 +47,7 @@ namespace WoRCP
             this.ImagePanel.Name = "ImagePanel";
             this.ImagePanel.Size = new System.Drawing.Size(64, 64);
             this.ImagePanel.TabIndex = 0;
+            this.ImagePanel.Paint += new System.Windows.Forms.PaintEventHandler(this.ImagePanel_Paint);
             // 
             // AppName
             // 

@@ -11,7 +11,7 @@ namespace WoRCP
         //Main
         #region Variables
         private Font font = new Font("Segoe MDL2 Assets", 16f);
-        private SolidBrush drawBrush = new SolidBrush(Theme.Text);
+        private SolidBrush drawBrush;
         #endregion
 
         #region Loading and Initialization
@@ -31,6 +31,7 @@ namespace WoRCP
             {
                 font = new Font("Segoe Fluent Icons", 16f);
             }
+            drawBrush = new SolidBrush(Theme.Text);
             CloseButton.Font = new Font(font.Name, 9.75f);
             MinimizeButton.Font = new Font(font.Name, 9.75f);
             LoadTab(new Performance(), 210);
