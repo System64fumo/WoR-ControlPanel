@@ -36,7 +36,9 @@ namespace WoRCP
         #region Greetings Text
         public static void GetGreeting()
         {
-            int time = Convert.ToInt16(DateTime.Now.ToString("HH"));
+            int time = Convert.ToInt16(DateTime.Now.ToString("HH")); // Get the time in 24hr format
+            
+            // Check what time of day it is and adjust greeing accordingly
             if (time <= 12) { Configuration.Greeting = "Good Morning"; }
             if (time >= 12) { Configuration.Greeting = "Good Afternoon"; }
             if (time >= 17) { Configuration.Greeting = "Good Evening"; }
@@ -46,13 +48,14 @@ namespace WoRCP
         #region Read Config.txt
         public static void ReadConfig()
         {
-            if (File.Exists(@"B:\Config.txt"))
+            if (File.Exists(@"B:\Config.txt")) // Make sure file exists before we try to read it
             {
-                string[] lines = File.ReadAllLines(@"B:\Config.txt");
-                foreach (string i in lines)
-                {
-                    //TODO: Replace with switch case
+                string[] lines = File.ReadAllLines(@"B:\Config.txt"); // Read the file line by line
+                foreach (string i in lines) // Iterate through each line
+                {                  
                     //This is terrible
+                    // The following if statements search for config.txt options and delete them
+
                     if (i.Contains("disable_overscan="))
                     {
                         Configuration.disableoverscan = i.Replace("disable_overscan=", "");
@@ -99,6 +102,7 @@ namespace WoRCP
             }
             else
             {
+                // Do this we can't find the file
                 Log("[Error] Unable to find config.txt");
             }
         }
@@ -107,12 +111,13 @@ namespace WoRCP
         #region Write Config.txt
         public static void WriteConfig()
         {
-            if (File.Exists(@"B:\Config.txt"))
+            if (File.Exists(@"B:\Config.txt")) // Making sure config.txt exists and boot partition is mounted
             {
                 Configuration.config = "";
-                foreach (string i in File.ReadAllLines(@"B:\Config.txt")) //This seems inefficient
+                foreach (string i in File.ReadAllLines(@"B:\Config.txt")) // Read the file line by line
                 {
                     if (
+                        // Following if statements make sure that config.txt DOES NOT have the configuration options already set
                         !i.Contains("arm_freq=") &&
                         !i.Contains("gpu_freq=") &&
                         !i.Contains("gpu_mem=") &&
@@ -135,6 +140,7 @@ namespace WoRCP
                 }
                 catch { }
 
+                // Write the configuration options to the configuration  class
                 if (Configuration.disableoverscan != null) { Configuration.config += "disable_overscan=" + Configuration.disableoverscan + "\n"; }
                 if (Configuration.disablesplash != null) { Configuration.config += "disable_splash=" + Configuration.disablesplash + "\n"; }
                 if (Configuration.armfreq != null) { Configuration.config += "arm_freq=" + Configuration.armfreq + "\n"; }
@@ -145,9 +151,9 @@ namespace WoRCP
                 if (Configuration.forcehotplug != null) { Configuration.config += "hdmi_force_hotplug=" + Configuration.forcehotplug + "\n"; }
                 if (Configuration.Video) { Configuration.config += "hdmi_cvt=" + Configuration.width + " " + Configuration.height + " " + Configuration.refresh + "\nhdmi_group=2\nhdmi_mode=87\n"; }
 
-                StreamWriter sw = new StreamWriter(@"B:\Config.txt");
-                sw.WriteLine(Configuration.config);
-                sw.Close();
+                StreamWriter sw = new StreamWriter(@"B:\Config.txt"); // Call a streamwriter instance on config.txt so we can write our lines
+                sw.WriteLine(Configuration.config); // Write lines the lines from our configuration class to config.txt
+                sw.Close(); // Close the file for writing and free the memory
             }
             else
             {
