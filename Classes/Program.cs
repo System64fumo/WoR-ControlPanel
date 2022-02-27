@@ -23,8 +23,10 @@ namespace WoRCP
             Application.SetCompatibleTextRenderingDefault(false);
             MainWindow Window = new MainWindow();
             GetGreeting();             //Get current time greeting
+            Configuration.UpdateStockClock(); // Check what Pi we have and what stock clock it should be on
             Theme.Initialize(Window);  //Initialize theme
             Application.Run(Window);   //Show the main window
+
         }
 
         //Methods
@@ -44,6 +46,7 @@ namespace WoRCP
             if (time >= 17) { Configuration.Greeting = "Good Evening"; }
         }
         #endregion
+
 
         #region Read Config.txt
         public static void ReadConfig()

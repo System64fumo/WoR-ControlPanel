@@ -97,5 +97,20 @@ namespace WoRCP
         public static string height = Screen.PrimaryScreen.Bounds.Height.ToString();
         public static string refresh = "60";
         #endregion
+
+        #region UpdateStockClock
+        public static void UpdateStockClock()
+        {
+            if (CPUName == "BCM2711 (ARM Cortex-A72)")
+            {
+                StockClock = "1500";
+            }
+
+            else
+            {
+                StockClock = "1200";
+            }
+        }
+        #endregion
     }
 }
