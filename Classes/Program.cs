@@ -30,7 +30,7 @@ namespace WoRCP
         //Methods
         #region Logging
         public static string LogOutput;
-        public static void Log(string text) { LogOutput += text.Replace("\n",Environment.NewLine) + Environment.NewLine; Console.WriteLine(text); }
+        public static void Log(string text) { LogOutput += text.Replace("\n",Environment.NewLine) + Environment.NewLine; Console.WriteLine(text); if (text.Contains("[Error]")) { MessageBox.Show(text); } }
         #endregion
 
         #region Greetings Text
@@ -40,8 +40,8 @@ namespace WoRCP
             
             // Check what time of day it is and adjust greeing accordingly
             if (time <= 12) { Configuration.Greeting = "Good Morning"; }
-            if (time >= 12) { Configuration.Greeting = "Good Afternoon"; }
-            if (time >= 17) { Configuration.Greeting = "Good Evening"; }
+            else if (time >= 12) { Configuration.Greeting = "Good Afternoon"; }
+            else if (time >= 17) { Configuration.Greeting = "Good Evening"; }
         }
         #endregion
 

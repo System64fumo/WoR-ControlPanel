@@ -117,11 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label3.Text" xml:space="preserve">
-    <value>This tab is currently unfinished.
-GPIO control requires the app to be compiled for x86 architecture.
-WoR CP is compiled for x84_64, Until a fix is issued this tab
-will remain unfinished.
-Sorry for the inconvenience</value>
-  </data>
 </root>

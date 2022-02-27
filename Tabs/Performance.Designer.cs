@@ -141,7 +141,6 @@ namespace WoRCP.Tabs
             // 
             this.WriteLabel.AutoSize = true;
             this.WriteLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.WriteLabel.ForeColor = System.Drawing.Color.White;
             this.WriteLabel.Location = new System.Drawing.Point(10, 10);
             this.WriteLabel.Margin = new System.Windows.Forms.Padding(0);
             this.WriteLabel.Name = "WriteLabel";
@@ -180,7 +179,6 @@ namespace WoRCP.Tabs
             // 
             this.ReadLabel.AutoSize = true;
             this.ReadLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ReadLabel.ForeColor = System.Drawing.Color.White;
             this.ReadLabel.Location = new System.Drawing.Point(10, 10);
             this.ReadLabel.Margin = new System.Windows.Forms.Padding(0);
             this.ReadLabel.Name = "ReadLabel";
@@ -297,7 +295,6 @@ namespace WoRCP.Tabs
             // 
             this.TempratureLabel.AutoSize = true;
             this.TempratureLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TempratureLabel.ForeColor = System.Drawing.Color.White;
             this.TempratureLabel.Location = new System.Drawing.Point(10, 10);
             this.TempratureLabel.Margin = new System.Windows.Forms.Padding(0);
             this.TempratureLabel.Name = "TempratureLabel";
@@ -362,7 +359,6 @@ namespace WoRCP.Tabs
             // 
             this.MemoryLabel.AutoSize = true;
             this.MemoryLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MemoryLabel.ForeColor = System.Drawing.Color.White;
             this.MemoryLabel.Location = new System.Drawing.Point(10, 10);
             this.MemoryLabel.Margin = new System.Windows.Forms.Padding(0);
             this.MemoryLabel.Name = "MemoryLabel";
@@ -401,7 +397,6 @@ namespace WoRCP.Tabs
             // 
             this.CPULabel.AutoSize = true;
             this.CPULabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CPULabel.ForeColor = System.Drawing.Color.White;
             this.CPULabel.Location = new System.Drawing.Point(10, 10);
             this.CPULabel.Margin = new System.Windows.Forms.Padding(0);
             this.CPULabel.Name = "CPULabel";
@@ -464,12 +459,13 @@ namespace WoRCP.Tabs
             // Performance
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.Controls.Add(this.roundedPanel5);
             this.Controls.Add(this.roundedPanel4);
             this.Controls.Add(this.roundedPanel3);
             this.Controls.Add(this.roundedPanel2);
             this.Controls.Add(this.roundedPanel1);
+            this.ForeColor = System.Drawing.Color.White;
             this.Name = "Performance";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Performance_Load);

@@ -87,6 +87,7 @@ namespace WoRCP.Tabs
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.Controls.Add(this.Container);
+            this.ForeColor = System.Drawing.Color.White;
             this.Name = "Appstore";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Appstore_Load);

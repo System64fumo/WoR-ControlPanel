@@ -237,7 +237,6 @@ namespace WoRCP.Tabs
             // PiLabel
             // 
             this.PiLabel.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PiLabel.ForeColor = System.Drawing.Color.White;
             this.PiLabel.Location = new System.Drawing.Point(40, 10);
             this.PiLabel.Margin = new System.Windows.Forms.Padding(0);
             this.PiLabel.Name = "PiLabel";
@@ -293,7 +292,6 @@ namespace WoRCP.Tabs
             this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.label2.Font = new System.Drawing.Font("Segoe UI Semibold", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.ForeColor = System.Drawing.Color.White;
             this.label2.Location = new System.Drawing.Point(0, 10);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(190, 30);
@@ -501,7 +499,6 @@ namespace WoRCP.Tabs
             // 
             this.ForceTurboLabel.BackColor = System.Drawing.Color.Transparent;
             this.ForceTurboLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ForceTurboLabel.ForeColor = System.Drawing.Color.White;
             this.ForceTurboLabel.Location = new System.Drawing.Point(45, 265);
             this.ForceTurboLabel.Name = "ForceTurboLabel";
             this.ForceTurboLabel.Size = new System.Drawing.Size(179, 50);
@@ -513,7 +510,6 @@ namespace WoRCP.Tabs
             // 
             this.OvervoltageLabel.BackColor = System.Drawing.Color.Transparent;
             this.OvervoltageLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OvervoltageLabel.ForeColor = System.Drawing.Color.White;
             this.OvervoltageLabel.Location = new System.Drawing.Point(45, 214);
             this.OvervoltageLabel.Name = "OvervoltageLabel";
             this.OvervoltageLabel.Size = new System.Drawing.Size(179, 50);
@@ -525,7 +521,6 @@ namespace WoRCP.Tabs
             // 
             this.GPUMemLabel.BackColor = System.Drawing.Color.Transparent;
             this.GPUMemLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GPUMemLabel.ForeColor = System.Drawing.Color.White;
             this.GPUMemLabel.Location = new System.Drawing.Point(45, 163);
             this.GPUMemLabel.Name = "GPUMemLabel";
             this.GPUMemLabel.Size = new System.Drawing.Size(179, 50);
@@ -537,7 +532,6 @@ namespace WoRCP.Tabs
             // 
             this.GPUFreqLabel.BackColor = System.Drawing.Color.Transparent;
             this.GPUFreqLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.GPUFreqLabel.ForeColor = System.Drawing.Color.White;
             this.GPUFreqLabel.Location = new System.Drawing.Point(45, 112);
             this.GPUFreqLabel.Name = "GPUFreqLabel";
             this.GPUFreqLabel.Size = new System.Drawing.Size(179, 50);
@@ -549,7 +543,6 @@ namespace WoRCP.Tabs
             // 
             this.CPUFreqLabel.BackColor = System.Drawing.Color.Transparent;
             this.CPUFreqLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CPUFreqLabel.ForeColor = System.Drawing.Color.White;
             this.CPUFreqLabel.Location = new System.Drawing.Point(45, 61);
             this.CPUFreqLabel.Name = "CPUFreqLabel";
             this.CPUFreqLabel.Size = new System.Drawing.Size(179, 50);
@@ -643,7 +636,6 @@ namespace WoRCP.Tabs
             // 
             this.HotplugLabel.BackColor = System.Drawing.Color.Transparent;
             this.HotplugLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HotplugLabel.ForeColor = System.Drawing.Color.White;
             this.HotplugLabel.Location = new System.Drawing.Point(40, 283);
             this.HotplugLabel.Name = "HotplugLabel";
             this.HotplugLabel.Size = new System.Drawing.Size(179, 50);
@@ -681,7 +673,6 @@ namespace WoRCP.Tabs
             // 
             this.OverscanLabel.BackColor = System.Drawing.Color.Transparent;
             this.OverscanLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OverscanLabel.ForeColor = System.Drawing.Color.White;
             this.OverscanLabel.Location = new System.Drawing.Point(40, 232);
             this.OverscanLabel.Name = "OverscanLabel";
             this.OverscanLabel.Size = new System.Drawing.Size(179, 50);
@@ -727,7 +718,6 @@ namespace WoRCP.Tabs
             // 
             this.label3.BackColor = System.Drawing.Color.Transparent;
             this.label3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.ForeColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(45, 111);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(179, 50);
@@ -752,7 +742,6 @@ namespace WoRCP.Tabs
             // 
             this.label1.BackColor = System.Drawing.Color.Transparent;
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.ForeColor = System.Drawing.Color.White;
             this.label1.Location = new System.Drawing.Point(45, 61);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(179, 50);
@@ -765,6 +754,7 @@ namespace WoRCP.Tabs
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
             this.Controls.Add(this.flowLayoutPanel1);
+            this.ForeColor = System.Drawing.Color.White;
             this.Name = "Settings";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Settings_Load);

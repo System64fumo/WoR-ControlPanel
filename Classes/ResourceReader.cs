@@ -13,11 +13,11 @@ namespace WoRCP
     {
         //Main
         #region Variables
-        public static double[] CPU = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        public static double[] Mem = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        public static double[] DiskR = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        public static double[] DiskW = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-        public static double[] Temprature = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };
+        public static double[] CPU = new double[10];
+        public static double[] Mem = new double[10];
+        public static double[] DiskR = new double[10];
+        public static double[] DiskW = new double[10];
+        public static double[] Temprature = new double[10];
         public static int test = 50;
         private static PerformanceCounter CPUUsage;
         private static PerformanceCounter Memory;
@@ -33,26 +33,34 @@ namespace WoRCP
         #region Initialization
         public static async void Initialize()
         {
-            if (!Configuration.CountersDefined)
+            try
             {
-                timer.Tick += Tick;
-                timer.Enabled = true;
-                timer.Interval = 1000;
-                Program.Log("[Info] Defining resource counters... (This process might take a while)");
-                await Task.Run(() =>
+                if (!Configuration.CountersDefined)
                 {
-                    CPUUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total", true);
-                    Memory = new PerformanceCounter("Memory", "Available MBytes", true);
-                    DiskRead = new PerformanceCounter("LogicalDisk", "Disk Read Bytes/Sec", "_Total", true);
-                    DiskWrite = new PerformanceCounter("LogicalDisk", "Disk Write Bytes/Sec", "_Total", true);
-                    searcher = new ManagementObjectSearcher(@"root\CIMV2", "SELECT * FROM Win32_PerfFormattedData_Counters_ThermalZoneInformation");
-                    Configuration.CountersDefined = true;
-                    Program.Log("[Info] Resource counters defined.");
-                });
+                    Program.Log("[Info] Defining resource counters... (This process might take a while)");
+                    await Task.Run(() =>
+                    {
+                        CPUUsage = new PerformanceCounter("Processor", "% Processor Time", "_Total", true);
+                        Memory = new PerformanceCounter("Memory", "Available MBytes", true);
+                        DiskRead = new PerformanceCounter("LogicalDisk", "Disk Read Bytes/Sec", "_Total", true);
+                        DiskWrite = new PerformanceCounter("LogicalDisk", "Disk Write Bytes/Sec", "_Total", true);
+                        searcher = new ManagementObjectSearcher(@"root\CIMV2", "SELECT * FROM Win32_PerfFormattedData_Counters_ThermalZoneInformation");
+                        Program.Log("[Info] Resource counters defined.");
+                        Configuration.CountersDefined = true;
+                    });
+                    timer.Tick += Tick;
+                    timer.Enabled = true;
+                    timer.Interval = 1000;
+                }
+                else
+                {
+                    Program.Log("[Warn] Resource counters are already defined.");
+                }
             }
-            else
+            catch
             {
-                Program.Log("[Warn] Resource counters are already defined.");
+                Process.Start("CMD", "/C lodctr /r");
+                Program.Log("[Error] Failed to define counters attempting to fix \n Please relaunch the app, If this Error persists try contacting the developer");
             }
         }
         #endregion
@@ -60,14 +68,14 @@ namespace WoRCP
         #region Reading
         private static void Tick(object sender, EventArgs e)
         {
-            if (Configuration.CountersDefined && Temprature != null)
+            try
             {
-                try
+                if (Configuration.CountersDefined && Temprature != null)
                 {
                     CPU = CPU.Concat(new[] { Math.Round(CPUUsage.NextValue()) }).ToArray();
                     Mem = Mem.Concat(new[] { Configuration.Totalmemory - Math.Round(Memory.NextValue() / 1024, 1) }).ToArray();
-                    DiskR = DiskR.Concat(new[] { Math.Round(DiskRead.NextValue() / 1024 / 1024, 1) }).ToArray();
-                    DiskW = DiskW.Concat(new[] { Math.Round(DiskWrite.NextValue() / 1024 / 1024, 1) }).ToArray();
+                    DiskR = DiskR.Concat(new[] { Math.Round(DiskRead.NextValue() / 1048576, 1) }).ToArray();
+                    DiskW = DiskW.Concat(new[] { Math.Round(DiskWrite.NextValue() / 1048576, 1) }).ToArray();
                     Temp = searcher.Get().OfType<ManagementObject>().First();
                     Temprature = Temprature.Concat(new[] { (Convert.ToDouble(Temp.GetPropertyValue("HighPrecisionTemperature").ToString()) - 2732) / 10 }).ToArray();
                     if (trayicon.Visible) { TrayIcon(); }
@@ -77,14 +85,14 @@ namespace WoRCP
                     if (DiskW.Length > 10) { DiskW = DiskW.Skip(1).ToArray(); }
                     if (Temprature.Length > 10) { Temprature = Temprature.Skip(1).ToArray(); }
                 }
-                catch
+                else
                 {
-                    Program.Log("[Error] An unexpected error has occured.");
+                    Program.Log("[Warn] Resource counters are undefined, Unable to read.");
                 }
             }
-            else
+            catch
             {
-                Program.Log("[Error] Resource counters are undefined, Unable to read.");
+                Program.Log("[Error] An unexpected error has occured.");
             }
         }
         #endregion
