@@ -9,6 +9,11 @@ namespace WoRCP
     public partial class MainWindow : Form
     {
         //Main
+        #region Variables
+        private Font font = new Font("Segoe MDL2 Assets", 16f);
+        private SolidBrush drawBrush = new SolidBrush(Theme.Text);
+        #endregion
+
         #region Loading and Initialization
         public MainWindow()
         {
@@ -22,16 +27,13 @@ namespace WoRCP
             Program.Log("[Info] Windows: " + Configuration.Build);
             Program.Log("[Info] Running on: " + Configuration.DeviceName + " / " + Configuration.CPUArch);
             Greeting.Text = Configuration.Greeting + "\n" + Configuration.User + "!";
-            LoadTab(new Performance(), 210);
-            if (Theme.ThemeMode)
+            if (Convert.ToInt32(Configuration.Build) >= 22000)
             {
-                PerformanceButton.Image = ImageManipulation.InvertColor(PerformanceButton.Image);
-                PeripheralsButton.Image = ImageManipulation.InvertColor(PeripheralsButton.Image);
-                AppstoreButton.Image = ImageManipulation.InvertColor(AppstoreButton.Image);
-                AboutButton.Image = ImageManipulation.InvertColor(AboutButton.Image);
-                OverlayButton.Image = ImageManipulation.InvertColor(OverlayButton.Image);
-                SettingsButton.Image = ImageManipulation.InvertColor(SettingsButton.Image);
+                font = new Font("Segoe Fluent Icons", 16f);
             }
+            CloseButton.Font = new Font(font.Name, 9.75f);
+            MinimizeButton.Font = new Font(font.Name, 9.75f);
+            LoadTab(new Performance(), 210);
             ResourceReader.TrayIcon();
             ChangeIcon();
         }
@@ -51,11 +53,6 @@ namespace WoRCP
         {
             WindowState = FormWindowState.Minimized;
             this.ShowInTaskbar = !Configuration.MinimizeToTray;
-        }
-
-        private void UpdatesButton_Click(object sender, EventArgs e)
-        {
-            LoadTab(new About(), 360);
         }
         #endregion
 
@@ -116,6 +113,40 @@ namespace WoRCP
         }
         #endregion
 
+        #region Paint events
+
+        private void PerformanceButton_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+        }
+
+        private void PeripheralsButton_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("", font, drawBrush, 6, 16);
+        }
+
+        private void AppstoreButton_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("", new Font(font.Name, 9.75f), drawBrush, 14, 16);
+            e.Graphics.DrawString("", new Font(font.Name, 15.5f), drawBrush, 8, 20);
+        }
+
+        private void AboutButton_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+        }
+
+        private void OverlayButton_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+        }
+
+        private void SettingsButton_Paint(object sender, PaintEventArgs e)
+        {
+            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+        }
+        #endregion
+
         //Controls
         #region Debugger
         private void OpenDebugger(object sender, EventArgs e)
@@ -134,5 +165,6 @@ namespace WoRCP
         private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
         private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
         #endregion
+
     }
 }
