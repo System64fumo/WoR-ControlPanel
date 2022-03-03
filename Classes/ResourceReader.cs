@@ -48,6 +48,7 @@ namespace WoRCP
                         Program.Log("[Info] Resource counters defined.");
                         Configuration.CountersDefined = true;
                     });
+                    trayicon.Click += Click;
                     timer.Tick += Tick;
                     timer.Enabled = true;
                     timer.Interval = 1000;
@@ -78,7 +79,7 @@ namespace WoRCP
                     DiskW = DiskW.Concat(new[] { Math.Round(DiskWrite.NextValue() / 1048576, 1) }).ToArray();
                     Temp = searcher.Get().OfType<ManagementObject>().First();
                     Temprature = Temprature.Concat(new[] { (Convert.ToDouble(Temp.GetPropertyValue("HighPrecisionTemperature").ToString()) - 2732) / 10 }).ToArray();
-                    if (trayicon.Visible) { TrayIcon(); }
+                    if (trayicon.Visible) { changeTrayIcon(); }
                     if (CPU.Length > 10) { CPU = CPU.Skip(1).ToArray(); }
                     if (Mem.Length > 10) { Mem = Mem.Skip(1).ToArray(); }
                     if (DiskR.Length > 10) { DiskR = DiskR.Skip(1).ToArray(); }
@@ -109,14 +110,22 @@ namespace WoRCP
         #endregion
 
         #region Tray icon
-        public static void TrayIcon()
+        public static void changeTrayIcon()
         {
             var image = new Bitmap(32, 32);
             var graphics = Graphics.FromImage(image);
             SolidBrush forecolor = new SolidBrush(Theme.Text);
+            if (Configuration.TrayTempWarning && Temprature[9] > Convert.ToInt32(Configuration.templimit))
+            {
+                forecolor = new SolidBrush(Color.Red);
+            }
             Font font = new Font("SegoeUI", 26, FontStyle.Regular, GraphicsUnit.Pixel);
-            graphics.DrawString(ResourceReader.Temprature[9].ToString(), font, forecolor, new Point(-2, 2));
+            graphics.DrawString(Temprature[9].ToString(), font, forecolor, new Point(-2, 2));
             trayicon.Icon = ImageManipulation.CreateIcon(image);
+        }
+        public static void Click(object sender, EventArgs e)
+        {
+            Configuration.mainwindow.Show();
         }
         #endregion
     }

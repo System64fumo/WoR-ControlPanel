@@ -60,9 +60,9 @@ namespace WoRCP.Tabs
             this.TrayIconState = new System.Windows.Forms.Label();
             this.TrayIconToggle = new WoRCP.CustomUI.Toggle();
             this.TrayIconLabel = new System.Windows.Forms.Label();
-            this.TempLimitState = new System.Windows.Forms.Label();
-            this.TempLimitToggle = new WoRCP.CustomUI.Toggle();
-            this.TempLimitLabel = new System.Windows.Forms.Label();
+            this.TempWarningState = new System.Windows.Forms.Label();
+            this.TempWarningToggle = new WoRCP.CustomUI.Toggle();
+            this.TempWarningLabel = new System.Windows.Forms.Label();
             this.MinimizeToTrayState = new System.Windows.Forms.Label();
             this.MinimizeToTrayToggle = new WoRCP.CustomUI.Toggle();
             this.MinimizeToTrayLabel = new System.Windows.Forms.Label();
@@ -454,9 +454,9 @@ namespace WoRCP.Tabs
             this.collapsiblePanel2.Controls.Add(this.TrayIconState);
             this.collapsiblePanel2.Controls.Add(this.TrayIconToggle);
             this.collapsiblePanel2.Controls.Add(this.TrayIconLabel);
-            this.collapsiblePanel2.Controls.Add(this.TempLimitState);
-            this.collapsiblePanel2.Controls.Add(this.TempLimitToggle);
-            this.collapsiblePanel2.Controls.Add(this.TempLimitLabel);
+            this.collapsiblePanel2.Controls.Add(this.TempWarningState);
+            this.collapsiblePanel2.Controls.Add(this.TempWarningToggle);
+            this.collapsiblePanel2.Controls.Add(this.TempWarningLabel);
             this.collapsiblePanel2.Controls.Add(this.MinimizeToTrayState);
             this.collapsiblePanel2.Controls.Add(this.MinimizeToTrayToggle);
             this.collapsiblePanel2.Controls.Add(this.MinimizeToTrayLabel);
@@ -466,7 +466,7 @@ namespace WoRCP.Tabs
             this.collapsiblePanel2.Name = "collapsiblePanel2";
             this.collapsiblePanel2.PanelText = "Tray icon";
             this.collapsiblePanel2.Rounding = 5;
-            this.collapsiblePanel2.Separators = 1;
+            this.collapsiblePanel2.Separators = 3;
             this.collapsiblePanel2.Size = new System.Drawing.Size(640, 60);
             this.collapsiblePanel2.TabIndex = 4;
             this.collapsiblePanel2.Text = "Tray icon";
@@ -509,44 +509,44 @@ namespace WoRCP.Tabs
             this.TrayIconLabel.Text = "Show tray icon";
             this.TrayIconLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // TempLimitState
+            // TempWarningState
             // 
-            this.TempLimitState.BackColor = System.Drawing.Color.Transparent;
-            this.TempLimitState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TempLimitState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.TempLimitState.Location = new System.Drawing.Point(430, 163);
-            this.TempLimitState.Margin = new System.Windows.Forms.Padding(0);
-            this.TempLimitState.Name = "TempLimitState";
-            this.TempLimitState.Size = new System.Drawing.Size(150, 50);
-            this.TempLimitState.TabIndex = 66;
-            this.TempLimitState.Text = "Disabled";
-            this.TempLimitState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.TempWarningState.BackColor = System.Drawing.Color.Transparent;
+            this.TempWarningState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TempWarningState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.TempWarningState.Location = new System.Drawing.Point(430, 163);
+            this.TempWarningState.Margin = new System.Windows.Forms.Padding(0);
+            this.TempWarningState.Name = "TempWarningState";
+            this.TempWarningState.Size = new System.Drawing.Size(150, 50);
+            this.TempWarningState.TabIndex = 66;
+            this.TempWarningState.Text = "Disabled";
+            this.TempWarningState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // TempLimitToggle
+            // TempWarningToggle
             // 
-            this.TempLimitToggle.BackColor = System.Drawing.Color.Transparent;
-            this.TempLimitToggle.Enabled = false;
-            this.TempLimitToggle.Location = new System.Drawing.Point(590, 178);
-            this.TempLimitToggle.Margin = new System.Windows.Forms.Padding(0);
-            this.TempLimitToggle.MaximumSize = new System.Drawing.Size(40, 20);
-            this.TempLimitToggle.MinimumSize = new System.Drawing.Size(40, 20);
-            this.TempLimitToggle.Name = "TempLimitToggle";
-            this.TempLimitToggle.Size = new System.Drawing.Size(40, 20);
-            this.TempLimitToggle.TabIndex = 65;
-            this.TempLimitToggle.Toggled = false;
-            this.TempLimitToggle.ToggledEvent += new System.EventHandler(this.TempLimitToggle_ToggledEvent);
+            this.TempWarningToggle.BackColor = System.Drawing.Color.Transparent;
+            this.TempWarningToggle.Enabled = false;
+            this.TempWarningToggle.Location = new System.Drawing.Point(590, 178);
+            this.TempWarningToggle.Margin = new System.Windows.Forms.Padding(0);
+            this.TempWarningToggle.MaximumSize = new System.Drawing.Size(40, 20);
+            this.TempWarningToggle.MinimumSize = new System.Drawing.Size(40, 20);
+            this.TempWarningToggle.Name = "TempWarningToggle";
+            this.TempWarningToggle.Size = new System.Drawing.Size(40, 20);
+            this.TempWarningToggle.TabIndex = 65;
+            this.TempWarningToggle.Toggled = false;
+            this.TempWarningToggle.ToggledEvent += new System.EventHandler(this.TempLimitToggle_ToggledEvent);
             // 
-            // TempLimitLabel
+            // TempWarningLabel
             // 
-            this.TempLimitLabel.BackColor = System.Drawing.Color.Transparent;
-            this.TempLimitLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.TempLimitLabel.ForeColor = System.Drawing.Color.White;
-            this.TempLimitLabel.Location = new System.Drawing.Point(45, 163);
-            this.TempLimitLabel.Name = "TempLimitLabel";
-            this.TempLimitLabel.Size = new System.Drawing.Size(179, 50);
-            this.TempLimitLabel.TabIndex = 64;
-            this.TempLimitLabel.Text = "Temperature warning";
-            this.TempLimitLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.TempWarningLabel.BackColor = System.Drawing.Color.Transparent;
+            this.TempWarningLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TempWarningLabel.ForeColor = System.Drawing.Color.White;
+            this.TempWarningLabel.Location = new System.Drawing.Point(45, 163);
+            this.TempWarningLabel.Name = "TempWarningLabel";
+            this.TempWarningLabel.Size = new System.Drawing.Size(179, 50);
+            this.TempWarningLabel.TabIndex = 64;
+            this.TempWarningLabel.Text = "Temperature warning";
+            this.TempWarningLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // MinimizeToTrayState
             // 
@@ -638,9 +638,9 @@ namespace WoRCP.Tabs
         private System.Windows.Forms.Label TrayIconState;
         private CustomUI.Toggle TrayIconToggle;
         private System.Windows.Forms.Label TrayIconLabel;
-        private System.Windows.Forms.Label TempLimitState;
-        private CustomUI.Toggle TempLimitToggle;
-        private System.Windows.Forms.Label TempLimitLabel;
+        private System.Windows.Forms.Label TempWarningState;
+        private CustomUI.Toggle TempWarningToggle;
+        private System.Windows.Forms.Label TempWarningLabel;
         private System.Windows.Forms.Label MinimizeToTrayState;
         private CustomUI.Toggle MinimizeToTrayToggle;
         private System.Windows.Forms.Label MinimizeToTrayLabel;

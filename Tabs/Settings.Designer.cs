@@ -109,7 +109,7 @@ namespace WoRCP.Tabs
             this.panel1.Location = new System.Drawing.Point(10, 10);
             this.panel1.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(640, 242);
+            this.panel1.Size = new System.Drawing.Size(640, 240);
             this.panel1.TabIndex = 72;
             // 
             // roundedPanel1
@@ -335,7 +335,7 @@ namespace WoRCP.Tabs
             this.OverclockingPanel.Controls.Add(this.CPUFreqLabel);
             this.OverclockingPanel.Enabled = false;
             this.OverclockingPanel.Icon = "";
-            this.OverclockingPanel.Location = new System.Drawing.Point(10, 262);
+            this.OverclockingPanel.Location = new System.Drawing.Point(10, 260);
             this.OverclockingPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             this.OverclockingPanel.Name = "OverclockingPanel";
             this.OverclockingPanel.PanelText = "Overclocking";
@@ -565,7 +565,7 @@ namespace WoRCP.Tabs
             this.DisplayPanel.Controls.Add(this.OverscanLabel);
             this.DisplayPanel.Enabled = false;
             this.DisplayPanel.Icon = "";
-            this.DisplayPanel.Location = new System.Drawing.Point(10, 332);
+            this.DisplayPanel.Location = new System.Drawing.Point(10, 330);
             this.DisplayPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             this.DisplayPanel.MaximumSize = new System.Drawing.Size(640, 333);
             this.DisplayPanel.Name = "DisplayPanel";
@@ -691,7 +691,7 @@ namespace WoRCP.Tabs
             this.OtherPanel.Controls.Add(this.label1);
             this.OtherPanel.Enabled = false;
             this.OtherPanel.Icon = "";
-            this.OtherPanel.Location = new System.Drawing.Point(10, 402);
+            this.OtherPanel.Location = new System.Drawing.Point(10, 400);
             this.OtherPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             this.OtherPanel.Name = "OtherPanel";
             this.OtherPanel.PanelText = "Other";

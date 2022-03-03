@@ -31,6 +31,7 @@ namespace WoRCP
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.SidePanel = new System.Windows.Forms.Panel();
+            this.Indicator = new WoRCP.RoundedPanel();
             this.PerformanceButton = new System.Windows.Forms.Button();
             this.PeripheralsButton = new System.Windows.Forms.Button();
             this.AppstoreButton = new System.Windows.Forms.Button();
@@ -42,7 +43,6 @@ namespace WoRCP
             this.MinimizeButton = new System.Windows.Forms.Button();
             this.CloseButton = new System.Windows.Forms.Button();
             this.Tabcontainer = new System.Windows.Forms.Panel();
-            this.Indicator = new WoRCP.RoundedPanel();
             this.SidePanel.SuspendLayout();
             this.TitleBar.SuspendLayout();
             this.SuspendLayout();
@@ -64,6 +64,16 @@ namespace WoRCP
             this.SidePanel.Size = new System.Drawing.Size(175, 500);
             this.SidePanel.TabIndex = 0;
             this.SidePanel.Tag = "Acrylic";
+            // 
+            // Indicator
+            // 
+            this.Indicator.BackColor = System.Drawing.Color.Transparent;
+            this.Indicator.color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.Indicator.Location = new System.Drawing.Point(0, 210);
+            this.Indicator.Name = "Indicator";
+            this.Indicator.rounding = 2;
+            this.Indicator.Size = new System.Drawing.Size(4, 30);
+            this.Indicator.TabIndex = 0;
             // 
             // PerformanceButton
             // 
@@ -212,7 +222,7 @@ namespace WoRCP
             this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
             this.TitleBar.Location = new System.Drawing.Point(175, 0);
             this.TitleBar.Name = "TitleBar";
-            this.TitleBar.Size = new System.Drawing.Size(655, 30);
+            this.TitleBar.Size = new System.Drawing.Size(660, 30);
             this.TitleBar.TabIndex = 1;
             this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragStart);
             this.TitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMove);
@@ -224,7 +234,7 @@ namespace WoRCP
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
             this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.MinimizeButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MinimizeButton.Location = new System.Drawing.Point(565, 0);
+            this.MinimizeButton.Location = new System.Drawing.Point(570, 0);
             this.MinimizeButton.Name = "MinimizeButton";
             this.MinimizeButton.Size = new System.Drawing.Size(45, 30);
             this.MinimizeButton.TabIndex = 3;
@@ -241,7 +251,7 @@ namespace WoRCP
             this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CloseButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloseButton.Location = new System.Drawing.Point(610, 0);
+            this.CloseButton.Location = new System.Drawing.Point(615, 0);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(45, 30);
             this.CloseButton.TabIndex = 2;
@@ -256,23 +266,13 @@ namespace WoRCP
             this.Tabcontainer.Size = new System.Drawing.Size(660, 470);
             this.Tabcontainer.TabIndex = 2;
             // 
-            // Indicator
-            // 
-            this.Indicator.BackColor = System.Drawing.Color.Transparent;
-            this.Indicator.color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
-            this.Indicator.Location = new System.Drawing.Point(0, 210);
-            this.Indicator.Name = "Indicator";
-            this.Indicator.rounding = 2;
-            this.Indicator.Size = new System.Drawing.Size(4, 30);
-            this.Indicator.TabIndex = 0;
-            // 
             // MainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(830, 500);
-            this.Controls.Add(this.Tabcontainer);
+            this.ClientSize = new System.Drawing.Size(835, 500);
             this.Controls.Add(this.TitleBar);
+            this.Controls.Add(this.Tabcontainer);
             this.Controls.Add(this.SidePanel);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;

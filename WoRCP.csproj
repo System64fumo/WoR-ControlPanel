@@ -137,7 +137,7 @@
   <PropertyGroup />
   <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>Classes\app.manifest</ApplicationManifest>
+    <ApplicationManifest>Other\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -362,9 +362,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Other\app.config" />
-    <None Include="Classes\app.manifest" />
-    <None Include="Classes\App.config" />
+    <None Include="Other\app.manifest" />
+    <None Include="Other\App.config" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">

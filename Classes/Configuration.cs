@@ -50,12 +50,14 @@ namespace WoRCP
         #endregion
 
         #region WoR-CP Settings
+        public static MainWindow mainwindow;
         public static bool UpdatesAvailable = false;
         public static bool DebuggerOpen;
         public static bool BootMounted = Directory.Exists(@"B:\");
         public static bool CountersDefined;
         public static bool configfound;
         public static bool AdvancedOC;
+        public static bool TrayTempWarning;
         #endregion
 
         #region Appstore

@@ -18,10 +18,12 @@ namespace WoRCP
         public MainWindow()
         {
             InitializeComponent();
+            Configuration.mainwindow = this;
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            
             Program.Log("[Info] Welcome to WoR Control Panel");
             Program.Log("[Info] Version: " + Configuration.Version);
             Program.Log("[Info] Windows: " + Configuration.Build);
@@ -35,7 +37,7 @@ namespace WoRCP
             CloseButton.Font = new Font(font.Name, 9.75f);
             MinimizeButton.Font = new Font(font.Name, 9.75f);
             LoadTab(new Performance(), 210);
-            ResourceReader.TrayIcon();
+            ResourceReader.changeTrayIcon();
             ChangeIcon();
         }
         #endregion
@@ -52,8 +54,14 @@ namespace WoRCP
         }
         private void MinimizeButton_Click(object sender, EventArgs e)
         {
-            WindowState = FormWindowState.Minimized;
-            this.ShowInTaskbar = !Configuration.MinimizeToTray;
+            if (Configuration.MinimizeToTray)
+            {
+                this.Hide();
+            }
+            else
+            {
+                WindowState = FormWindowState.Minimized;
+            }
         }
         #endregion
 
@@ -165,6 +173,7 @@ namespace WoRCP
         private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), 360); }
         private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
         private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
+
         #endregion
 
     }

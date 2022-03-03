@@ -19,8 +19,8 @@ namespace WoRCP.Tabs
             if (Configuration.OverlayAlwaysOnTop) { AlwaysOnTopToggle.Toggled = Configuration.OverlayAlwaysOnTop; AlwaysOnTop.Text = "Enabled"; }
             if (Configuration.OverlayPortrait) { OrientationToggle.Toggled = Configuration.OverlayPortrait; Orientation.Text = "Portrait"; }
             if (ResourceReader.trayicon.Visible) { TrayIconToggle.Toggled = ResourceReader.trayicon.Visible; TrayIconState.Text = "Enabled"; }
-            if (Configuration.MinimizeToTray) { MinimizeToTrayToggle.Toggled = Configuration.MinimizeToTray; MinimizeToTrayState.Text = "Enabled"; }
-            if (Configuration.templimit != null) { TempLimitToggle.Enabled = true; }
+            if (Configuration.MinimizeToTray) { MinimizeToTrayToggle.Toggled = Configuration.MinimizeToTray; MinimizeToTrayToggle.Enabled = Configuration.MinimizeToTray; MinimizeToTrayState.Text = "Enabled"; }
+            if (Configuration.templimit != null) { TempWarningToggle.Enabled = true; }
         }
         #endregion
 
@@ -155,7 +155,7 @@ namespace WoRCP.Tabs
         private void TrayIconToggle_ToggledEvent(object sender, EventArgs e)
         {
             ResourceReader.trayicon.Visible = TrayIconToggle.Toggled;
-            //MinimizeToTrayToggle.Enabled = TrayIconToggle.Toggled;
+            MinimizeToTrayToggle.Enabled = TrayIconToggle.Toggled;
             if (TrayIconToggle.Toggled)
             {
                 TrayIconState.Text = "Enabled";
@@ -172,7 +172,7 @@ namespace WoRCP.Tabs
         //Minimize to tray
         private void MinimizeToTrayToggle_ToggledEvent(object sender, EventArgs e)
         {
-            /*Configuration.MinimizeToTray = MinimizeToTrayToggle.Toggled;
+            Configuration.MinimizeToTray = MinimizeToTrayToggle.Toggled;
             if (MinimizeToTrayToggle.Toggled)
             {
                 MinimizeToTrayState.Text = "Enabled";
@@ -180,20 +180,21 @@ namespace WoRCP.Tabs
             else
             {
                 MinimizeToTrayState.Text = "Disabled";
-            }*/
+            }
         }
 
-        //Temp limit
+        //Temp warning
         private void TempLimitToggle_ToggledEvent(object sender, EventArgs e)
         {
-            /*if (TempLimitToggle.Toggled)
+            Configuration.TrayTempWarning = TempWarningToggle.Toggled;
+            if (TempWarningToggle.Toggled)
             {
-                TempLimitState.Text = "Enabled";
+                TempWarningState.Text = "Enabled";
             }
             else
             {
-                TempLimitState.Text = "Disabled";
-            }*/
+                TempWarningState.Text = "Disabled";
+            }
         }
         #endregion
 
