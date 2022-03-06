@@ -83,6 +83,8 @@ namespace WoRCP.CustomUI
         }
         #endregion
 
+        #region Hover events
+
         private void Toggle_MouseEnter(object sender, EventArgs e)
         {
             if (IsToggled)
@@ -104,9 +106,10 @@ namespace WoRCP.CustomUI
             }
             else
             {
-                color = Theme.Panel;
+                color = Theme.Inactive;
             }
             Invalidate();
         }
+        #endregion
     }
 }

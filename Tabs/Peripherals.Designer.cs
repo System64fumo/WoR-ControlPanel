@@ -31,17 +31,26 @@ namespace WoRCP.Tabs
         {
             this.ControlContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.roundedPanel1 = new WoRCP.RoundedPanel();
-            this.SelectedPin = new System.Windows.Forms.Label();
+            this.SelectedPinLabel = new System.Windows.Forms.Label();
             this.GPIOLabel = new System.Windows.Forms.Label();
             this.PinArray = new System.Windows.Forms.FlowLayoutPanel();
+            this.collapsiblePanel1 = new WoRCP.CustomUI.CollapsiblePanel();
+            this.PinModeState = new System.Windows.Forms.Label();
+            this.PinModeToggle = new WoRCP.CustomUI.Toggle();
+            this.PinModeLabel = new System.Windows.Forms.Label();
+            this.PinStateState = new System.Windows.Forms.Label();
+            this.PinStateToggle = new WoRCP.CustomUI.Toggle();
+            this.PinStateLabel = new System.Windows.Forms.Label();
             this.WarningLabel = new System.Windows.Forms.Label();
             this.ControlContainer.SuspendLayout();
             this.roundedPanel1.SuspendLayout();
+            this.collapsiblePanel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // ControlContainer
             // 
             this.ControlContainer.Controls.Add(this.roundedPanel1);
+            this.ControlContainer.Controls.Add(this.collapsiblePanel1);
             this.ControlContainer.Location = new System.Drawing.Point(0, 0);
             this.ControlContainer.Name = "ControlContainer";
             this.ControlContainer.Size = new System.Drawing.Size(660, 470);
@@ -52,7 +61,7 @@ namespace WoRCP.Tabs
             // 
             this.roundedPanel1.BackColor = System.Drawing.Color.Transparent;
             this.roundedPanel1.color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.roundedPanel1.Controls.Add(this.SelectedPin);
+            this.roundedPanel1.Controls.Add(this.SelectedPinLabel);
             this.roundedPanel1.Controls.Add(this.GPIOLabel);
             this.roundedPanel1.Controls.Add(this.PinArray);
             this.roundedPanel1.Location = new System.Drawing.Point(10, 10);
@@ -62,17 +71,17 @@ namespace WoRCP.Tabs
             this.roundedPanel1.Size = new System.Drawing.Size(640, 120);
             this.roundedPanel1.TabIndex = 0;
             // 
-            // SelectedPin
+            // SelectedPinLabel
             // 
-            this.SelectedPin.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.SelectedPin.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.SelectedPin.Location = new System.Drawing.Point(506, 10);
-            this.SelectedPin.Margin = new System.Windows.Forms.Padding(0);
-            this.SelectedPin.Name = "SelectedPin";
-            this.SelectedPin.Size = new System.Drawing.Size(124, 21);
-            this.SelectedPin.TabIndex = 40;
-            this.SelectedPin.Text = "No pin selected";
-            this.SelectedPin.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.SelectedPinLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SelectedPinLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.SelectedPinLabel.Location = new System.Drawing.Point(506, 10);
+            this.SelectedPinLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.SelectedPinLabel.Name = "SelectedPinLabel";
+            this.SelectedPinLabel.Size = new System.Drawing.Size(124, 21);
+            this.SelectedPinLabel.TabIndex = 40;
+            this.SelectedPinLabel.Text = "No pin selected";
+            this.SelectedPinLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // GPIOLabel
             // 
@@ -93,6 +102,102 @@ namespace WoRCP.Tabs
             this.PinArray.Name = "PinArray";
             this.PinArray.Size = new System.Drawing.Size(620, 62);
             this.PinArray.TabIndex = 2;
+            // 
+            // collapsiblePanel1
+            // 
+            this.collapsiblePanel1.BackColor = System.Drawing.Color.Transparent;
+            this.collapsiblePanel1.Collapsed = false;
+            this.collapsiblePanel1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
+            this.collapsiblePanel1.Controls.Add(this.PinModeState);
+            this.collapsiblePanel1.Controls.Add(this.PinModeToggle);
+            this.collapsiblePanel1.Controls.Add(this.PinModeLabel);
+            this.collapsiblePanel1.Controls.Add(this.PinStateState);
+            this.collapsiblePanel1.Controls.Add(this.PinStateToggle);
+            this.collapsiblePanel1.Controls.Add(this.PinStateLabel);
+            this.collapsiblePanel1.Icon = "";
+            this.collapsiblePanel1.Location = new System.Drawing.Point(10, 140);
+            this.collapsiblePanel1.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.collapsiblePanel1.Name = "collapsiblePanel1";
+            this.collapsiblePanel1.PanelText = "GPIO Controls";
+            this.collapsiblePanel1.Rounding = 5;
+            this.collapsiblePanel1.Separators = 2;
+            this.collapsiblePanel1.Size = new System.Drawing.Size(640, 162);
+            this.collapsiblePanel1.TabIndex = 1;
+            this.collapsiblePanel1.Text = "GPIO Controls";
+            // 
+            // PinModeState
+            // 
+            this.PinModeState.BackColor = System.Drawing.Color.Transparent;
+            this.PinModeState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PinModeState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.PinModeState.Location = new System.Drawing.Point(414, 112);
+            this.PinModeState.Margin = new System.Windows.Forms.Padding(0);
+            this.PinModeState.Name = "PinModeState";
+            this.PinModeState.Size = new System.Drawing.Size(150, 49);
+            this.PinModeState.TabIndex = 32;
+            this.PinModeState.Text = "Input";
+            this.PinModeState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // PinModeToggle
+            // 
+            this.PinModeToggle.BackColor = System.Drawing.Color.Transparent;
+            this.PinModeToggle.Location = new System.Drawing.Point(574, 128);
+            this.PinModeToggle.Margin = new System.Windows.Forms.Padding(0);
+            this.PinModeToggle.MaximumSize = new System.Drawing.Size(40, 20);
+            this.PinModeToggle.MinimumSize = new System.Drawing.Size(40, 20);
+            this.PinModeToggle.Name = "PinModeToggle";
+            this.PinModeToggle.Size = new System.Drawing.Size(40, 20);
+            this.PinModeToggle.TabIndex = 31;
+            this.PinModeToggle.Toggled = false;
+            this.PinModeToggle.ToggledEvent += new System.EventHandler(this.PinModeToggle_ToggledEvent);
+            // 
+            // PinModeLabel
+            // 
+            this.PinModeLabel.BackColor = System.Drawing.Color.Transparent;
+            this.PinModeLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PinModeLabel.Location = new System.Drawing.Point(45, 111);
+            this.PinModeLabel.Name = "PinModeLabel";
+            this.PinModeLabel.Size = new System.Drawing.Size(179, 50);
+            this.PinModeLabel.TabIndex = 30;
+            this.PinModeLabel.Text = "Pin Mode";
+            this.PinModeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
+            // PinStateState
+            // 
+            this.PinStateState.BackColor = System.Drawing.Color.Transparent;
+            this.PinStateState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PinStateState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.PinStateState.Location = new System.Drawing.Point(414, 62);
+            this.PinStateState.Margin = new System.Windows.Forms.Padding(0);
+            this.PinStateState.Name = "PinStateState";
+            this.PinStateState.Size = new System.Drawing.Size(150, 49);
+            this.PinStateState.TabIndex = 29;
+            this.PinStateState.Text = "Low";
+            this.PinStateState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // PinStateToggle
+            // 
+            this.PinStateToggle.BackColor = System.Drawing.Color.Transparent;
+            this.PinStateToggle.Location = new System.Drawing.Point(574, 78);
+            this.PinStateToggle.Margin = new System.Windows.Forms.Padding(0);
+            this.PinStateToggle.MaximumSize = new System.Drawing.Size(40, 20);
+            this.PinStateToggle.MinimumSize = new System.Drawing.Size(40, 20);
+            this.PinStateToggle.Name = "PinStateToggle";
+            this.PinStateToggle.Size = new System.Drawing.Size(40, 20);
+            this.PinStateToggle.TabIndex = 28;
+            this.PinStateToggle.Toggled = false;
+            this.PinStateToggle.ToggledEvent += new System.EventHandler(this.PinStateToggle_ToggledEvent);
+            // 
+            // PinStateLabel
+            // 
+            this.PinStateLabel.BackColor = System.Drawing.Color.Transparent;
+            this.PinStateLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PinStateLabel.Location = new System.Drawing.Point(45, 61);
+            this.PinStateLabel.Name = "PinStateLabel";
+            this.PinStateLabel.Size = new System.Drawing.Size(179, 50);
+            this.PinStateLabel.TabIndex = 27;
+            this.PinStateLabel.Text = "Pin State";
+            this.PinStateLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // WarningLabel
             // 
@@ -116,9 +221,11 @@ namespace WoRCP.Tabs
             this.Name = "Peripherals";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Peripherals_Load);
+            this.EnabledChanged += new System.EventHandler(this.Peripherals_EnabledChanged);
             this.ControlContainer.ResumeLayout(false);
             this.roundedPanel1.ResumeLayout(false);
             this.roundedPanel1.PerformLayout();
+            this.collapsiblePanel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -128,8 +235,15 @@ namespace WoRCP.Tabs
         private RoundedPanel roundedPanel1;
         private System.Windows.Forms.FlowLayoutPanel ControlContainer;
         private System.Windows.Forms.Label GPIOLabel;
-        private System.Windows.Forms.Label SelectedPin;
+        private System.Windows.Forms.Label SelectedPinLabel;
         private System.Windows.Forms.Label WarningLabel;
         private System.Windows.Forms.FlowLayoutPanel PinArray;
+        private CustomUI.CollapsiblePanel collapsiblePanel1;
+        private System.Windows.Forms.Label PinStateState;
+        private CustomUI.Toggle PinStateToggle;
+        private System.Windows.Forms.Label PinStateLabel;
+        private System.Windows.Forms.Label PinModeState;
+        private CustomUI.Toggle PinModeToggle;
+        private System.Windows.Forms.Label PinModeLabel;
     }
 }

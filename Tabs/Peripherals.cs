@@ -11,9 +11,10 @@ namespace WoRCP.Tabs
         //Main
         #region Variables
         private GpioController gpio = null;
-        private bool[] Pins = new bool[40];
+        private RoundedButton lastpin;
         private int[] PinNums = new int[] { 0, 0, 0, 0, 0, 18, 0, 23, 24, 0, 25, 8, 7, 0, 0, 12, 0, 16 ,20, 21,
                                             0, 2, 3, 4, 0, 17, 27, 22, 0, 10, 9, 11, 0, 0, 5, 6, 13, 19, 26,0 };
+        int SelectedPin;
 
         #endregion
 
@@ -21,6 +22,7 @@ namespace WoRCP.Tabs
         public Peripherals()
         {
             InitializeComponent();
+
         }
         private void Peripherals_Load(object sender, EventArgs e)
         {
@@ -40,13 +42,13 @@ namespace WoRCP.Tabs
             try //Check if GPIO is supported
             {
                 gpio = new GpioController();
-                SelectedPin.Text = "GPIO : Active"; //Temporary
+                Program.Log("[Info] GPIO is working properly");
             }
             catch (NotSupportedException)
             {
                 var result = MessageBox.Show("GPIO Error , Attempt to fix it ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) { Process.Start("CMD", "sc config rhproxy start = demand"); }
-                else { SelectedPin.Text = "GPIO : Inactive "; } //Temporary
+                else { Program.Log("[Error] Unable to initialize GPIO"); }
             }
         }
         #endregion
@@ -68,11 +70,14 @@ namespace WoRCP.Tabs
 
                     if (PinNums[i - 1] != 0)
                     {
-                        //pin.ButtonText = PinNums[i - 1].ToString(); //Print GPIO Number on Pins
+                        pin.ButtonText = PinNums[i - 1].ToString(); //Print GPIO Number on Pins
                         pin.Tag = PinNums[i - 1];
                         pin.Color = Theme.Accent;
-                        gpio.OpenPin(PinNums[i - 1], PinMode.Output);
-                        gpio.Write(PinNums[i - 1], PinValue.Low);
+                        if (!gpio.IsPinOpen(PinNums[i - 1]))
+                        {
+                            gpio.OpenPin(PinNums[i - 1], PinMode.Output);
+                            gpio.Write(PinNums[i - 1], PinValue.Low);
+                        }
                     }
                     else
                     {
@@ -117,16 +122,95 @@ namespace WoRCP.Tabs
         #region PinClick
         private void Btn_Click(object sender, EventArgs e)
         {
+            //Setup
             RoundedButton button = (sender as RoundedButton);
-            int pinnum = Convert.ToInt32(button.Tag);
-            Pins[pinnum] = !Pins[pinnum];
-            if (Pins[pinnum])
+            SelectedPin = Convert.ToInt32(button.Tag);
+            SelectedPinLabel.Text = "Selected pin: " + SelectedPin.ToString();
+
+            //Check if the pin is Low or High
+            PinStateState.Text = gpio.Read(SelectedPin).ToString();
+            if (gpio.Read(SelectedPin).ToString() == "High")
             {
-                gpio.Write(pinnum, PinValue.High);
+                PinStateToggle.Toggled = true;
             }
             else
             {
-                gpio.Write(pinnum, PinValue.Low);
+                PinStateToggle.Toggled = false;
+            }
+
+            //Check if the pin is an Input or an Output
+            PinModeState.Text = gpio.GetPinMode(SelectedPin).ToString();
+            if (gpio.GetPinMode(SelectedPin).ToString() == "Output")
+            {
+                PinModeToggle.Toggled = true;
+            }
+            else
+            {
+                PinModeToggle.Toggled = false;
+            }
+            PinStateToggle.Enabled = PinModeToggle.Toggled;
+
+            //Pin theming
+            button.Color = Theme.DarkAccent;
+            button.Invalidate();
+            if (lastpin != null)
+            {
+                lastpin.Color = Theme.Accent;
+                lastpin.Invalidate();
+            }
+            lastpin = button;
+        }
+        #endregion
+
+        #region Toggles
+
+        private void PinStateToggle_ToggledEvent(object sender, EventArgs e)
+        {
+            if (gpio.Read(SelectedPin).ToString() == "High")
+            {
+                gpio.Write(SelectedPin, PinValue.Low);
+            }
+            else
+            {
+                gpio.Write(SelectedPin, PinValue.High);
+            }
+            PinStateState.Text = gpio.Read(SelectedPin).ToString();
+        }
+
+        private void PinModeToggle_ToggledEvent(object sender, EventArgs e)
+        {
+            if (gpio.GetPinMode(SelectedPin).ToString() == "Input")
+            {
+                gpio.SetPinMode(SelectedPin, PinMode.Output);
+            }
+            else
+            {
+                gpio.SetPinMode(SelectedPin, PinMode.Input);
+            }
+            PinModeState.Text = gpio.GetPinMode(SelectedPin).ToString();
+            PinStateToggle.Enabled = PinModeToggle.Toggled;
+        }
+        #endregion
+
+        #region Close pins on unload
+        private void Peripherals_EnabledChanged(object sender, EventArgs e)
+        {
+            for (int i = 1; i <= PinNums.Length; i++)
+            {
+                try
+                {
+                    if (PinNums[i - 1] != 0)
+                    {
+                        if (gpio.IsPinOpen(PinNums[i - 1]))
+                        {
+                            gpio.ClosePin(PinNums[i - 1]);
+                        }
+                    }
+                }
+                catch
+                {
+                    Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
+                }
             }
         }
         #endregion
