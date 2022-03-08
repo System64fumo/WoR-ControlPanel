@@ -120,8 +120,8 @@ namespace WoRCP.Tabs
             this.collapsiblePanel1.Name = "collapsiblePanel1";
             this.collapsiblePanel1.PanelText = "GPIO Controls";
             this.collapsiblePanel1.Rounding = 5;
-            this.collapsiblePanel1.Separators = 2;
-            this.collapsiblePanel1.Size = new System.Drawing.Size(640, 162);
+            this.collapsiblePanel1.Separators = 1;
+            this.collapsiblePanel1.Size = new System.Drawing.Size(640, 111);
             this.collapsiblePanel1.TabIndex = 1;
             this.collapsiblePanel1.Text = "GPIO Controls";
             // 

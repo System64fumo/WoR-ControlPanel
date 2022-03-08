@@ -9,7 +9,8 @@ using WoRCP;
 class Theme
 {
     #region Colors
-    public static Color Acryliccolor = Color.FromArgb(175, 10, 10, 10);
+    //                                                                |  Dark Mode  |  Light Mode |
+    public static Color Acryliccolor = Color.FromArgb(175, 0,0,0); // | 0 0 0       | 255 255 255 |
     public static Color Accent = Color.FromArgb(50, 50, 65);       // | 50 50 65    | 50 50 65    |
     public static Color BrightAccent = Color.FromArgb(60, 60, 75); // | 60 60 75    | 60 60 75    |
     public static Color DarkAccent = Color.FromArgb(40, 40, 55);   // | 40 40 55    | 40 40 55    |
@@ -22,6 +23,7 @@ class Theme
     public static bool ThemeMode = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null));
     public static bool Transparency = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "EnableTransparency", null));
     public static Form form;
+    public static ACCENT CurrentAccent = ACCENT.ENABLE_ACRYLICBLURBEHIND;
     #endregion
 
     #region Read theme
@@ -35,9 +37,9 @@ class Theme
         }
         else
         {
-            if (ThemeMode)
+            if (ThemeMode) //Light Mode
             {
-                //Light theme
+                Acryliccolor = Color.FromArgb(175, 255, 255, 255);
                 Background = Color.FromArgb(243, 243, 243);
                 Panel = Color.FromArgb(251, 251, 251);
                 Text = Color.FromArgb(0, 0, 0);
@@ -103,19 +105,16 @@ class Theme
     #endregion
 
     #region Acrylic
-    public static void EnableAcrylic(Form window, Control ctrl = null)
+    public static void EnableAcrylic(Form window, Control ctrl = null, bool changekey = false)
     {
-        uint gradient;
         if (window is null) throw new ArgumentNullException(nameof(window));
-        if (ThemeMode) { Acryliccolor = Color.FromArgb(180, 255, 255, 255); }
-        gradient = ToAbgr(Acryliccolor);
-        Color panelcolor = Color.FromArgb(Math.Min(255, ctrl.BackColor.R - 1), Math.Min(255, ctrl.BackColor.G - 1), ctrl.BackColor.B); ;
-        window.TransparencyKey = panelcolor;
+        Color panelcolor = Color.FromArgb(Math.Min(255, ctrl.BackColor.R - 1), Math.Min(255, ctrl.BackColor.G - 1), ctrl.BackColor.B);
+        if (changekey) window.TransparencyKey = panelcolor;
         ctrl.BackColor = panelcolor;
         var accentPolicy = new AccentPolicy
         {
-            AccentState = ACCENT.ENABLE_ACRYLICBLURBEHIND,
-            GradientColor = gradient
+            AccentState = CurrentAccent,
+            GradientColor = ToRGBA(Acryliccolor)
         };
         unsafe
         {
@@ -130,12 +129,9 @@ class Theme
         }
     }
 
-    private static uint ToAbgr(Color color)
+    private static uint ToRGBA(Color color)
     {
-        return ((uint)color.A << 24)
-            | ((uint)color.B << 16)
-            | ((uint)color.G << 8)
-            | color.R;
+        return (uint)(color.R + (color.G * 256) + (color.B * 256 * 256) + (color.A * 256 * 256 * 256));
     }
 
     [DllImport("user32.dll")]

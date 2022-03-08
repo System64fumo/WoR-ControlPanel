@@ -8,6 +8,28 @@ namespace WoRCP
 {
     class Configuration
     {
+        #region Initialization
+        public static void Initialize()
+        {
+            //Set stock clocks according to the Pi Model
+            switch (DeviceModel)
+            {
+                case "Raspberry Pi 4 Model B":
+                    StockClocks = new int[] { 1500, 500 };
+                    break;
+                case "Raspberry Pi 3 Model B+":
+                    StockClocks = new int[] { 1400, 400 };
+                    break;
+                case "Raspberry Pi 3 Model B":
+                    StockClocks = new int[] { 1200, 400 };
+                    break;
+                default: //Unknown Pi
+                    StockClocks = new int[] { 600, 250 };
+                    break;
+            }
+        }
+        #endregion
+
         #region Registry mess
         //User
         public static string Greeting;
@@ -51,11 +73,11 @@ namespace WoRCP
 
         #region WoR-CP Settings
         public static MainWindow mainwindow;
-        public static bool UpdatesAvailable = false;
+        public static bool UpdatesAvailable;
         public static bool DebuggerOpen;
         public static bool BootMounted = Directory.Exists(@"B:\");
         public static bool CountersDefined;
-        public static bool configfound;
+        public static bool Configfound = File.Exists(@"B:\Config.txt");
         public static bool AdvancedOC;
         public static bool TrayTempWarning;
         #endregion
@@ -79,7 +101,7 @@ namespace WoRCP
         #region Config.txt
         public static string config;
         public static bool Video;
-        public static string StockClock = "1500"; //For now assume that every pi is a pi 4
+        public static int[] StockClocks = new int[2];
         #endregion
 
         #region Overclock

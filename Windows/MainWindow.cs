@@ -122,6 +122,27 @@ namespace WoRCP
         }
         #endregion
 
+        //Controls
+        #region Debugger
+        private void OpenDebugger(object sender, EventArgs e)
+        {
+            Form Debug = new Debugger();
+            Theme.Set(Debug);
+            if (Configuration.DebuggerOpen == false) { Configuration.DebuggerOpen = true; Debug.Show(); }
+        }
+        #endregion
+
+        #region Tab buttons
+        private void PerformanceButton_Click(object sender, EventArgs e) { LoadTab(new Performance(), 210); }
+        private void GPIOButton_Click(object sender, EventArgs e) { LoadTab(new Peripherals(), 260); }
+        private void AppstoreButton_Click(object sender, EventArgs e) { LoadTab(new Appstore(), 310); }
+        private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), 360); }
+        private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
+        private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
+
+        #endregion
+
+        //Events
         #region Paint events
 
         private void PerformanceButton_Paint(object sender, PaintEventArgs e)
@@ -156,25 +177,30 @@ namespace WoRCP
         }
         #endregion
 
-        //Controls
-        #region Debugger
-        private void OpenDebugger(object sender, EventArgs e)
+        #region Focus/Unfocus
+        private void MainWindow_Activated(object sender, EventArgs e)
         {
-            Form Debug = new Debugger();
-            Theme.Set(Debug);
-            if (Configuration.DebuggerOpen == false) { Configuration.DebuggerOpen = true; Debug.Show(); }
+            if (Theme.Transparency)
+            {
+                //TODO Add animation
+                SidePanel.BackColor = Theme.Panel;
+                Theme.CurrentAccent = Theme.ACCENT.ENABLE_ACRYLICBLURBEHIND;
+                Theme.EnableAcrylic(this, SidePanel);
+                TransparencyKey = SidePanel.BackColor;
+            }
+        }
+
+        private void MainWindow_Deactivate(object sender, EventArgs e)
+        {
+            if (Theme.Transparency)
+            {
+                //TODO Add animation
+                SidePanel.BackColor = Theme.Panel;
+                Theme.CurrentAccent = Theme.ACCENT.DISABLED;
+                Theme.EnableAcrylic(this, SidePanel);
+                TransparencyKey = Color.Empty;
+            }
         }
         #endregion
-
-        #region Tab buttons
-        private void PerformanceButton_Click(object sender, EventArgs e) { LoadTab(new Performance(), 210); }
-        private void GPIOButton_Click(object sender, EventArgs e) { LoadTab(new Peripherals(), 260); }
-        private void AppstoreButton_Click(object sender, EventArgs e) { LoadTab(new Appstore(), 310); }
-        private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), 360); }
-        private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
-        private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
-
-        #endregion
-
     }
 }

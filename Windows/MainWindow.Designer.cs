@@ -88,7 +88,7 @@ namespace WoRCP
             this.PerformanceButton.Location = new System.Drawing.Point(0, 200);
             this.PerformanceButton.Name = "PerformanceButton";
             this.PerformanceButton.Size = new System.Drawing.Size(175, 50);
-            this.PerformanceButton.TabIndex = 8;
+            this.PerformanceButton.TabIndex = 0;
             this.PerformanceButton.Text = "           Performance";
             this.PerformanceButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PerformanceButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -109,7 +109,7 @@ namespace WoRCP
             this.PeripheralsButton.Location = new System.Drawing.Point(0, 250);
             this.PeripheralsButton.Name = "PeripheralsButton";
             this.PeripheralsButton.Size = new System.Drawing.Size(175, 50);
-            this.PeripheralsButton.TabIndex = 7;
+            this.PeripheralsButton.TabIndex = 1;
             this.PeripheralsButton.Text = "           Peripherals";
             this.PeripheralsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PeripheralsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -130,7 +130,7 @@ namespace WoRCP
             this.AppstoreButton.Location = new System.Drawing.Point(0, 300);
             this.AppstoreButton.Name = "AppstoreButton";
             this.AppstoreButton.Size = new System.Drawing.Size(175, 50);
-            this.AppstoreButton.TabIndex = 6;
+            this.AppstoreButton.TabIndex = 2;
             this.AppstoreButton.Text = "           Applications";
             this.AppstoreButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AppstoreButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -151,7 +151,7 @@ namespace WoRCP
             this.AboutButton.Location = new System.Drawing.Point(0, 350);
             this.AboutButton.Name = "AboutButton";
             this.AboutButton.Size = new System.Drawing.Size(175, 50);
-            this.AboutButton.TabIndex = 5;
+            this.AboutButton.TabIndex = 3;
             this.AboutButton.Text = "           About";
             this.AboutButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AboutButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -193,7 +193,7 @@ namespace WoRCP
             this.SettingsButton.Location = new System.Drawing.Point(0, 450);
             this.SettingsButton.Name = "SettingsButton";
             this.SettingsButton.Size = new System.Drawing.Size(175, 50);
-            this.SettingsButton.TabIndex = 3;
+            this.SettingsButton.TabIndex = 5;
             this.SettingsButton.Text = "           Settings";
             this.SettingsButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SettingsButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -237,7 +237,7 @@ namespace WoRCP
             this.MinimizeButton.Location = new System.Drawing.Point(570, 0);
             this.MinimizeButton.Name = "MinimizeButton";
             this.MinimizeButton.Size = new System.Drawing.Size(45, 30);
-            this.MinimizeButton.TabIndex = 3;
+            this.MinimizeButton.TabIndex = 8;
             this.MinimizeButton.Text = "";
             this.MinimizeButton.UseVisualStyleBackColor = true;
             this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
@@ -254,7 +254,7 @@ namespace WoRCP
             this.CloseButton.Location = new System.Drawing.Point(615, 0);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(45, 30);
-            this.CloseButton.TabIndex = 2;
+            this.CloseButton.TabIndex = 7;
             this.CloseButton.Text = "";
             this.CloseButton.UseVisualStyleBackColor = true;
             this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
@@ -264,7 +264,7 @@ namespace WoRCP
             this.Tabcontainer.Location = new System.Drawing.Point(175, 30);
             this.Tabcontainer.Name = "Tabcontainer";
             this.Tabcontainer.Size = new System.Drawing.Size(660, 470);
-            this.Tabcontainer.TabIndex = 2;
+            this.Tabcontainer.TabIndex = 6;
             // 
             // MainWindow
             // 
@@ -280,6 +280,8 @@ namespace WoRCP
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WoR Control Panel";
+            this.Activated += new System.EventHandler(this.MainWindow_Activated);
+            this.Deactivate += new System.EventHandler(this.MainWindow_Deactivate);
             this.Load += new System.EventHandler(this.MainWindow_Load);
             this.SidePanel.ResumeLayout(false);
             this.TitleBar.ResumeLayout(false);

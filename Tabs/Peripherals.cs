@@ -70,7 +70,7 @@ namespace WoRCP.Tabs
 
                     if (PinNums[i - 1] != 0)
                     {
-                        pin.ButtonText = PinNums[i - 1].ToString(); //Print GPIO Number on Pins
+                        //pin.ButtonText = PinNums[i - 1].ToString(); //Print GPIO Number on Pins
                         pin.Tag = PinNums[i - 1];
                         pin.Color = Theme.Accent;
                         if (!gpio.IsPinOpen(PinNums[i - 1]))

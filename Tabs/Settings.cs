@@ -80,58 +80,60 @@ namespace WoRCP.Tabs
         }
         #endregion
 
-        #region Configure the app
-        private void Configure()
+        #region Configure the controls
+        private void Configure() //Sets the values of the sliders and toggles based on the config
         {
-            if (Configuration.configfound)
+            try
             {
-                try
+                if (Configuration.Configfound)
                 {
-                    Freq = (double.Parse(Configuration.armfreq));
-                    CPUSlider.Value = Freq / 1000;
-                    CPUFreq.Text = Math.Round(CPUSlider.Value, 1) + " GHz";
+                    if (Configuration.armfreq != null)      //Check if the arm freq value is present in config.txt
+                    {
+                        Freq = (double.Parse(Configuration.armfreq));
+                        CPUSlider.Value = Freq / 1000;
+                        CPUFreq.Text = Math.Round(CPUSlider.Value, 1) + " GHz";
+                    }
+                    if (Configuration.gpufreq != null)      //Check if the gpu freq value is present in config.txt
+                    {
+                        GPUFreqSlider.Value = ((int.Parse(Configuration.gpufreq) - 250) / 50);
+                        GPUFreq.Text = 250 + (GPUFreqSlider.Value * 50) + " MHz";
+                    }
+                    if (Configuration.gpumem != null)       //Check if the gpu mem value is present in config.txt
+                    {
+                        GPUMemSlider.Value = (double.Parse(Configuration.gpumem)) / 32;
+                        GPUMem.Text = GPUMemSlider.Value * 32 + " MB";
+                    }
+                    if (Configuration.overvoltage != null)  //Check if the overvoltage value is present in config.txt
+                    {
+                        OvervoltageSlider.Value = (double.Parse(Configuration.overvoltage));
+                        Overvoltage.Text = OvervoltageSlider.Value.ToString();
+                    }
+                    if (Configuration.disableoverscan == "0")
+                    {
+                        OverscanState.Text = "Enabled";
+                        OverscanToggle.Toggled = true;
+                    }
+                    if (Configuration.forcehotplug == "1")
+                    {
+                        HotplugState.Text = "Enabled";
+                        HotplugToggle.Toggled = true;
+                    }
+                    if (Configuration.forceturbo == "1")
+                    {
+                        ForceTurbo.Text = "Enabled";
+                        ForceTurboToggle.Toggled = true;
+                    }
 
-                    GPUFreqSlider.Value = ((int.Parse(Configuration.gpufreq) - 250) / 50);
-                    GPUFreq.Text = 250 + (GPUFreqSlider.Value * 50) + " MHz";
-
-                    GPUMemSlider.Value = (double.Parse(Configuration.gpumem)) / 32;
-                    GPUMem.Text = GPUMemSlider.Value * 32 + " MB";
-
-                    OvervoltageSlider.Value = (double.Parse(Configuration.overvoltage));
-                    Overvoltage.Text = OvervoltageSlider.Value.ToString();
+                    if (Freq >= Configuration.StockClocks[0] * 1.2) OverclockingPanel.Icon = "";
+                    else if (Freq >= Configuration.StockClocks[0] / 1.2) OverclockingPanel.Icon = "";
+                    else OverclockingPanel.Icon = "";
                 }
-                catch
-                {
-                    Program.Log("[Warn] Unable to read config assuming it's stock");
-                }
-                if (Configuration.disableoverscan == "0")
-                {
-                    OverscanState.Text = "Enabled";
-                    OverscanToggle.Toggled = true;
-                }
-                if (Configuration.forcehotplug == "1")
-                {
-                    HotplugState.Text = "Enabled";
-                    HotplugToggle.Toggled = true;
-                }
-                if (Configuration.forceturbo == "1")
-                {
-                    ForceTurbo.Text = "Enabled";
-                    ForceTurboToggle.Toggled = true;
-                }
-
-                //Overclocking panel icon
-                //TODO: Use percentage instead of static values to
-                //check what the icon should look like.
-                //For now it can assmue that every board is a Pi 4
-                if (Freq <= 1100)
-                { OverclockingPanel.Icon = ""; }
-                if (1200 <= Freq && Freq <= 1700)
-                { OverclockingPanel.Icon = ""; }
-                if (Freq >= 1800)
-                { OverclockingPanel.Icon = ""; }
-                CheckOC();
             }
+            catch
+            {
+
+            }
+            
         }
         #endregion
 
@@ -140,9 +142,9 @@ namespace WoRCP.Tabs
         {
             if (Configuration.BootMounted)
             {
-                if (File.Exists(@"B:\Config.txt"))
+                Configuration.Configfound = File.Exists(@"B:\Config.txt");
+                if (Configuration.Configfound)
                 {
-                    Configuration.configfound = true;
                     Config.Text = "";
                     try
                     {
@@ -203,11 +205,11 @@ namespace WoRCP.Tabs
 
             }
             //Check if pi is overclocked or not
-            if (Convert.ToInt32(Configuration.armfreq) > Convert.ToInt32(Configuration.StockClock))
+            if (Convert.ToInt32(Configuration.armfreq) > Configuration.StockClocks[0])
             {
                 PiLabel.Text = "Your Pi is overclocked (" + Convert.ToDouble(Configuration.armfreq) / 1000 + "GHz)";
             }
-            else if (Convert.ToInt32(Configuration.armfreq) < Convert.ToInt32(Configuration.StockClock))
+            else if (Convert.ToInt32(Configuration.armfreq) < Configuration.StockClocks[0])
             {
                 PiLabel.Text = "Your Pi is underclocked (" + Convert.ToDouble(Configuration.armfreq) / 1000 + "GHz)";
             }
@@ -246,7 +248,6 @@ namespace WoRCP.Tabs
             Program.WriteConfig();
             SaveButton.Color = Theme.BrightPanel;
             MountCheck();
-            Configure();
         }
 
         private void MountButton_Click(object sender, EventArgs e)
@@ -264,7 +265,6 @@ namespace WoRCP.Tabs
                 Configuration.BootMounted = true;
                 Process.Start("CMD", "/C mountvol B: /s");
                 while (!Directory.Exists(@"B:\")) { } //Wait until boot partition is mounted
-                Program.ReadConfig();
             }
             MountCheck();
         }
