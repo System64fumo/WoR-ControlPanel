@@ -93,6 +93,7 @@ namespace WoRCP
             }
             catch
             {
+                timer.Enabled = false;
                 Program.Log("[Error] An unexpected error has occured.");
             }
         }
