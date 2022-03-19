@@ -116,7 +116,7 @@ namespace WoRCP
             var image = new Bitmap(32, 32);
             var graphics = Graphics.FromImage(image);
             SolidBrush forecolor = new SolidBrush(Theme.Text);
-            if (Configuration.TrayTempWarning && Temprature[9] > Convert.ToInt32(Configuration.templimit))
+            if (Configuration.TrayTempWarning && Temprature[9] > Convert.ToInt32(ConfigUtility.Values[5]))
             {
                 forecolor = new SolidBrush(Color.Red);
             }

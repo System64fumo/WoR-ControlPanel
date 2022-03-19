@@ -67,16 +67,17 @@ namespace WoRCP.Tabs
             string height = button.ButtonText.Replace(width + "x", "");
             Configuration.width = width;
             Configuration.height = height;
-            Configuration.Video = true;
-            if (width != Screen.PrimaryScreen.Bounds.Width.ToString() && height != Screen.PrimaryScreen.Bounds.Height.ToString())
+
+            ConfigUtility.Values[9] = width + " " + height + " " + Configuration.refresh;
+            ConfigUtility.Values[10] = "2";
+            ConfigUtility.Values[11] = "87";
+            if (width == Screen.PrimaryScreen.Bounds.Width.ToString() && height == Screen.PrimaryScreen.Bounds.Height.ToString())
             {
-                Configuration.Video = true;
+                ConfigUtility.Values[9] = null;
+                ConfigUtility.Values[10] = null;
+                ConfigUtility.Values[11] = null;
             }
-            else
-            {
-                Configuration.Video = false;
-            }
-            Program.WriteConfig();
+            ConfigUtility.Write();
         }
         #endregion
 
@@ -87,38 +88,38 @@ namespace WoRCP.Tabs
             {
                 if (Configuration.Configfound)
                 {
-                    if (Configuration.armfreq != null)      //Check if the arm freq value is present in config.txt
+                    if (ConfigUtility.Values[0] != null)      //Check if the arm freq value is present in config.txt
                     {
-                        Freq = (double.Parse(Configuration.armfreq));
+                        Freq = (double.Parse(ConfigUtility.Values[0]));
                         CPUSlider.Value = Freq / 1000;
                         CPUFreq.Text = Math.Round(CPUSlider.Value, 1) + " GHz";
                     }
-                    if (Configuration.gpufreq != null)      //Check if the gpu freq value is present in config.txt
+                    if (ConfigUtility.Values[1] != null)      //Check if the gpu freq value is present in config.txt
                     {
-                        GPUFreqSlider.Value = ((int.Parse(Configuration.gpufreq) - 250) / 50);
+                        GPUFreqSlider.Value = ((int.Parse(ConfigUtility.Values[1]) - 250) / 50);
                         GPUFreq.Text = 250 + (GPUFreqSlider.Value * 50) + " MHz";
                     }
-                    if (Configuration.gpumem != null)       //Check if the gpu mem value is present in config.txt
+                    if (ConfigUtility.Values[2] != null)       //Check if the gpu mem value is present in config.txt
                     {
-                        GPUMemSlider.Value = (double.Parse(Configuration.gpumem)) / 32;
+                        GPUMemSlider.Value = (double.Parse(ConfigUtility.Values[2])) / 32;
                         GPUMem.Text = GPUMemSlider.Value * 32 + " MB";
                     }
-                    if (Configuration.overvoltage != null)  //Check if the overvoltage value is present in config.txt
+                    if (ConfigUtility.Values[3] != null)  //Check if the overvoltage value is present in config.txt
                     {
-                        OvervoltageSlider.Value = (double.Parse(Configuration.overvoltage));
+                        OvervoltageSlider.Value = (double.Parse(ConfigUtility.Values[3]));
                         Overvoltage.Text = OvervoltageSlider.Value.ToString();
                     }
-                    if (Configuration.disableoverscan == "0")
+                    if (ConfigUtility.Values[6] == "0")
                     {
                         OverscanState.Text = "Enabled";
                         OverscanToggle.Toggled = true;
                     }
-                    if (Configuration.forcehotplug == "1")
+                    if (ConfigUtility.Values[8] == "1")
                     {
                         HotplugState.Text = "Enabled";
                         HotplugToggle.Toggled = true;
                     }
-                    if (Configuration.forceturbo == "1")
+                    if (ConfigUtility.Values[4] == "1")
                     {
                         ForceTurbo.Text = "Enabled";
                         ForceTurboToggle.Toggled = true;
@@ -142,13 +143,13 @@ namespace WoRCP.Tabs
         {
             if (Configuration.BootMounted)
             {
-                Configuration.Configfound = File.Exists(@"B:\Config.txt");
+                Configuration.Configfound = File.Exists(ConfigUtility.path);
                 if (Configuration.Configfound)
                 {
                     Config.Text = "";
                     try
                     {
-                        foreach (string i in File.ReadAllLines(@"B:\Config.txt"))
+                        foreach (string i in File.ReadAllLines(ConfigUtility.path))
                         {
                             Config.Text += i + Environment.NewLine;
                         }
@@ -161,7 +162,7 @@ namespace WoRCP.Tabs
                     Issues.Text = "No issues found";
                     BootMessageLabel.Text = "Your boot partition is mounted and can be accessed from \n Drive (B:)";
                     MountButton.ButtonText = "Unmount";
-                    Program.ReadConfig();
+                    ConfigUtility.Read();
                     CheckOC();
                     ResCheck();
                     Configure();
@@ -200,18 +201,18 @@ namespace WoRCP.Tabs
         #region Overclock checker
         private void CheckOC()
         {
-            if (Convert.ToInt32(Configuration.armfreq) > 2100 && Configuration.forceturbo != "1")
+            if (Convert.ToInt32(ConfigUtility.Values[0]) > 2100 && ConfigUtility.Values[4] != "1")
             {
 
             }
             //Check if pi is overclocked or not
-            if (Convert.ToInt32(Configuration.armfreq) > Configuration.StockClocks[0])
+            if (Convert.ToInt32(ConfigUtility.Values[0]) > Configuration.StockClocks[0])
             {
-                PiLabel.Text = "Your Pi is overclocked (" + Convert.ToDouble(Configuration.armfreq) / 1000 + "GHz)";
+                PiLabel.Text = "Your Pi is overclocked (" + Convert.ToDouble(ConfigUtility.Values[0]) / 1000 + "GHz)";
             }
-            else if (Convert.ToInt32(Configuration.armfreq) < Configuration.StockClocks[0])
+            else if (Convert.ToInt32(ConfigUtility.Values[0]) < Configuration.StockClocks[0])
             {
-                PiLabel.Text = "Your Pi is underclocked (" + Convert.ToDouble(Configuration.armfreq) / 1000 + "GHz)";
+                PiLabel.Text = "Your Pi is underclocked (" + Convert.ToDouble(ConfigUtility.Values[0]) / 1000 + "GHz)";
             }
             else
             {
@@ -224,7 +225,7 @@ namespace WoRCP.Tabs
         #region Buttons
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            Program.WriteConfig();
+            ConfigUtility.Write();
             SaveButton.Color = Theme.Inactive;
             MountCheck();
         }
@@ -239,13 +240,13 @@ namespace WoRCP.Tabs
             //TODO: Replace this button with a different section to showcase
             //the current overclock instead of the config viewer
             //For now implement defaults for rpi 4
-            Configuration.armfreq = "1500";
-            Configuration.gpufreq = "500";
-            Configuration.gpumem = "32";
-            Configuration.overvoltage = "0";
-            Configuration.forceturbo = "0";
+            ConfigUtility.Values[0] = "1500";
+            ConfigUtility.Values[1] = "500";
+            ConfigUtility.Values[2] = "32";
+            ConfigUtility.Values[3] = "0";
+            ConfigUtility.Values[4] = "0";
 
-            Program.WriteConfig();
+            ConfigUtility.Write();
             SaveButton.Color = Theme.BrightPanel;
             MountCheck();
         }
@@ -271,7 +272,7 @@ namespace WoRCP.Tabs
 
         private void ConfigEditorButton_Click(object sender, EventArgs e)
         {
-            Process.Start(@"B:\Config.txt");
+            Process.Start(ConfigUtility.path);
         }
 
         private void ConfigDocsButton_Click(object sender, EventArgs e)
@@ -285,14 +286,14 @@ namespace WoRCP.Tabs
         {
             if (ForceTurboToggle.Toggled) { ForceTurbo.Text = "Enabled"; }
             else { ForceTurbo.Text = "Disabled"; }
-            Configuration.forceturbo = Convert.ToInt32(ForceTurboToggle.Toggled).ToString();
+            ConfigUtility.Values[4] = Convert.ToInt32(ForceTurboToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
         }
         private void OverscanToggle_ToggledEvent(object sender, EventArgs e)
         {
             if (OverscanToggle.Toggled) { OverscanState.Text = "Enabled"; }
             else { OverscanState.Text = "Disabled"; }
-            Configuration.disableoverscan = Convert.ToInt32(!OverscanToggle.Toggled).ToString();
+            ConfigUtility.Values[6] = Convert.ToInt32(!OverscanToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
         }
 
@@ -300,7 +301,7 @@ namespace WoRCP.Tabs
         {
             if (HotplugToggle.Toggled) { HotplugState.Text = "Enabled"; }
             else { HotplugState.Text = "Disabled"; }
-            Configuration.forcehotplug = Convert.ToInt32(HotplugToggle.Toggled).ToString();
+            ConfigUtility.Values[8] = Convert.ToInt32(HotplugToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
         }
         #endregion
@@ -310,27 +311,27 @@ namespace WoRCP.Tabs
         {
             if (Configuration.AdvancedOC)
             {
-                Configuration.armfreq = (Math.Round(CPUSlider.Value, 1) * 1000).ToString();
+                ConfigUtility.Values[0] = (Math.Round(CPUSlider.Value, 1) * 1000).ToString();
                 CPUFreq.Text = Math.Round(CPUSlider.Value, 1) + " GHz";
                 SaveButton.Color = Theme.Accent;
             }
             else
             {
                 double armfreq = Math.Round(CPUSlider.Value, 1);
-                Configuration.armfreq = (armfreq * 1000).ToString();
+                ConfigUtility.Values[0] = (armfreq * 1000).ToString();
                 if (armfreq >= 2.1)
                 {
-                    Configuration.forceturbo = "1"; ForceTurbo.Text = "Enabled";
+                    ConfigUtility.Values[4] = "1"; ForceTurbo.Text = "Enabled";
                     ForceTurboToggle.Toggled = true;
                 }
                 else
                 {
-                    Configuration.forceturbo = "0"; ForceTurbo.Text = "Disabled";
+                    ConfigUtility.Values[4] = "0"; ForceTurbo.Text = "Disabled";
                     ForceTurboToggle.Toggled = false;
                 }
-                Configuration.overvoltage = Convert.ToInt32((armfreq - 1.5) * (armfreq * 6.5)).ToString();
-                OvervoltageSlider.Value = Convert.ToInt32(Configuration.overvoltage);
-                Overvoltage.Text = Configuration.overvoltage;
+                ConfigUtility.Values[3] = Convert.ToInt32((armfreq - 1.5) * (armfreq * 6.5)).ToString();
+                OvervoltageSlider.Value = Convert.ToInt32(ConfigUtility.Values[3]);
+                Overvoltage.Text = ConfigUtility.Values[3];
 
                 CPUFreq.Text = Math.Round(CPUSlider.Value, 1) + " GHz";
                 SaveButton.Color = Theme.Accent;
@@ -338,19 +339,19 @@ namespace WoRCP.Tabs
         }
         private void GPUFreqSlider_Selecting(object sender, EventArgs e)
         {
-            Configuration.gpufreq = (250 + (GPUFreqSlider.Value * 50)).ToString();
+            ConfigUtility.Values[1] = (250 + (GPUFreqSlider.Value * 50)).ToString();
             GPUFreq.Text = 250 + (GPUFreqSlider.Value * 50) + " MHz";
             SaveButton.Color = Theme.Accent;
         }
         private void GPUMemSlider_Selecting(object sender, EventArgs e)
         {
-            Configuration.gpumem = (GPUMemSlider.Value * 32).ToString();
+            ConfigUtility.Values[2] = (GPUMemSlider.Value * 32).ToString();
             GPUMem.Text = GPUMemSlider.Value * 32 + " MB";
             SaveButton.Color = Theme.Accent;
         }
         private void OvervoltageSlider_Selecting(object sender, EventArgs e)
         {
-            Configuration.overvoltage = OvervoltageSlider.Value.ToString();
+            ConfigUtility.Values[3] = OvervoltageSlider.Value.ToString();
             Overvoltage.Text = OvervoltageSlider.Value.ToString();
             SaveButton.Color = Theme.Accent;
         }

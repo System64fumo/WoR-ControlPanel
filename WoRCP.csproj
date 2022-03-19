@@ -212,6 +212,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Configuration.cs" />
+    <Compile Include="Classes\ConfigUtility.cs" />
     <Compile Include="Classes\ImageManipulation.cs" />
     <Compile Include="Classes\ResourceReader.cs" />
     <Compile Include="Classes\RoundedCorners.cs" />

@@ -11,6 +11,7 @@ namespace WoRCP
         #region Initialization
         public static void Initialize()
         {
+            //TODO Update this
             //Set stock clocks according to the Pi Model
             switch (DeviceModel)
             {
@@ -98,25 +99,12 @@ namespace WoRCP
         public static bool MinimizeToTray = false;
         #endregion
 
+        //TODO Move all of this to ConfigUtility
         #region Config.txt
-        public static string config;
-        public static bool Video;
         public static int[] StockClocks = new int[2];
         #endregion
 
-        #region Overclock
-        public static string armfreq;
-        public static string gpufreq;
-        public static string gpumem;
-        public static string overvoltage;
-        public static string forceturbo;
-        public static string templimit;
-        #endregion
-
         #region Video
-        public static string disableoverscan;
-        public static string disablesplash;
-        public static string forcehotplug;
         public static string width = Screen.PrimaryScreen.Bounds.Width.ToString();
         public static string height = Screen.PrimaryScreen.Bounds.Height.ToString();
         public static string refresh = "60";

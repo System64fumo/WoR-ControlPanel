@@ -20,7 +20,7 @@ namespace WoRCP.Tabs
             if (Configuration.OverlayPortrait) { OrientationToggle.Toggled = Configuration.OverlayPortrait; Orientation.Text = "Portrait"; }
             if (ResourceReader.trayicon.Visible) { TrayIconToggle.Toggled = ResourceReader.trayicon.Visible; TrayIconState.Text = "Enabled"; }
             if (Configuration.MinimizeToTray) { MinimizeToTrayToggle.Toggled = Configuration.MinimizeToTray; MinimizeToTrayToggle.Enabled = Configuration.MinimizeToTray; MinimizeToTrayState.Text = "Enabled"; }
-            if (Configuration.templimit != null) { TempWarningToggle.Enabled = true; }
+            if (ConfigUtility.Values[5] != null) { TempWarningToggle.Enabled = true; }
         }
         #endregion
 
