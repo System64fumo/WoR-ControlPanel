@@ -11,21 +11,21 @@ namespace WoRCP
         #region Initialization
         public static void Initialize()
         {
-            //TODO Update this
             //Set stock clocks according to the Pi Model
+            string[] checks = { "arm_freq=", "gpu_freq=", "gpu_mem=", "over_voltage=", "force_turbo=", "temp_limit=", "disable_overscan=", "disable_splash=", "hdmi_force_hotplug=", "hdmi_cvt=", "hdmi_group=", "hdmi_mode=" };
             switch (DeviceModel)
             {
                 case "Raspberry Pi 4 Model B":
-                    StockClocks = new int[] { 1500, 500 };
+                    ConfigUtility.StockValues = new string[] { "1500", "500", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
                     break;
                 case "Raspberry Pi 3 Model B+":
-                    StockClocks = new int[] { 1400, 400 };
+                    ConfigUtility.StockValues = new string[] { "1400", "400", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
                     break;
                 case "Raspberry Pi 3 Model B":
-                    StockClocks = new int[] { 1200, 400 };
+                    ConfigUtility.StockValues = new string[] { "1200", "400", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
                     break;
                 default: //Unknown Pi
-                    StockClocks = new int[] { 600, 250 };
+                    ConfigUtility.StockValues = new string[] { "600", "250", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
                     break;
             }
         }
@@ -77,8 +77,6 @@ namespace WoRCP
         public static bool UpdatesAvailable;
         public static bool DebuggerOpen;
         public static bool BootMounted = Directory.Exists(@"B:\");
-        public static bool CountersDefined;
-        public static bool Configfound = File.Exists(@"B:\Config.txt");
         public static bool AdvancedOC;
         public static bool TrayTempWarning;
         #endregion
@@ -97,17 +95,6 @@ namespace WoRCP
         public static bool OverlayRounded = true;
         public static bool OverlayPortrait = true;
         public static bool MinimizeToTray = false;
-        #endregion
-
-        //TODO Move all of this to ConfigUtility
-        #region Config.txt
-        public static int[] StockClocks = new int[2];
-        #endregion
-
-        #region Video
-        public static string width = Screen.PrimaryScreen.Bounds.Width.ToString();
-        public static string height = Screen.PrimaryScreen.Bounds.Height.ToString();
-        public static string refresh = "60";
         #endregion
     }
 }

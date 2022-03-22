@@ -27,6 +27,7 @@ namespace WoRCP
         private static ManagementObjectSearcher searcher;
         public static Timer timer = new Timer();
         public static NotifyIcon trayicon = new NotifyIcon();
+        private static bool CountersDefined = false;
         #endregion
 
         //Methods
@@ -35,7 +36,7 @@ namespace WoRCP
         {
             try
             {
-                if (!Configuration.CountersDefined)
+                if (!CountersDefined)
                 {
                     Program.Log("[Info] Defining resource counters... (This process might take a while)");
                     await Task.Run(() =>
@@ -46,7 +47,7 @@ namespace WoRCP
                         DiskWrite = new PerformanceCounter("LogicalDisk", "Disk Write Bytes/Sec", "_Total", true);
                         searcher = new ManagementObjectSearcher(@"root\CIMV2", "SELECT * FROM Win32_PerfFormattedData_Counters_ThermalZoneInformation");
                         Program.Log("[Info] Resource counters defined.");
-                        Configuration.CountersDefined = true;
+                        CountersDefined = true;
                     });
                     trayicon.Click += Click;
                     timer.Tick += Tick;
@@ -71,7 +72,7 @@ namespace WoRCP
         {
             try
             {
-                if (Configuration.CountersDefined && Temprature != null)
+                if (CountersDefined && Temprature != null)
                 {
                     CPU = CPU.Concat(new[] { Math.Round(CPUUsage.NextValue()) }).ToArray();
                     Mem = Mem.Concat(new[] { Configuration.Totalmemory - Math.Round(Memory.NextValue() / 1024, 1) }).ToArray();

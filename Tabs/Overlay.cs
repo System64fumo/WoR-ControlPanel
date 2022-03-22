@@ -28,8 +28,8 @@ namespace WoRCP.Tabs
         #region Changing positions
         private void PositionChanged(int pos)
         {
-            int width = Convert.ToInt32(Configuration.width);
-            int height = Convert.ToInt32(Configuration.height);
+            int width = Convert.ToInt32(ConfigUtility.Width);
+            int height = Convert.ToInt32(ConfigUtility.Height);
             TopLeftBTN.Color = Theme.Accent;
             TopRightBTN.Color = Theme.Accent;
             BottomLeftBTN.Color = Theme.Accent;
