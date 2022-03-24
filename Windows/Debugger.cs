@@ -12,16 +12,16 @@ namespace WoRCP
         public Debugger() { InitializeComponent(); }
         private void Debugger_Load(object sender, EventArgs e)
         {
+            //Display the theme system's values in text
             ThemeMode.Text = Theme.ThemeMode.ToString();
             Transparency.Text = Theme.Transparency.ToString();
-            BrightAccent.Text = (Theme.BrightAccent.R + " " + Theme.BrightAccent.G + " " + Theme.BrightAccent.B).ToString();
-            Accent.Text = (Theme.Accent.R + " " + Theme.Accent.G + " " + Theme.Accent.B).ToString();
-            DarkAccent.Text = (Theme.DarkAccent.R + " " + Theme.DarkAccent.G + " " + Theme.DarkAccent.B).ToString();
-            Inactive.Text = (Theme.Inactive.R + " " + Theme.Inactive.G + " " + Theme.Inactive.B).ToString();
-            Panel.Text = (Theme.Panel.R + " " + Theme.Panel.G + " " + Theme.Panel.B).ToString();
-            Background.Text = (Theme.Background.R + " " + Theme.Background.G + " " + Theme.Background.B).ToString();
-            BrightPanel.Text = (Theme.BrightPanel.R + " " + Theme.BrightPanel.G + " " + Theme.BrightPanel.B).ToString();
-
+            BrightAccent.Text = getRGB(Theme.BrightAccent);
+            Accent.Text = getRGB(Theme.Accent);
+            DarkAccent.Text = getRGB(Theme.DarkAccent);
+            Inactive.Text = getRGB(Theme.Inactive);
+            Panel.Text = getRGB(Theme.Panel);
+            Background.Text = getRGB(Theme.Background);
+            BrightPanel.Text = getRGB(Theme.BrightPanel);
 
             //Read config
             LogTextBox.Text = Program.LogOutput;
@@ -41,6 +41,13 @@ namespace WoRCP
         private void LogUpdater_Tick(object sender, EventArgs e)
         {
             LogTextBox.Text = Program.LogOutput;
+        }
+        #endregion
+
+        #region Get RGB
+        private string getRGB(Color color)
+        {
+            return (color.R + " " + color.G + " " + color.B).ToString();
         }
         #endregion
 

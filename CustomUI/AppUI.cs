@@ -31,8 +31,24 @@ namespace WoRCP
         }
         private async void AppUI_Load(object sender, EventArgs e)
         {
-            await Task.Run(() => { try { ImagePanel.BackgroundImage = (Bitmap)DownloadImage(Icon); ImagePanel.Invalidate(); } catch { Program.Log("[Warn] Unable to download application background image"); } });
-            if (Directory.Exists(AppPath)) { Installed = true; InstallButton.Color = Theme.Accent; InstallButton.ButtonText = "Uninstall"; } //Check if the application is installed
+            await Task.Run(() =>
+            {
+                try
+                {
+                    ImagePanel.BackgroundImage = (Bitmap)DownloadImage(Icon);
+                    ImagePanel.Invalidate();
+                }
+                catch (Exception ex)
+                {
+                    Program.Log("[Warn] Unable to download application background image");
+                    Program.Log("[Exception] " + ex);
+                }
+            });
+            if (Directory.Exists(AppPath)) //Check if the application is installed
+            {
+                Installed = true; InstallButton.Color = Theme.Accent;
+                InstallButton.ButtonText = "Uninstall";
+            }
         }
         #endregion
 
@@ -40,7 +56,7 @@ namespace WoRCP
         #region Setup
         private void AppUI_Paint(object sender, PaintEventArgs e) //Rounds the control
         {
-            RoundedCorners.Paint(e, Width, Height, 5, Theme.Panel);
+            RoundedCorners.Paint(e, Width, Height, Theme.PanelRounding, Theme.Panel);
         }
         private Image DownloadImage(string fromUrl) //Downloads the app icon
         {
@@ -80,13 +96,14 @@ namespace WoRCP
                 }
                 Installed = !Installed;
             }
-            catch
+            catch (Exception ex)
             {
                 InstallButton.ButtonText = "Error";
                 InstallButton.Enabled = false;
                 Animation.Enabled = false;
                 InstallButton.Color = Color.FromArgb(235, 0, 65);
                 Program.Log("[Error] Unable to install " + AppName.Text);
+                Program.Log("[Exception] " + ex);
             }
         }
         #endregion

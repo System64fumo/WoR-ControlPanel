@@ -33,6 +33,10 @@ namespace WoRCP.CustomUI
                     color = Theme.Inactive;
                     ToggleKnob.Left = 3;
                 }
+                if (!Enabled)
+                {
+                    color = Color.FromArgb(100, 100, 100);
+                }
                 this.Invalidate();
             }
         }
@@ -48,7 +52,7 @@ namespace WoRCP.CustomUI
         #region Toggle
         private void toggle()
         {
-            if (IsToggled == true)
+            if (IsToggled)
             {
                 color = Theme.Inactive;
                 ToggleKnob.Left = 3;
@@ -67,7 +71,7 @@ namespace WoRCP.CustomUI
         //Events
         #region Paint
         private void ToggleKnob_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e,ToggleKnob.Width,ToggleKnob.Height,7,knobcolor); }
-        private void Toggle_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e, 40, 20, 10, color); }
+        private void Toggle_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e, 40, 20, Theme.ToggleRounding, color); }
         #endregion
 
         #region Click
@@ -78,8 +82,8 @@ namespace WoRCP.CustomUI
         #region Enabled Changed
         private void Toggle_EnabledChanged(object sender, EventArgs e)
         {
-            if (Enabled) { knobcolor = Color.White; ToggleKnob.Invalidate(); }
-            else { knobcolor = Color.FromArgb(150, 150, 150); ToggleKnob.Invalidate(); }
+            if (Enabled) { knobcolor = Color.White; ToggleKnob.Invalidate(); color = Theme.Accent; Invalidate(); }
+            else { knobcolor = Color.FromArgb(150, 150, 150); ToggleKnob.Invalidate(); color = Color.FromArgb(100, 100, 100); Invalidate(); }
         }
         #endregion
 

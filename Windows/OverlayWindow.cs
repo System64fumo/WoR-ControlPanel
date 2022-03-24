@@ -52,8 +52,8 @@ namespace WoRCP
         }
         public void RoundCharts()
         {
-            int rounding = 5;
-            if (Configuration.OverlayRounded) { rounding = 5; }
+            int rounding;
+            if (Configuration.OverlayRounded) { rounding = Theme.PanelRounding; }
             else { rounding = 0; }
             RoundedCorners.Round(CPUChart, rounding);
             RoundedCorners.Round(MemoryChart, rounding);
@@ -78,9 +78,10 @@ namespace WoRCP
                 ResourceReader.UpdateChart(MemoryChart, ResourceReader.Mem);
                 ResourceReader.UpdateChart(TempratureChart, ResourceReader.Temprature);
             }
-            catch
+            catch (Exception ex)
             {
                 Program.Log("[Error] Failed to update charts");
+                Program.Log("[Exception] " + ex);
             }
         }
         #endregion

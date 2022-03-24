@@ -87,9 +87,10 @@ namespace WoRCP.Tabs
                     pin.Click += Btn_Click;
                     PinArray.Controls.Add(pin);
                 }
-                catch
+                catch (Exception ex)
                 {
                     Program.Log("[Error] Unable to add pin number: " + PinNums[i - 1]);
+                    Program.Log("[Exception] " + ex);
                 }
             }
         }
@@ -111,9 +112,10 @@ namespace WoRCP.Tabs
                         MessageBox.Show("Pin: " + PinNums[i - 1] + " is Low");
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     Program.Log("[Error] Unable to read pin number: " + PinNums[i - 1]);
+                    Program.Log("[Exception] " + ex);
                 }
             }
         }
@@ -195,21 +197,25 @@ namespace WoRCP.Tabs
         #region Close pins on unload
         private void Peripherals_EnabledChanged(object sender, EventArgs e)
         {
-            for (int i = 1; i <= PinNums.Length; i++)
+            if (Configuration.CPUArch == "ARM64")
             {
-                try
+                for (int i = 1; i <= PinNums.Length; i++)
                 {
-                    if (PinNums[i - 1] != 0)
+                    try
                     {
-                        if (gpio.IsPinOpen(PinNums[i - 1]))
+                        if (PinNums[i - 1] != 0)
                         {
-                            gpio.ClosePin(PinNums[i - 1]);
+                            if (gpio.IsPinOpen(PinNums[i - 1]))
+                            {
+                                gpio.ClosePin(PinNums[i - 1]);
+                            }
                         }
                     }
-                }
-                catch
-                {
-                    Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
+                    catch (Exception ex)
+                    {
+                        Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
+                        Program.Log("[Exception] " + ex);
+                    }
                 }
             }
         }

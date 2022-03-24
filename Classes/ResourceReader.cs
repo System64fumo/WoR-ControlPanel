@@ -59,10 +59,11 @@ namespace WoRCP
                     Program.Log("[Warn] Resource counters are already defined.");
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 Process.Start("CMD", "/C lodctr /r");
                 Program.Log("[Error] Failed to define counters attempting to fix \n Please relaunch the app, If this Error persists try contacting the developer");
+                Program.Log("[Exception] " + ex);
             }
         }
         #endregion
@@ -92,10 +93,11 @@ namespace WoRCP
                     Program.Log("[Warn] Resource counters are undefined, Unable to read.");
                 }
             }
-            catch
+            catch (Exception ex)
             {
                 timer.Enabled = false;
                 Program.Log("[Error] An unexpected error has occured.");
+                Program.Log("[Exception] " + ex);
             }
         }
         #endregion

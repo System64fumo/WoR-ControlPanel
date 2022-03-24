@@ -12,7 +12,6 @@ namespace WoRCP
         public static void Initialize()
         {
             //Set stock clocks according to the Pi Model
-            string[] checks = { "arm_freq=", "gpu_freq=", "gpu_mem=", "over_voltage=", "force_turbo=", "temp_limit=", "disable_overscan=", "disable_splash=", "hdmi_force_hotplug=", "hdmi_cvt=", "hdmi_group=", "hdmi_mode=" };
             switch (DeviceModel)
             {
                 case "Raspberry Pi 4 Model B":
@@ -25,9 +24,12 @@ namespace WoRCP
                     ConfigUtility.StockValues = new string[] { "1200", "400", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
                     break;
                 default: //Unknown Pi
-                    ConfigUtility.StockValues = new string[] { "600", "250", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1500", "250", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
                     break;
             }
+            //Set default screen height and width
+            ConfigUtility.Width = Screen.PrimaryScreen.Bounds.Width.ToString();
+            ConfigUtility.Height = Screen.PrimaryScreen.Bounds.Height.ToString();
         }
         #endregion
 
@@ -79,6 +81,7 @@ namespace WoRCP
         public static bool BootMounted = Directory.Exists(@"B:\");
         public static bool AdvancedOC;
         public static bool TrayTempWarning;
+        public static bool RGBMode;
         #endregion
 
         #region Appstore

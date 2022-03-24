@@ -11,23 +11,21 @@ namespace WoRCP.Tabs
         public Performance() { InitializeComponent(); }
         private void Performance_Load(object sender, EventArgs e)
         {
+            //Initialize and start the resource reader's timer
+            ResourceReader.Initialize();
             ResourceReader.timer.Enabled = true;
+
+            //Theming
             ThemeCharts();
             RoundCharts();
+
+            //Setup
             UpdateCharts(sender, EventArgs.Empty);
             ResourceReader.timer.Tick += UpdateCharts;
-            ResourceReader.Initialize();
             Program.Log("[Info] Charts Initialized succesfully");
         }
-        private void InitializeCharts()
-        {
-            if (Configuration.Totalmemory != 0) { MemoryChart.ChartAreas[0].AxisY.Maximum = Configuration.Totalmemory; }
-            for (int i = 0; i < CPUChart.ChartAreas[0].AxisX.Maximum; i++) CPUChart.Series[0].Points.AddY(0);
-            for (int i = 0; i < MemoryChart.ChartAreas[0].AxisX.Maximum; i++) MemoryChart.Series[0].Points.AddY(0);
-            for (int i = 0; i < TempratureChart.ChartAreas[0].AxisX.Maximum; i++) TempratureChart.Series[0].Points.AddY(0);
-            for (int i = 0; i < ReadChart.ChartAreas[0].AxisX.Maximum; i++) ReadChart.Series[0].Points.AddY(0);
-            for (int i = 0; i < WriteChart.ChartAreas[0].AxisX.Maximum; i++) WriteChart.Series[0].Points.AddY(0);
-        }
+
+        //Get rid of the tick event when unloading the tab
         private void Performance_EnabledChanged(object sender, EventArgs e)
         {
             ResourceReader.timer.Tick -= UpdateCharts;
@@ -40,12 +38,14 @@ namespace WoRCP.Tabs
         {
             try
             {
+                //Display system resource usage on the labels
                 CPUUsage.Text = ResourceReader.CPU[9] + "%";
                 MemoryUsage.Text = ResourceReader.Mem[9] + "/" + Configuration.Totalmemory + " GB";
                 TempratureValue.Text = ResourceReader.Temprature[9] + "°";
                 ReadUsage.Text = ResourceReader.DiskR[9] + " MBs";
                 WriteUsage.Text = ResourceReader.DiskW[9] + " MBs";
 
+                //Update the charts with the system resource usage
                 ResourceReader.UpdateChart(CPUChart, ResourceReader.CPU);
                 ResourceReader.UpdateChart(MemoryChart, ResourceReader.Mem);
                 ResourceReader.UpdateChart(TempratureChart, ResourceReader.Temprature);
@@ -53,9 +53,10 @@ namespace WoRCP.Tabs
                 ResourceReader.UpdateChart(WriteChart, ResourceReader.DiskW);
 
             }
-            catch
+            catch (Exception ex)
             {
                 Program.Log("[Error] Failed to update charts");
+                Program.Log("[Exception] " + ex);
             }
         }
         #endregion
@@ -63,11 +64,11 @@ namespace WoRCP.Tabs
         #region Theming
         private void RoundCharts()
         {
-            RoundedCorners.Round(CPUChart, 5);
-            RoundedCorners.Round(MemoryChart, 5);
-            RoundedCorners.Round(TempratureChart, 5);
-            RoundedCorners.Round(ReadChart, 5);
-            RoundedCorners.Round(WriteChart, 5);
+            RoundedCorners.Round(CPUChart, Theme.PanelRounding);
+            RoundedCorners.Round(MemoryChart, Theme.PanelRounding);
+            RoundedCorners.Round(TempratureChart, Theme.PanelRounding);
+            RoundedCorners.Round(ReadChart, Theme.PanelRounding);
+            RoundedCorners.Round(WriteChart, Theme.PanelRounding);
         }
         private void ThemeCharts()
         {

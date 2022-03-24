@@ -12,7 +12,7 @@ namespace WoRCP.CustomUI
         private string icon = "";
         private string expander = "";
         private bool collapsed = true;
-        private int rounding = 5;
+        private int rounding = Theme.PanelRounding;
         private int separators = 0;
         private Color panelcolor = Color.FromArgb(25, 25, 27);
         private Color currentcolor = Color.FromArgb(25, 25, 27);
@@ -124,24 +124,26 @@ namespace WoRCP.CustomUI
         #region Paint events
         private void CollapsiblePanel_Paint(object sender, PaintEventArgs e)
         {
-            if (currentcolor == Color.FromArgb(50, 50, 65)) { currentcolor = Theme.Accent; }
-            if (currentcolor == Color.FromArgb(60, 60, 75)) { currentcolor = Theme.BrightAccent; }
-            if (currentcolor == Color.FromArgb(40, 40, 55)) { currentcolor = Theme.DarkAccent; }
-            if (currentcolor == Color.FromArgb(30, 30, 35)) { currentcolor = Theme.Inactive; }
-            if (currentcolor == Color.FromArgb(20, 20, 20)) { currentcolor = Theme.Background; }
-            if (currentcolor == Color.FromArgb(25, 25, 27)) { currentcolor = Theme.Panel; }
+            if (currentcolor == Color.FromArgb(50, 50, 65)) currentcolor = Theme.Accent;
+            else if (currentcolor == Color.FromArgb(60, 60, 75)) currentcolor = Theme.BrightAccent;
+            else if (currentcolor == Color.FromArgb(40, 40, 55)) currentcolor = Theme.DarkAccent;
+            else if (currentcolor == Color.FromArgb(30, 30, 35) || currentcolor == Color.FromArgb(225, 225, 225)) currentcolor = Theme.Inactive;
+            else if (currentcolor == Color.FromArgb(20, 20, 20) || currentcolor == Color.FromArgb(243, 243, 243)) currentcolor = Theme.Background;
+            else if (currentcolor == Color.FromArgb(25, 25, 27) || currentcolor == Color.FromArgb(251, 251, 251)) currentcolor = Theme.Panel;
+            else if (currentcolor == Color.FromArgb(35, 35, 40) || currentcolor == Color.FromArgb(242, 242, 242)) currentcolor = Theme.BrightPanel;
             RoundedCorners.Paint(e, Width, Height, Rounding, currentcolor);
             BackColor = Color.Transparent;
         }
 
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (panelcolor == Color.FromArgb(50, 50, 65)) { panelcolor = Theme.Accent; }
-            if (panelcolor == Color.FromArgb(60, 60, 75)) { panelcolor = Theme.BrightAccent; }
-            if (panelcolor == Color.FromArgb(40, 40, 55)) { panelcolor = Theme.DarkAccent; }
-            if (panelcolor == Color.FromArgb(30, 30, 35)) { panelcolor = Theme.Inactive; }
-            if (panelcolor == Color.FromArgb(20, 20, 20)) { panelcolor = Theme.Background; }
-            if (panelcolor == Color.FromArgb(25, 25, 27)) { panelcolor = Theme.Panel; }
+            if (panelcolor == Color.FromArgb(50, 50, 65)) panelcolor = Theme.Accent;
+            else if (panelcolor == Color.FromArgb(60, 60, 75)) panelcolor = Theme.BrightAccent;
+            else if (panelcolor == Color.FromArgb(40, 40, 55)) panelcolor = Theme.DarkAccent;
+            else if (panelcolor == Color.FromArgb(30, 30, 35) || panelcolor == Color.FromArgb(225, 225, 225)) panelcolor = Theme.Inactive;
+            else if (panelcolor == Color.FromArgb(20, 20, 20) || panelcolor == Color.FromArgb(243, 243, 243)) panelcolor = Theme.Background;
+            else if (panelcolor == Color.FromArgb(25, 25, 27) || panelcolor == Color.FromArgb(251, 251, 251)) panelcolor = Theme.Panel;
+            else if (panelcolor == Color.FromArgb(35, 35, 40) || panelcolor == Color.FromArgb(242, 242, 242)) panelcolor = Theme.BrightPanel;
             RoundedCorners.Paint(e, Width, Height, Rounding, panelcolor);
             panel1.Width = Width;
 

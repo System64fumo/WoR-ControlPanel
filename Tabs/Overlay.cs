@@ -202,7 +202,7 @@ namespace WoRCP.Tabs
         //Opacity slider
         private void OpacitySlider_Selecting(object sender, EventArgs e)
         {
-            OpacityState.Text = ((byte)OpacitySlider.ValueP).ToString() + "%";
+            OpacityState.Text = OpacitySlider.ValueP.ToString() + "%";
             Configuration.overlay.Opacity = OpacitySlider.Value / 100;
         }
         #endregion

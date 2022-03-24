@@ -12,6 +12,7 @@ namespace WoRCP
         #region Variables
         private Font font = new Font("Segoe MDL2 Assets", 16f);
         private SolidBrush drawBrush;
+        private bool PreviousThemeMode;
         #endregion
 
         #region Loading and Initialization
@@ -19,16 +20,22 @@ namespace WoRCP
         {
             InitializeComponent();
             Configuration.mainwindow = this;
+            RGBStrip.SizeMode = PictureBoxSizeMode.StretchImage;
+            if (AppDomain.CurrentDomain.FriendlyName == "RGBWoRCP.exe") Configuration.RGBMode = true;
         }
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
-            
             Program.Log("[Info] Welcome to WoR Control Panel");
             Program.Log("[Info] Version: " + Configuration.Version);
             Program.Log("[Info] Windows: " + Configuration.Build);
             Program.Log("[Info] Running on: " + Configuration.DeviceName + " / " + Configuration.CPUArch);
             Greeting.Text = Configuration.Greeting + "\n" + Configuration.User + "!";
+
+            //Easteregg
+            RGBStrip.Visible = Configuration.RGBMode;
+
+            //Change icons to match windows 10/11's iconography
             if (Convert.ToInt32(Configuration.Build) >= 22000)
             {
                 font = new Font("Segoe Fluent Icons", 16f);
@@ -36,6 +43,7 @@ namespace WoRCP
             drawBrush = new SolidBrush(Theme.Text);
             CloseButton.Font = new Font(font.Name, 9.75f);
             MinimizeButton.Font = new Font(font.Name, 9.75f);
+
             LoadTab(new Performance(), 210);
             ResourceReader.changeTrayIcon();
             ChangeIcon();
@@ -115,9 +123,10 @@ namespace WoRCP
                 Indicator.Top = c;
                 userctrl.Dock = DockStyle.Fill;
             }
-            catch //If a tab could not be loaded
+            catch (Exception ex) //If a tab could not be loaded
             {
                 Program.Log("[Error] Failed to load " + userctrl.ToString());
+                Program.Log("[Exception] " + ex);
             }
         }
         #endregion
@@ -180,18 +189,28 @@ namespace WoRCP
         #region Focus/Unfocus
         private void MainWindow_Activated(object sender, EventArgs e)
         {
+            //Change the program's theme when active
+            Theme.Read();
+            if (PreviousThemeMode != Theme.ThemeMode)
+            {
+                drawBrush = new SolidBrush(Theme.Text);
+                Theme.Initialize(this);
+            }
+            PreviousThemeMode = Theme.ThemeMode;
+
+            //Make the sidepanel have acrylic when the window is in focus
             if (Theme.Transparency)
             {
                 //TODO Add animation
                 SidePanel.BackColor = Theme.Panel;
                 Theme.CurrentAccent = Theme.ACCENT.ENABLE_ACRYLICBLURBEHIND;
-                Theme.EnableAcrylic(this, SidePanel);
-                TransparencyKey = SidePanel.BackColor;
+                Theme.EnableAcrylic(this, SidePanel, true);
             }
         }
 
         private void MainWindow_Deactivate(object sender, EventArgs e)
         {
+            //Make the sidepanel opaque when the window is no longer in focus
             if (Theme.Transparency)
             {
                 //TODO Add animation

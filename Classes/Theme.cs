@@ -8,8 +8,8 @@ using WoRCP;
 
 class Theme
 {
-    #region Colors
-    //                                                                |  Dark Mode  |  Light Mode |
+    #region Theme config
+    //Color list                                                      |  Dark Mode  |  Light Mode |
     public static Color Acryliccolor = Color.FromArgb(175, 0,0,0); // | 0 0 0       | 255 255 255 |
     public static Color Accent = Color.FromArgb(50, 50, 65);       // | 50 50 65    | 50 50 65    |
     public static Color BrightAccent = Color.FromArgb(60, 60, 75); // | 60 60 75    | 60 60 75    |
@@ -20,10 +20,18 @@ class Theme
     public static Color BrightPanel = Color.FromArgb(35, 35, 40);  // | 240 240 240 | 35 35 40    |
     public static Color Text = Color.FromArgb(255, 255, 255);      // | 0 0 0       | 255 255 255 |
     public static Color Disabled = Color.FromArgb(150, 150, 150);  // | 150 150 150 | 150 150 150 |
+
     public static bool ThemeMode = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null));
     public static bool Transparency = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "EnableTransparency", null));
     public static Form form;
     public static ACCENT CurrentAccent = ACCENT.ENABLE_ACRYLICBLURBEHIND;
+
+    //Global rounding
+    public static int PanelRounding = 5;
+    public static int ToggleRounding = 10;
+    public static int ButtonRounding = 5;
+    public static int SliderBarRounding = 3;
+
     #endregion
 
     #region Read theme
@@ -37,14 +45,24 @@ class Theme
         }
         else
         {
+            ThemeMode = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null));
             if (ThemeMode) //Light Mode
             {
                 Acryliccolor = Color.FromArgb(175, 255, 255, 255);
                 Background = Color.FromArgb(243, 243, 243);
                 Panel = Color.FromArgb(251, 251, 251);
-                Text = Color.FromArgb(0, 0, 0);
+                Text = Color.Black;
                 Inactive = Color.FromArgb(225, 225, 225);
                 BrightPanel = Color.FromArgb(242, 242, 242);
+            }
+            else //Dark mode
+            {
+                Acryliccolor = Color.FromArgb(175, 0, 0, 0);
+                Background = Color.FromArgb(20, 20, 20);
+                Panel = Color.FromArgb(25, 25, 27);
+                Text = Color.White;
+                Inactive = Color.FromArgb(30, 30, 35);
+                BrightPanel = Color.FromArgb(35, 35, 40);
             }
         }
 
@@ -73,34 +91,25 @@ class Theme
     #region Apply theme
     public static void Set(Control control) //This will check if your app contains any of the predefined colors and theme them accordingly
     {
-        if (control.ForeColor == Color.White) { control.ForeColor = Text; }
         string color = control.BackColor.ToString().Remove(0, 16).Replace(", G=", ", ").Replace(", B=", ", ").Replace("]", "");
-        switch (color)
-        {
-            case "50, 50, 65":
-                control.BackColor = Accent;
-                break;
-            case "60, 60, 75":
-                control.BackColor = BrightAccent;
-                break;
-            case "40, 40, 55":
-                control.BackColor = DarkAccent;
-                break;
-            case "30, 30, 35":
-                control.BackColor = Inactive;
-                break;
-            case "20, 20, 20":
-                control.BackColor = Background;
-                break;
-            case "25, 25, 27":
-                control.BackColor = Panel;
-                break;
-            case "35, 35, 40":
-                control.BackColor = BrightPanel;
-                break;
-        }
+
+        //Set fore color
+        if (control.ForeColor == Color.White || control.ForeColor == Color.Black) { control.ForeColor = Text; }
+
+        //Set background color
+        if (color == "50, 50, 65") control.BackColor = Accent;
+        else if (color == "60, 60, 75") control.BackColor = BrightAccent;
+        else if (color == "40, 40, 55") control.BackColor = DarkAccent;
+        else if (color == "30, 30, 35" || color == "225, 225, 225") control.BackColor = Inactive;
+        else if (color == "20, 20, 20" || color == "243, 243, 243") control.BackColor = Background;
+        else if (color == "25, 25, 27" || color == "251, 251, 251") control.BackColor = Panel;
+        else if (color == "35, 35, 40" || color == "242, 242, 242") control.BackColor = BrightPanel;
+
+        //Check if the control is acrylic enabled
         if (control.Tag == "Acrylic") { if (Transparency) EnableAcrylic(form, control); }
-        if (control.HasChildren) { foreach (Control childControl in control.Controls) { Theme.Set(childControl); } }
+
+        //Check if the control has children
+        if (control.HasChildren) { foreach (Control childControl in control.Controls) { Set(childControl); } }
     }
     #endregion
 
@@ -109,7 +118,6 @@ class Theme
     {
         if (window is null) throw new ArgumentNullException(nameof(window));
         Color panelcolor = Color.FromArgb(Math.Min(255, ctrl.BackColor.R - 1), Math.Min(255, ctrl.BackColor.G - 1), ctrl.BackColor.B);
-        if (changekey) window.TransparencyKey = panelcolor;
         ctrl.BackColor = panelcolor;
         var accentPolicy = new AccentPolicy
         {
@@ -123,10 +131,11 @@ class Theme
                 new WindowCompositionAttributeData
                 {
                     Attribute = WCA.ACCENT_POLICY,
-                    Data = & accentPolicy,
+                    Data = &accentPolicy,
                     DataLength = Marshal.SizeOf<AccentPolicy>()
                 });
         }
+        if (changekey) window.TransparencyKey = panelcolor;
     }
 
     private static uint ToRGBA(Color color)

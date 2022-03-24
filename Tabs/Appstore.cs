@@ -40,10 +40,11 @@ namespace WoRCP.Tabs
                         wc.DownloadFile(new Uri("https://raw.githubusercontent.com/AmirDahan/WoR-CP-Apps/main/List.txt"), ListPath);
                     }
                 }
-                catch
+                catch (Exception ex)
                 {
                     Container.Visible = false;
                     Program.Log("[Error] Unable to download the appstore list file.\n Please open the debugger and send the log to the developer.");
+                    Program.Log("[Exception] " + ex);
                 }
                 if (File.Exists(ListPath))
                 {

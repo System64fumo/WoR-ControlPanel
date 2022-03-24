@@ -27,11 +27,12 @@ class ConfigUtility //This class contains everything that's related to config.tx
                         Values[Array.IndexOf(checks, check)] = line.Replace(check, ""); //Replace the check with null leaving you with the check's value (Before: Arm_freq=Value, After: Value)
                     }
                 }
-                if (line.Contains("hdmi_cvt=")) //TODO move make this better if possible and by that i mean handle it in the loop above
+                if (line.Contains("hdmi_cvt=")) //TODO make this better if possible and by that i mean handle it in the loop above
                 {
                     Width = Values[9].Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
                     Height = Values[9].Remove(0, Width.Length + 1).Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
                     Refresh = Values[9].Remove(0, Width.Length + Height.Length + 2);
+                    Values[9] = null;
                 }
             }
         }
@@ -61,7 +62,7 @@ class ConfigUtility //This class contains everything that's related to config.tx
             foreach (string check in checks)
             {
                 //Check if the value is not null nor the stock value then write it tp Config.txt
-                if (Values[Array.IndexOf(checks, check)] != null && Values[Array.IndexOf(checks, check)] != StockValues[Array.IndexOf(checks, check)])
+                if (Values[Array.IndexOf(checks, check)] != null && Values[Array.IndexOf(checks, check)] != StockValues[Array.IndexOf(checks, check)].ToString())
                 {
                     config += check + Values[Array.IndexOf(checks, check)] + "\n";
                 }

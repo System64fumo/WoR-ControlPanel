@@ -6,6 +6,7 @@ using System.Windows.Forms;
 
 class RoundedCorners
 {
+    #region Basic rounding
     [DllImport("Gdi32.dll", EntryPoint = "CreateRoundRectRgn")]
     private static extern IntPtr RoundedRectangle
     (
@@ -20,7 +21,9 @@ class RoundedCorners
     {
         Ctrl.Region = Region.FromHrgn(RoundedRectangle(0, 0, Ctrl.Width, Ctrl.Height, Rounding, Rounding));
     }
+    #endregion
 
+    #region Custom Rounding
     private static GraphicsPath RoundedRect(Rectangle bounds, int radius)
     {
         int diameter = radius * 2;
@@ -64,4 +67,5 @@ class RoundedCorners
         graphics.SmoothingMode = SmoothingMode.HighQuality;
         FillRoundedRectangle(graphics, b, gradientRectangle, Rounding);
     }
+    #endregion
 }

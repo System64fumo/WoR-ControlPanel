@@ -178,7 +178,7 @@ namespace WoRCP
 
         private void SliderBG_Paint(object sender, PaintEventArgs e)
         {
-            RoundedCorners.Paint(e, SliderBG.Width, SliderBG.Height, 3, Theme.Inactive);
+            RoundedCorners.Paint(e, SliderBG.Width, SliderBG.Height, Theme.SliderBarRounding, Theme.Inactive);
         }
         #endregion
     }
