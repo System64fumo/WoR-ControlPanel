@@ -1,4 +1,13 @@
 bin
 obj
-.vs
-.vs/WoRCP/v16/.suo
+.gitignore
+*.dll
+*.exe
+*.zip
+*.log
+Thumbs.db
+*.suo
+*.user
+*.scc
+*.vspscc
+*.vssscc
