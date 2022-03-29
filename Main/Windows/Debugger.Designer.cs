@@ -36,23 +36,14 @@ namespace WoRCP
             this.CloseButton = new System.Windows.Forms.Button();
             this.LogUpdater = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.collapsiblePanel2 = new WoRCP.UI.CollapsiblePanel();
-            this.BrightPanel = new System.Windows.Forms.Label();
+            this.ThemePanel = new WoRCP.UI.CollapsiblePanel();
             this.BrightPanelPanel = new WoRCP.UI.RoundedPanel();
-            this.Background = new System.Windows.Forms.Label();
-            this.Panel = new System.Windows.Forms.Label();
-            this.Inactive = new System.Windows.Forms.Label();
-            this.DarkAccent = new System.Windows.Forms.Label();
-            this.Accent = new System.Windows.Forms.Label();
-            this.BrightAccent = new System.Windows.Forms.Label();
             this.PanelPanel = new WoRCP.UI.RoundedPanel();
             this.InactivePanel = new WoRCP.UI.RoundedPanel();
             this.DarkAccentPanel = new WoRCP.UI.RoundedPanel();
             this.AccentPanel = new WoRCP.UI.RoundedPanel();
             this.BackgroundPanel = new WoRCP.UI.RoundedPanel();
             this.BrightAccentPanel = new WoRCP.UI.RoundedPanel();
-            this.Transparency = new System.Windows.Forms.Label();
-            this.ThemeMode = new System.Windows.Forms.Label();
             this.collapsiblePanel3 = new WoRCP.UI.CollapsiblePanel();
             this.SaveButton = new WoRCP.UI.RoundedButton();
             this.label2 = new System.Windows.Forms.Label();
@@ -62,7 +53,7 @@ namespace WoRCP
             this.AdvancedOCToggle = new WoRCP.UI.Toggle();
             this.TitleBar.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.collapsiblePanel2.SuspendLayout();
+            this.ThemePanel.SuspendLayout();
             this.collapsiblePanel3.SuspendLayout();
             this.roundedPanel1.SuspendLayout();
             this.collapsiblePanel4.SuspendLayout();
@@ -136,7 +127,7 @@ namespace WoRCP
             this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.flowLayoutPanel1.AutoScroll = true;
-            this.flowLayoutPanel1.Controls.Add(this.collapsiblePanel2);
+            this.flowLayoutPanel1.Controls.Add(this.ThemePanel);
             this.flowLayoutPanel1.Controls.Add(this.collapsiblePanel3);
             this.flowLayoutPanel1.Controls.Add(this.collapsiblePanel4);
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 30);
@@ -145,29 +136,20 @@ namespace WoRCP
             this.flowLayoutPanel1.Size = new System.Drawing.Size(621, 478);
             this.flowLayoutPanel1.TabIndex = 15;
             // 
-            // collapsiblePanel2
+            // ThemePanel
             // 
-            this.collapsiblePanel2.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanel2.Collapsed = true;
-            this.collapsiblePanel2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.collapsiblePanel2.Controls.Add(this.BrightPanel);
-            this.collapsiblePanel2.Controls.Add(this.BrightPanelPanel);
-            this.collapsiblePanel2.Controls.Add(this.Background);
-            this.collapsiblePanel2.Controls.Add(this.Panel);
-            this.collapsiblePanel2.Controls.Add(this.Inactive);
-            this.collapsiblePanel2.Controls.Add(this.DarkAccent);
-            this.collapsiblePanel2.Controls.Add(this.Accent);
-            this.collapsiblePanel2.Controls.Add(this.BrightAccent);
-            this.collapsiblePanel2.Controls.Add(this.PanelPanel);
-            this.collapsiblePanel2.Controls.Add(this.InactivePanel);
-            this.collapsiblePanel2.Controls.Add(this.DarkAccentPanel);
-            this.collapsiblePanel2.Controls.Add(this.AccentPanel);
-            this.collapsiblePanel2.Controls.Add(this.BackgroundPanel);
-            this.collapsiblePanel2.Controls.Add(this.BrightAccentPanel);
-            this.collapsiblePanel2.Controls.Add(this.Transparency);
-            this.collapsiblePanel2.Controls.Add(this.ThemeMode);
-            this.collapsiblePanel2.Icon = "";
-            this.collapsiblePanel2.LeftContent = new string[] {
+            this.ThemePanel.BackColor = System.Drawing.Color.Transparent;
+            this.ThemePanel.Collapsed = true;
+            this.ThemePanel.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
+            this.ThemePanel.Controls.Add(this.BrightPanelPanel);
+            this.ThemePanel.Controls.Add(this.PanelPanel);
+            this.ThemePanel.Controls.Add(this.InactivePanel);
+            this.ThemePanel.Controls.Add(this.DarkAccentPanel);
+            this.ThemePanel.Controls.Add(this.AccentPanel);
+            this.ThemePanel.Controls.Add(this.BackgroundPanel);
+            this.ThemePanel.Controls.Add(this.BrightAccentPanel);
+            this.ThemePanel.Icon = "";
+            this.ThemePanel.LeftContent = new string[] {
         "Light mode",
         "Transperancy",
         "Bright Accent",
@@ -177,28 +159,23 @@ namespace WoRCP
         "Inactive",
         "Panel",
         "Background"};
-            this.collapsiblePanel2.Location = new System.Drawing.Point(10, 10);
-            this.collapsiblePanel2.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
-            this.collapsiblePanel2.Name = "collapsiblePanel2";
-            this.collapsiblePanel2.RightContent = new string[0];
-            this.collapsiblePanel2.Rounding = 5;
-            this.collapsiblePanel2.Size = new System.Drawing.Size(580, 60);
-            this.collapsiblePanel2.TabIndex = 15;
-            this.collapsiblePanel2.Text = "Theme";
-            this.collapsiblePanel2.Title = "Theme";
-            // 
-            // BrightPanel
-            // 
-            this.BrightPanel.BackColor = System.Drawing.Color.Transparent;
-            this.BrightPanel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrightPanel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.BrightPanel.Location = new System.Drawing.Point(371, 317);
-            this.BrightPanel.Margin = new System.Windows.Forms.Padding(0);
-            this.BrightPanel.Name = "BrightPanel";
-            this.BrightPanel.Size = new System.Drawing.Size(150, 50);
-            this.BrightPanel.TabIndex = 100;
-            this.BrightPanel.Text = "Unavailable";
-            this.BrightPanel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.ThemePanel.Location = new System.Drawing.Point(10, 10);
+            this.ThemePanel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
+            this.ThemePanel.Name = "ThemePanel";
+            this.ThemePanel.RightContent = new string[] {
+        "Unavailable",
+        "Unavailable",
+        "Unavailable‌‌⠀⠀⠀⠀⠀⠀",
+        "Unavailable⠀⠀⠀⠀⠀⠀",
+        "Unavailable⠀⠀⠀⠀⠀⠀",
+        "Unavailable⠀⠀⠀⠀⠀⠀",
+        "Unavailable⠀⠀⠀⠀⠀⠀",
+        "Unavailable⠀⠀⠀⠀⠀⠀",
+        "Unavailable⠀⠀⠀⠀⠀⠀"};
+            this.ThemePanel.Rounding = 5;
+            this.ThemePanel.Size = new System.Drawing.Size(580, 60);
+            this.ThemePanel.TabIndex = 15;
+            this.ThemePanel.Title = "Theme";
             // 
             // BrightPanelPanel
             // 
@@ -210,84 +187,6 @@ namespace WoRCP
             this.BrightPanelPanel.rounding = 5;
             this.BrightPanelPanel.Size = new System.Drawing.Size(40, 40);
             this.BrightPanelPanel.TabIndex = 98;
-            // 
-            // Background
-            // 
-            this.Background.BackColor = System.Drawing.Color.Transparent;
-            this.Background.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Background.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.Background.Location = new System.Drawing.Point(371, 470);
-            this.Background.Margin = new System.Windows.Forms.Padding(0);
-            this.Background.Name = "Background";
-            this.Background.Size = new System.Drawing.Size(150, 50);
-            this.Background.TabIndex = 80;
-            this.Background.Text = "Unavailable";
-            this.Background.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // Panel
-            // 
-            this.Panel.BackColor = System.Drawing.Color.Transparent;
-            this.Panel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Panel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.Panel.Location = new System.Drawing.Point(371, 419);
-            this.Panel.Margin = new System.Windows.Forms.Padding(0);
-            this.Panel.Name = "Panel";
-            this.Panel.Size = new System.Drawing.Size(150, 50);
-            this.Panel.TabIndex = 79;
-            this.Panel.Text = "Unavailable";
-            this.Panel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // Inactive
-            // 
-            this.Inactive.BackColor = System.Drawing.Color.Transparent;
-            this.Inactive.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Inactive.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.Inactive.Location = new System.Drawing.Point(371, 368);
-            this.Inactive.Margin = new System.Windows.Forms.Padding(0);
-            this.Inactive.Name = "Inactive";
-            this.Inactive.Size = new System.Drawing.Size(150, 50);
-            this.Inactive.TabIndex = 78;
-            this.Inactive.Text = "Unavailable";
-            this.Inactive.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // DarkAccent
-            // 
-            this.DarkAccent.BackColor = System.Drawing.Color.Transparent;
-            this.DarkAccent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.DarkAccent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.DarkAccent.Location = new System.Drawing.Point(371, 265);
-            this.DarkAccent.Margin = new System.Windows.Forms.Padding(0);
-            this.DarkAccent.Name = "DarkAccent";
-            this.DarkAccent.Size = new System.Drawing.Size(150, 50);
-            this.DarkAccent.TabIndex = 77;
-            this.DarkAccent.Text = "Unavailable";
-            this.DarkAccent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // Accent
-            // 
-            this.Accent.BackColor = System.Drawing.Color.Transparent;
-            this.Accent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Accent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.Accent.Location = new System.Drawing.Point(371, 214);
-            this.Accent.Margin = new System.Windows.Forms.Padding(0);
-            this.Accent.Name = "Accent";
-            this.Accent.Size = new System.Drawing.Size(150, 50);
-            this.Accent.TabIndex = 76;
-            this.Accent.Text = "Unavailable";
-            this.Accent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // BrightAccent
-            // 
-            this.BrightAccent.BackColor = System.Drawing.Color.Transparent;
-            this.BrightAccent.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BrightAccent.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.BrightAccent.Location = new System.Drawing.Point(371, 163);
-            this.BrightAccent.Margin = new System.Windows.Forms.Padding(0);
-            this.BrightAccent.Name = "BrightAccent";
-            this.BrightAccent.Size = new System.Drawing.Size(150, 50);
-            this.BrightAccent.TabIndex = 75;
-            this.BrightAccent.Text = "Unavailable";
-            this.BrightAccent.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // PanelPanel
             // 
@@ -354,32 +253,6 @@ namespace WoRCP
             this.BrightAccentPanel.rounding = 5;
             this.BrightAccentPanel.Size = new System.Drawing.Size(40, 40);
             this.BrightAccentPanel.TabIndex = 67;
-            // 
-            // Transparency
-            // 
-            this.Transparency.BackColor = System.Drawing.Color.Transparent;
-            this.Transparency.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Transparency.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.Transparency.Location = new System.Drawing.Point(420, 112);
-            this.Transparency.Margin = new System.Windows.Forms.Padding(0);
-            this.Transparency.Name = "Transparency";
-            this.Transparency.Size = new System.Drawing.Size(150, 50);
-            this.Transparency.TabIndex = 50;
-            this.Transparency.Text = "Unavailable";
-            this.Transparency.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // ThemeMode
-            // 
-            this.ThemeMode.BackColor = System.Drawing.Color.Transparent;
-            this.ThemeMode.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ThemeMode.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.ThemeMode.Location = new System.Drawing.Point(420, 61);
-            this.ThemeMode.Margin = new System.Windows.Forms.Padding(0);
-            this.ThemeMode.Name = "ThemeMode";
-            this.ThemeMode.Size = new System.Drawing.Size(150, 50);
-            this.ThemeMode.TabIndex = 49;
-            this.ThemeMode.Text = "Unavailable";
-            this.ThemeMode.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // collapsiblePanel3
             // 
@@ -499,7 +372,7 @@ namespace WoRCP
             this.Load += new System.EventHandler(this.Debugger_Load);
             this.TitleBar.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
-            this.collapsiblePanel2.ResumeLayout(false);
+            this.ThemePanel.ResumeLayout(false);
             this.collapsiblePanel3.ResumeLayout(false);
             this.roundedPanel1.ResumeLayout(false);
             this.roundedPanel1.PerformLayout();
@@ -517,9 +390,7 @@ namespace WoRCP
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.Timer LogUpdater;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
-        private WoRCP.UI.CollapsiblePanel collapsiblePanel2;
-        private System.Windows.Forms.Label Transparency;
-        private System.Windows.Forms.Label ThemeMode;
+        private WoRCP.UI.CollapsiblePanel ThemePanel;
         private WoRCP.UI.CollapsiblePanel collapsiblePanel3;
         private WoRCP.UI.RoundedPanel PanelPanel;
         private WoRCP.UI.RoundedPanel InactivePanel;
@@ -527,17 +398,10 @@ namespace WoRCP
         private WoRCP.UI.RoundedPanel AccentPanel;
         private WoRCP.UI.RoundedPanel BackgroundPanel;
         private WoRCP.UI.RoundedPanel BrightAccentPanel;
-        private System.Windows.Forms.Label Background;
-        private System.Windows.Forms.Label Panel;
-        private System.Windows.Forms.Label Inactive;
-        private System.Windows.Forms.Label DarkAccent;
-        private System.Windows.Forms.Label Accent;
-        private System.Windows.Forms.Label BrightAccent;
         private WoRCP.UI.RoundedPanel roundedPanel1;
         private System.Windows.Forms.Label label2;
         private WoRCP.UI.CollapsiblePanel collapsiblePanel4;
         private WoRCP.UI.Toggle AdvancedOCToggle;
-        private System.Windows.Forms.Label BrightPanel;
         private WoRCP.UI.RoundedPanel BrightPanelPanel;
         private WoRCP.UI.RoundedButton SaveButton;
     }

@@ -469,7 +469,7 @@ namespace WoRCP.Tabs
             this.Name = "Performance";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Performance_Load);
-            this.EnabledChanged += new System.EventHandler(this.Performance_EnabledChanged);
+            this.VisibleChanged += new System.EventHandler(this.Performance_VisibleChanged);
             this.roundedPanel5.ResumeLayout(false);
             this.roundedPanel5.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.WriteChart)).EndInit();

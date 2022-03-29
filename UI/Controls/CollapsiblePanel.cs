@@ -18,7 +18,7 @@ namespace WoRCP.UI
         private string[] rightcontent = new string[0];
         private Color panelcolor = Color.FromArgb(25, 25, 27);
         private Color currentcolor = Color.FromArgb(25, 25, 27);
-        private Font font = new Font("Segoe MDL2 Assets", 14.25f);
+        private Font font = Theme.glyphs;
         private Font textfont = new Font("Segoe UI", 9f);
         private string title = "Expandable panel";
         #endregion
@@ -114,10 +114,6 @@ namespace WoRCP.UI
         public CollapsiblePanel()
         {
             InitializeComponent();
-            if (Convert.ToInt32(Theme.Build) >= 22000)
-            {
-                font = new Font("Segoe Fluent Icons", 14.25f);
-            }
         }
         #endregion
 
@@ -156,7 +152,7 @@ namespace WoRCP.UI
                 e.Graphics.DrawString(leftcontent[i], textfont, drawBrush, 45, septop + 18);
 
                 //Draw the right content
-                if (i <= rightcontent.Length -1)
+                if (i <= rightcontent.Length - 1)
                 {
                     SizeF stringlength = e.Graphics.MeasureString(rightcontent[i], textfont);
                     e.Graphics.DrawString(rightcontent[i], textfont, new SolidBrush(Theme.Disabled), Width - stringlength.Width - 10, septop + 18);
@@ -190,7 +186,7 @@ namespace WoRCP.UI
 
             e.Graphics.DrawString(icon, font, drawBrush, 12, 21);
             e.Graphics.DrawString(title, panel1.Font, drawBrush, 45, 23);
-            e.Graphics.DrawString(expander, new Font(font.Name,10f), drawBrush, Width - 38, 23);
+            e.Graphics.DrawString(expander, new Font(font.Name, 10f), drawBrush, Width - 38, 23);
         }
         #endregion
 

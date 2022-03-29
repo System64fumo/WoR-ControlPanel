@@ -13,16 +13,21 @@ namespace WoRCP
         public Debugger() { InitializeComponent(); }
         private void Debugger_Load(object sender, EventArgs e)
         {
+            string spacing = Program.Spacing(6);
             //Display the theme system's values in text
-            ThemeMode.Text = Theme.ThemeMode.ToString();
-            Transparency.Text = Theme.Transparency.ToString();
-            BrightAccent.Text = getRGB(Theme.BrightAccent);
-            Accent.Text = getRGB(Theme.Accent);
-            DarkAccent.Text = getRGB(Theme.DarkAccent);
-            Inactive.Text = getRGB(Theme.Inactive);
-            Panel.Text = getRGB(Theme.Panel);
-            Background.Text = getRGB(Theme.Background);
-            BrightPanel.Text = getRGB(Theme.BrightPanel);
+            ThemePanel.RightContent[0] = Theme.ThemeMode.ToString();
+            ThemePanel.RightContent[1] = Theme.Transparency.ToString();
+            ThemePanel.RightContent[2] = getRGB(Theme.BrightAccent) + spacing;
+            ThemePanel.RightContent[3] = getRGB(Theme.Accent) + spacing;
+            ThemePanel.RightContent[4] = getRGB(Theme.DarkAccent) + spacing;
+            ThemePanel.RightContent[5] = getRGB(Theme.BrightPanel) + spacing;
+            ThemePanel.RightContent[6] = getRGB(Theme.Inactive) + spacing;
+            ThemePanel.RightContent[7] = getRGB(Theme.Panel) + spacing;
+            ThemePanel.RightContent[8] = getRGB(Theme.Background) + spacing;
+
+            //Change titlebar glyphs
+            MinimizeButton.Font = new Font(Theme.glyphs.Name, 9.75f);
+            CloseButton.Font = new Font(Theme.glyphs.Name, 9.75f);
 
             //Read config
             LogTextBox.Text = Program.LogOutput;

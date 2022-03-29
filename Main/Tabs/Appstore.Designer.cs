@@ -31,34 +31,34 @@ namespace WoRCP.Tabs
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Appstore));
             this.Container = new System.Windows.Forms.FlowLayoutPanel();
-            this.RecommendedImage = new System.Windows.Forms.Panel();
+            this.Banner = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.Container.SuspendLayout();
-            this.RecommendedImage.SuspendLayout();
+            this.Banner.SuspendLayout();
             this.SuspendLayout();
             // 
             // Container
             // 
             this.Container.AutoScroll = true;
-            this.Container.Controls.Add(this.RecommendedImage);
+            this.Container.Controls.Add(this.Banner);
             this.Container.Location = new System.Drawing.Point(0, 0);
             this.Container.Name = "Container";
             this.Container.Size = new System.Drawing.Size(681, 470);
             this.Container.TabIndex = 2;
             this.Container.Visible = false;
             // 
-            // RecommendedImage
+            // Banner
             // 
-            this.RecommendedImage.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("RecommendedImage.BackgroundImage")));
-            this.RecommendedImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.RecommendedImage.Controls.Add(this.label2);
-            this.RecommendedImage.Controls.Add(this.label1);
-            this.RecommendedImage.Location = new System.Drawing.Point(10, 10);
-            this.RecommendedImage.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
-            this.RecommendedImage.Name = "RecommendedImage";
-            this.RecommendedImage.Size = new System.Drawing.Size(640, 230);
-            this.RecommendedImage.TabIndex = 0;
+            this.Banner.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Banner.BackgroundImage")));
+            this.Banner.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.Banner.Controls.Add(this.label2);
+            this.Banner.Controls.Add(this.label1);
+            this.Banner.Location = new System.Drawing.Point(10, 10);
+            this.Banner.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
+            this.Banner.Name = "Banner";
+            this.Banner.Size = new System.Drawing.Size(640, 230);
+            this.Banner.TabIndex = 0;
             // 
             // label2
             // 
@@ -92,14 +92,14 @@ namespace WoRCP.Tabs
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Appstore_Load);
             this.Container.ResumeLayout(false);
-            this.RecommendedImage.ResumeLayout(false);
+            this.Banner.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
 
         #endregion
         private new System.Windows.Forms.FlowLayoutPanel Container;
-        private System.Windows.Forms.Panel RecommendedImage;
+        private System.Windows.Forms.Panel Banner;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
     }

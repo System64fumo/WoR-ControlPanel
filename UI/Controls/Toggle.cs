@@ -70,7 +70,7 @@ namespace WoRCP.UI
 
         //Events
         #region Paint
-        private void ToggleKnob_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e,ToggleKnob.Width,ToggleKnob.Height,7,knobcolor); }
+        private void ToggleKnob_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e, ToggleKnob.Width, ToggleKnob.Height, 7, knobcolor); }
         private void Toggle_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e, 40, 20, Theme.ToggleRounding, color); }
         #endregion
 

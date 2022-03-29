@@ -108,7 +108,7 @@ namespace WoRCP.UI
                 if (e.Button == MouseButtons.Left)
                 {
                     int x = Convert.ToInt32(SliderKnob.Location.ToString().Replace("{X=", "").Replace(",Y=" + SliderKnob.Location.Y.ToString() + "}", ""));
-                    if (x >= 1 && x <= SliderBG.Width -1) { SliderKnob.Left += e.X - lastPoint.X; }
+                    if (x >= 1 && x <= SliderBG.Width - 1) { SliderKnob.Left += e.X - lastPoint.X; }
                     if (x >= SliderBG.Width) { SliderKnob.Left += Math.Min(0, e.X - lastPoint.X); }
                     if (x <= 0) { SliderKnob.Left += Math.Max(0, e.X - lastPoint.X); }
                     if (SliderFiller.Width >= SliderBG.Width + 1) { SliderKnob.Left = SliderBG.Width; SliderFiller.Width = SliderBG.Width; }

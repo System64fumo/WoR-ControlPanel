@@ -12,24 +12,26 @@ namespace WoRCP.Tabs
         public Performance() { InitializeComponent(); }
         private void Performance_Load(object sender, EventArgs e)
         {
-            //Initialize and start the resource reader's timer
-            ResourceReader.Initialize();
-            ResourceReader.timer.Enabled = true;
-
             //Theming
             ThemeCharts();
             RoundCharts();
+
+            //Initialize and start the resource reader's timer
+            ResourceReader.Initialize();
+            ResourceReader.timer.Enabled = true;
 
             //Setup
             UpdateCharts(sender, EventArgs.Empty);
             ResourceReader.timer.Tick += UpdateCharts;
             Program.Log("[Info] Charts Initialized succesfully");
         }
+        #endregion
 
+        #region Unloading
         //Get rid of the tick event when unloading the tab
-        private void Performance_EnabledChanged(object sender, EventArgs e)
+        private void Performance_VisibleChanged(object sender, EventArgs e)
         {
-            ResourceReader.timer.Tick -= UpdateCharts;
+            if(!Visible) ResourceReader.timer.Tick -= UpdateCharts;
         }
         #endregion
 

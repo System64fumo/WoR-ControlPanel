@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using WoRCP.UI;
 
@@ -12,7 +13,6 @@ namespace WoRCP.Tabs
     {
         //Main
         #region Variables
-        readonly bool Internet = NetworkInterface.GetIsNetworkAvailable();
         private string ExtractLocation = "";
         private string Name = "";
         private string Background = "";
@@ -29,24 +29,32 @@ namespace WoRCP.Tabs
             InitializeComponent();
         }
 
-        private void Appstore_Load(object sender, EventArgs e)
+        private async void Appstore_Load(object sender, EventArgs e)
         {
-            if (Internet)
+            //Check if internet is available
+            if (NetworkInterface.GetIsNetworkAvailable())
             {
                 Container.Visible = true;
-                try
+
+                //Start downloading the list in the background
+                await Task.Run(() =>
                 {
-                    using (WebClient wc = new WebClient())
+                    try
                     {
-                        wc.DownloadFile(new Uri("https://raw.githubusercontent.com/AmirDahan/WoR-CP-Apps/main/List.txt"), ListPath);
+                        using (WebClient wc = new WebClient())
+                        {
+                            wc.DownloadFile(new Uri("https://raw.githubusercontent.com/AmirDahan/WoR-CP-Apps/main/List.txt"), ListPath);
+                        }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Container.Visible = false;
-                    Program.Log("[Error] Unable to download the appstore list file.\n Please open the debugger and send the log to the developer.");
-                    Program.Log("[Exception] " + ex);
-                }
+                    catch (Exception ex)
+                    {
+                        Container.Visible = false;
+                        Program.Log("[Error] Unable to download the appstore list file.\n Please open the debugger and send the log to the developer.");
+                        Program.Log("[Exception] " + ex);
+                    }
+                });
+                
+                //Add apps to the appstore
                 if (File.Exists(ListPath))
                 {
                     string[] lines = File.ReadAllLines(ListPath);

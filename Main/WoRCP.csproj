@@ -149,7 +149,8 @@
     <Prefer32Bit>false</Prefer32Bit>
     <OutputPath>bin\Release\</OutputPath>
     <Optimize>true</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
+    <DefineConstants>
+    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Other\app.manifest</ApplicationManifest>

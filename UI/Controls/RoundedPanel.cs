@@ -9,7 +9,7 @@ namespace WoRCP.UI
         //Main
         #region Variables
         int Rounding = Theme.PanelRounding;
-        Color currentcolor = Color.FromArgb(25, 25, 27);
+        Color currentcolor = Theme.Panel;
         #endregion
 
         #region Properties
@@ -49,8 +49,8 @@ namespace WoRCP.UI
             else if (currentcolor == Color.FromArgb(20, 20, 20) || currentcolor == Color.FromArgb(243, 243, 243)) currentcolor = Theme.Background;
             else if (currentcolor == Color.FromArgb(25, 25, 27) || currentcolor == Color.FromArgb(251, 251, 251)) currentcolor = Theme.Panel;
             else if (currentcolor == Color.FromArgb(35, 35, 40) || currentcolor == Color.FromArgb(242, 242, 242)) currentcolor = Theme.BrightPanel;
-            RoundedCorners.Paint(e, this.Width, this.Height, Rounding, currentcolor);
-            this.BackColor = Color.Transparent;
+            RoundedCorners.Paint(e, Width, Height, Rounding, currentcolor);
+            BackColor = Color.Transparent;
         }
         #endregion
     }

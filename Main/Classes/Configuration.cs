@@ -15,16 +15,16 @@ namespace WoRCP
             switch (DeviceModel)
             {
                 case "Raspberry Pi 4 Model B":
-                    ConfigUtility.StockValues = new string[] { "1500", "500", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1500", "500", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
                     break;
                 case "Raspberry Pi 3 Model B+":
-                    ConfigUtility.StockValues = new string[] { "1400", "400", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1400", "400", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
                     break;
                 case "Raspberry Pi 3 Model B":
-                    ConfigUtility.StockValues = new string[] { "1200", "400", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1200", "400", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
                     break;
                 default: //Unknown Pi
-                    ConfigUtility.StockValues = new string[] { "1500", "250", "32", "0", "0", "85", "0", "0", "0", "", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1500", "250", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
                     break;
             }
             //Set default screen height and width
@@ -71,12 +71,11 @@ namespace WoRCP
         public static string Edition = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "ProductName", null);
         public static string Update = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "DisplayVersion", null);
         public static string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
-        public static string Version = Application.ProductVersion.Remove(5,2);
+        public static string Version = Application.ProductVersion.Remove(5, 2);
         #endregion
 
         #region WoR-CP Settings
         public static MainWindow mainwindow;
-        public static bool UpdatesAvailable;
         public static bool DebuggerOpen;
         public static bool BootMounted = Directory.Exists(@"B:\");
         public static bool AdvancedOC;

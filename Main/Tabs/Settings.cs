@@ -10,7 +10,7 @@ namespace WoRCP.Tabs
 {
     public partial class Settings : UserControl
     {
-        //TODO Rewrite most of the stuff in this tab
+        //TODO: Rewrite most of the stuff in this tab
 
         //Main
         #region Variables
@@ -43,6 +43,10 @@ namespace WoRCP.Tabs
                 Program.Log("[Exception] " + ex);
             }
 
+            //Change glyphs
+            IssuesIcon.Font = new Font(Theme.glyphs.Name,20.25f);
+            label5.Font = new Font(Theme.glyphs.Name,48f);
+
             //Add a button for every resolution in the resolution list
             foreach (string R in Res)
             {
@@ -67,7 +71,6 @@ namespace WoRCP.Tabs
         #region Resolution button
         private void SaveCustomRes_Click(object sender, EventArgs e)
         {
-
             //Getting information from the current selected button
             ConfigUtility.Width = WidthTB.Text;     //Get the selected Width from the textbox
             ConfigUtility.Height = HeightTB.Text;   //Get the selected Height from the textbox
@@ -85,7 +88,9 @@ namespace WoRCP.Tabs
                 ConfigUtility.Values[10] = null;
                 ConfigUtility.Values[11] = null;
             }
-            foreach (RoundedButton b in ResolutionList.Controls.OfType<RoundedButton>()) { b.Color = Theme.BrightPanel; } //After selection set every resolution button's color to Bright panel (Unselected)
+
+            //After selection set every resolution button's color to Bright panel (Unselected)
+            foreach (RoundedButton b in ResolutionList.Controls.OfType<RoundedButton>()) { b.Color = Theme.BrightPanel; }
             SaveButton.Color = Theme.Accent;
         }
         private void Btn_Click(object sender, EventArgs e)
@@ -126,7 +131,7 @@ namespace WoRCP.Tabs
                     ConfigUtility.Read();
                     for (int i = 0; i < ConfigUtility.Values.Length; i++)
                     {
-                        if (ConfigUtility.Values[i] != null) //TODO Fix this horrible mess
+                        if (ConfigUtility.Values[i] != null)
                         {
                             int val = Convert.ToInt32(ConfigUtility.Values[i]);
                             switch (i)
@@ -152,58 +157,18 @@ namespace WoRCP.Tabs
                                     ForceTurboToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                                 case 5: //Temp_Limit=
-                                        //TODO Add temp limit GUI Option
+                                        //TODO: Add temp limit GUI Option
                                     break;
                                 case 6: //Disable_Overscan=
                                     OverscanState.Text = "Enabled";
                                     OverscanToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                                 case 7: //Disable_Splash=
-                                        //TODO Add disable splash GUI Option
+                                        //TODO: Add disable splash GUI Option
                                     break;
                                 case 8: //HDMI_Force_Hotplug=
                                     HotplugState.Text = "Enabled";
                                     HotplugToggle.Toggled = Convert.ToBoolean(val);
-                                    break;
-                            }
-                        }
-                        else //Set stock/null values
-                        {
-                            switch (i)
-                            {
-                                case 0: //Arm_Freq=
-                                    CPUSlider.Value = Convert.ToInt32(ConfigUtility.StockValues[i]) / 1000.0;
-                                    CPUFreq.Text = Math.Round(CPUSlider.Value, 1) + "GHz";
-                                    break;
-                                case 1: //GPU_Freq=
-                                    GPUFreqSlider.Value = (Convert.ToInt32(ConfigUtility.StockValues[i]) - 250) / 50;
-                                    GPUFreq.Text = 250 + (GPUFreqSlider.Value * 50) + "MHz";
-                                    break;
-                                case 2: //GPU_Mem=
-                                    GPUMemSlider.Value = Convert.ToInt32(ConfigUtility.StockValues[i]) / 32.0;
-                                    GPUMem.Text = GPUMemSlider.Value * 32 + "MB";
-                                    break;
-                                case 3: //Over_Voltage=
-                                    OvervoltageSlider.Value = Convert.ToInt32(ConfigUtility.StockValues[i]);
-                                    Overvoltage.Text = OvervoltageSlider.Value.ToString();
-                                    break;
-                                case 4: //Force_Turbo=
-                                    ForceTurbo.Text = "Disabled";
-                                    ForceTurboToggle.Toggled = Convert.ToBoolean(Convert.ToInt32(ConfigUtility.StockValues[i]));
-                                    break;
-                                case 5: //Temp_Limit=
-                                        //TODO Add temp limit GUI Option
-                                    break;
-                                case 6: //Disable_Overscan=
-                                    OverscanState.Text = "Disabled";
-                                    OverscanToggle.Toggled = Convert.ToBoolean(Convert.ToInt32(ConfigUtility.StockValues[i]));
-                                    break;
-                                case 7: //Disable_Splash=
-                                        //TODO Add disable splash GUI Option
-                                    break;
-                                case 8: //HDMI_Force_Hotplug=
-                                    HotplugState.Text = "Disabled";
-                                    HotplugToggle.Toggled = Convert.ToBoolean(Convert.ToInt32(ConfigUtility.StockValues[i]));
                                     break;
                             }
                         }
@@ -269,7 +234,7 @@ namespace WoRCP.Tabs
 
 
             //Check if pi is overclocked or not
-            if (armfreq == 0)  //Stock
+            if (armfreq == Convert.ToInt32(ConfigUtility.StockValues[0]))  //Stock
             {
                 PiLabel.Text = "Your Pi is running at stock speeds";
                 OverclockingPanel.Icon = "";

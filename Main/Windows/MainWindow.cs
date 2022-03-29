@@ -11,7 +11,6 @@ namespace WoRCP
     {
         //Main
         #region Variables
-        private Font font = new Font("Segoe MDL2 Assets", 16f);
         private SolidBrush drawBrush;
         private bool PreviousThemeMode;
         #endregion
@@ -37,14 +36,9 @@ namespace WoRCP
             //Easteregg
             RGBStrip.Visible = Configuration.RGBMode;
 
-            //Change icons to match windows 10/11's iconography
-            if (Convert.ToInt32(Configuration.Build) >= 22000)
-            {
-                font = new Font("Segoe Fluent Icons", 16f);
-            }
             drawBrush = new SolidBrush(Theme.Text);
-            CloseButton.Font = new Font(font.Name, 9.75f);
-            MinimizeButton.Font = new Font(font.Name, 9.75f);
+            CloseButton.Font = new Font(Theme.glyphs.Name, 9.75f);
+            MinimizeButton.Font = new Font(Theme.glyphs.Name, 9.75f);
 
             LoadTab(new Performance(), 210);
             ResourceReader.changeTrayIcon();
@@ -105,14 +99,16 @@ namespace WoRCP
             {
                 Program.Log("[Info] Loading" + userctrl.Name + " tab");
                 if (Configuration.OverlayEnabled || ResourceReader.trayicon.Visible) { ResourceReader.timer.Enabled = true; }
+                Theme.Set(userctrl);
                 if (Tabcontainer.Controls.Count > 0)
                 {
                     foreach (UserControl uc in Tabcontainer.Controls)
                     {
                         if (uc.ToString() != userctrl.ToString())
                         {
+
                             Tabcontainer.Controls.Add(userctrl);
-                            uc.Enabled = false;
+                            uc.Visible = false;
                             uc.Dispose();
                         }
                     }
@@ -121,7 +117,6 @@ namespace WoRCP
                 {
                     Tabcontainer.Controls.Add(userctrl);
                 }
-                Theme.Set(userctrl);
                 Indicator.Top = c;
                 userctrl.Dock = DockStyle.Fill;
             }
@@ -158,33 +153,33 @@ namespace WoRCP
 
         private void PerformanceButton_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+            e.Graphics.DrawString("", Theme.glyphs, drawBrush, 8, 14);
         }
 
         private void PeripheralsButton_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("", font, drawBrush, 6, 16);
+            e.Graphics.DrawString("", Theme.glyphs, drawBrush, 6, 14);
         }
 
         private void AppstoreButton_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("", new Font(font.Name, 9.75f), drawBrush, 14, 16);
-            e.Graphics.DrawString("", new Font(font.Name, 15.5f), drawBrush, 8, 20);
+            e.Graphics.DrawString("", new Font(Theme.glyphs.Name, 9.75f), drawBrush, 14, 14);
+            e.Graphics.DrawString("", new Font(Theme.glyphs.Name, 15.5f), drawBrush, 8, 20);
         }
 
         private void AboutButton_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+            e.Graphics.DrawString("", Theme.glyphs, drawBrush, 8, 14);
         }
 
         private void OverlayButton_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+            e.Graphics.DrawString("", Theme.glyphs, drawBrush, 8, 14);
         }
 
         private void SettingsButton_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawString("", font, drawBrush, 8, 16);
+            e.Graphics.DrawString("", Theme.glyphs, drawBrush, 8, 14);
         }
         #endregion
 
@@ -203,7 +198,7 @@ namespace WoRCP
             //Make the sidepanel have acrylic when the window is in focus
             if (Theme.Transparency)
             {
-                //TODO Add animation
+                //TODO: Add animation
                 SidePanel.BackColor = Theme.Panel;
                 Theme.CurrentAccent = Theme.ACCENT.ENABLE_ACRYLICBLURBEHIND;
                 Theme.EnableAcrylic(this, SidePanel, true);
@@ -215,7 +210,7 @@ namespace WoRCP
             //Make the sidepanel opaque when the window is no longer in focus
             if (Theme.Transparency)
             {
-                //TODO Add animation
+                //TODO: Add animation
                 SidePanel.BackColor = Theme.Panel;
                 Theme.CurrentAccent = Theme.ACCENT.DISABLED;
                 Theme.EnableAcrylic(this, SidePanel);

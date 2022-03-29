@@ -107,9 +107,9 @@ namespace WoRCP
         public static void UpdateChart(Chart chart, double[] Value)
         {
             chart.Series[0].Points.Clear();
-            foreach (double i in Value)
+            for (int i = 0; i < Value.Length; i++)
             {
-                chart.Series[0].Points.AddY(i);
+                chart.Series[0].Points.AddY(Value[i]);
             }
         }
         #endregion

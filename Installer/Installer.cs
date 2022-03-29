@@ -5,6 +5,9 @@ using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -12,19 +15,20 @@ namespace Installer
 {
     public partial class WoRCPInstaller : Form
     {
-        //TODO Redo this whole form
+        //TODO: Redo this whole form
         //Everything is currently a place holder
 
         //Main
         #region Variables
         readonly bool Internet = NetworkInterface.GetIsNetworkAvailable();
-        private string Link = "https://github.com/AmirDahan/WoR-ControlPanel/releases/latest/download/ARM64.zip";
+        private readonly string Link = "https://github.com/AmirDahan/WoR-ControlPanel/releases/latest/download/x86.zip";
+        private readonly string Assemblyver = "https://raw.githubusercontent.com/AmirDahan/WoR-ControlPanel/main/Main/Properties/AssemblyInfo.cs";
         private string AppPath = @"C:\Program Files\WoR Control Panel";
         private bool Installed;
-        private bool UpdateAvailable = true;
+        private bool UpdateAvailable;
         private readonly string DownloadPath = Path.GetTempPath() + @"\Download.zip";
         private Font font = new Font("Segoe UI", 32f);
-        private SolidBrush DrawBrush;
+        private SolidBrush DrawBrush = new SolidBrush(WoRCP.UI.Theme.Text);
         string AppName = "WoR ControlPanel";
         string ServerVersion = "V0.0.0";
         string LocalVersion = "V0.0.0";
@@ -48,18 +52,7 @@ namespace Installer
             }
 
             //Initialization
-            DrawBrush = new SolidBrush(WoRCP.UI.Theme.Text);
-            WoRCP.UI.Theme.Initialize(this,AcrylicPanel);
-
-            //Check if transperancy is enabled and change the titlebar color
-            if (WoRCP.UI.Theme.Transparency)
-            {
-                WoRCP.UI.WindowUtils.changeTitlebarBackColor(this, WoRCP.UI.Theme.Inactive.R, WoRCP.UI.Theme.Inactive.G, WoRCP.UI.Theme.Inactive.B);
-            }
-            else
-            {
-                WoRCP.UI.WindowUtils.changeTitlebarBackColor(this, WoRCP.UI.Theme.Panel.R, WoRCP.UI.Theme.Panel.G, WoRCP.UI.Theme.Panel.B);
-            }
+            WoRCP.UI.Theme.Initialize(this, AcrylicPanel);
 
             await Task.Run(() =>
             {
@@ -69,14 +62,18 @@ namespace Installer
                     {
                         using (WebClient wc = new WebClient())
                         {
-                            wc.DownloadFile(new Uri("https://raw.githubusercontent.com/AmirDahan/WoR-ControlPanel/main/Properties/AssemblyInfo.cs"), Application.StartupPath + @"\Version.txt");
+                            wc.DownloadFile(new Uri(Assemblyver), Application.StartupPath + @"\Version.txt");
                         }
 
                         foreach (string line in File.ReadAllLines(Application.StartupPath + @"\Version.txt"))
                         {
                             if (line.Contains("[assembly: AssemblyVersion(") && !line.Contains("//"))
                             {
-                                ServerVersion = "V" + line.Remove(0, 28).Remove(5, 5);
+                                string version = line.Remove(0, 28).Remove(5, 5);
+                                int a = Convert.ToInt32(version.Remove(1));
+                                int b = Convert.ToInt32(version.Remove(0, 2).Remove(1, 2));
+                                int c = Convert.ToInt32(version.Remove(0, 4)) - 1;
+                                ServerVersion = "V" + a + "." + b + "." + c;
                                 AcrylicPanel.Invalidate();
                             }
                         }
@@ -88,6 +85,7 @@ namespace Installer
                 }
             });
 
+            // TODO: Add update code
             if (UpdateAvailable)
             {
                 BottomLabel.Text = "An update is available! " + LocalVersion + " -> " + ServerVersion;
@@ -127,6 +125,13 @@ namespace Installer
                     InstallButton.Enabled = true;
                     ChooseDirButton.Enabled = true;
                     InstallButton.Color = WoRCP.UI.Theme.Accent;
+
+                    //Remove shortcut
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\WoRCP.lnk";
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
                 }
                 else //Install app
                 {
@@ -143,12 +148,21 @@ namespace Installer
                         File.Delete(DownloadPath);
                         InstallButton.ButtonText = "Uninstall";
                     }
+
+                    //Create shortcut
+                    IShellLink link = (IShellLink)new ShellLink();
+                    link.SetDescription("My Description");
+                    link.SetPath(AppPath + @"\WoRCP.exe");
+                    IPersistFile file = (IPersistFile)link;
+                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                    file.Save(Path.Combine(desktopPath, "WoRCP.lnk"), false);
+
                     InstallButton.Enabled = true;
                     InstallButton.Color = Color.FromArgb(235, 0, 65);
                 }
                 Installed = !Installed;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 InstallButton.ButtonText = "Error";
                 InstallButton.Enabled = false;
@@ -184,6 +198,7 @@ namespace Installer
         }
         #endregion
 
+        //Methods
         #region Download file
         private async Task DownloadFileTaskAsync(HttpClient client, Uri uri, string FileName)
         {
@@ -194,6 +209,39 @@ namespace Installer
                     await s.CopyToAsync(fs);
                 }
             }
+        }
+        #endregion
+
+        #region Create shortcut
+        [ComImport]
+        [Guid("00021401-0000-0000-C000-000000000046")]
+        internal class ShellLink
+        {
+        }
+
+        [ComImport]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        [Guid("000214F9-0000-0000-C000-000000000046")]
+        internal interface IShellLink
+        {
+            void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, out IntPtr pfd, int fFlags);
+            void GetIDList(out IntPtr ppidl);
+            void SetIDList(IntPtr pidl);
+            void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszName, int cchMaxName);
+            void SetDescription([MarshalAs(UnmanagedType.LPWStr)] string pszName);
+            void GetWorkingDirectory([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir, int cchMaxPath);
+            void SetWorkingDirectory([MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+            void GetArguments([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs, int cchMaxPath);
+            void SetArguments([MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+            void GetHotkey(out short pwHotkey);
+            void SetHotkey(short wHotkey);
+            void GetShowCmd(out int piShowCmd);
+            void SetShowCmd(int iShowCmd);
+            void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath, int cchIconPath, out int piIcon);
+            void SetIconLocation([MarshalAs(UnmanagedType.LPWStr)] string pszIconPath, int iIcon);
+            void SetRelativePath([MarshalAs(UnmanagedType.LPWStr)] string pszPathRel, int dwReserved);
+            void Resolve(IntPtr hwnd, int fFlags);
+            void SetPath([MarshalAs(UnmanagedType.LPWStr)] string pszFile);
         }
         #endregion
     }

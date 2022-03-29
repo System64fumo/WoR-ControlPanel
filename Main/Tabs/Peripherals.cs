@@ -35,6 +35,34 @@ namespace WoRCP.Tabs
         }
         #endregion
 
+        #region Unloading
+        //Closes all of the open pins when unloaing
+        private void Peripherals_VisibleChanged(object sender, EventArgs e)
+        {
+            if (Configuration.CPUArch == "ARM64" && !Visible)
+            {
+                for (int i = 1; i <= PinNums.Length; i++)
+                {
+                    try
+                    {
+                        if (PinNums[i - 1] != 0)
+                        {
+                            if (gpio.IsPinOpen(PinNums[i - 1]))
+                            {
+                                gpio.ClosePin(PinNums[i - 1]);
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
+                        Program.Log("[Exception] " + ex);
+                    }
+                }
+            }
+        }
+        #endregion
+
         //Methods
         #region Initialize GPIO
         public void initializeGPIO()
@@ -56,7 +84,7 @@ namespace WoRCP.Tabs
         #region Add GPIO Pins
         public void addPins()
         {
-            for (int i = 1; i <= PinNums.Length; i++) //TODO Replace this with a better system
+            for (int i = 1; i <= PinNums.Length; i++) //TODO: Replace this with a better system
             {
                 try
                 {
@@ -101,7 +129,7 @@ namespace WoRCP.Tabs
         {
             for (int i = 1; i <= 40; i++)
             {
-                try //TODO Replace with a proper reading system
+                try //TODO: Replace with a proper reading system
                 {
                     if (PinNums[i - 1] != 0 && gpio.Read(PinNums[i - 1]).ToString() == "High")
                     {
@@ -191,33 +219,6 @@ namespace WoRCP.Tabs
             }
             PinModeState.Text = gpio.GetPinMode(SelectedPin).ToString();
             PinStateToggle.Enabled = PinModeToggle.Toggled;
-        }
-        #endregion
-
-        #region Close pins on unload
-        private void Peripherals_EnabledChanged(object sender, EventArgs e)
-        {
-            if (Configuration.CPUArch == "ARM64")
-            {
-                for (int i = 1; i <= PinNums.Length; i++)
-                {
-                    try
-                    {
-                        if (PinNums[i - 1] != 0)
-                        {
-                            if (gpio.IsPinOpen(PinNums[i - 1]))
-                            {
-                                gpio.ClosePin(PinNums[i - 1]);
-                            }
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
-                        Program.Log("[Exception] " + ex);
-                    }
-                }
-            }
         }
         #endregion
     }

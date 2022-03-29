@@ -101,7 +101,7 @@ namespace WoRCP
         #region Download animation
         private void Animation_Tick(object sender, EventArgs e)
         {
-            //TODO replace this with a better system
+            //TODO: replace this with a better system
             if (clr.R >= Theme.BrightAccent.R)
             {
                 AnimationState = false;
@@ -116,7 +116,7 @@ namespace WoRCP
             }
             else
             {
-                clr = Color.FromArgb(255,Math.Max(0, clr.R - 5), Math.Max(0, clr.G - 5), Math.Max(0, clr.B - 5));
+                clr = Color.FromArgb(255, Math.Max(0, clr.R - 5), Math.Max(0, clr.G - 5), Math.Max(0, clr.B - 5));
             }
             InstallButton.Color = clr;
         }

@@ -10,9 +10,9 @@ namespace WoRCP.UI
     {
         //Main
         #region Variables
-        int rounding = Theme.ButtonRounding;
-        string text = "Button";
-        Color currentcolor = Theme.Accent;
+        private int rounding = Theme.ButtonRounding;
+        private string text = "Button";
+        private Color currentcolor = Theme.Accent;
         public event EventHandler Click;
         #endregion
 
@@ -41,7 +41,7 @@ namespace WoRCP.UI
         public RoundedButton()
         {
             InitializeComponent();
-            RoundedCorners.Round(Button,rounding + 2);
+            RoundedCorners.Round(Button, rounding + 2);
         }
         #endregion
 
@@ -65,17 +65,14 @@ namespace WoRCP.UI
         #region Click
         private void Button_Click(object sender, EventArgs e)
         {
-            if (Click != null)
-            {
-                Click.Invoke(this, e);
-            }
+            Click?.Invoke(this, e);
         }
         #endregion
 
         #region Size changed
         private void RoundedButton_SizeChanged(object sender, EventArgs e)
         {
-            Button.Size = this.Size;
+            Button.Size = Size;
             RoundedCorners.Round(Button, rounding + 2);
         }
         #endregion

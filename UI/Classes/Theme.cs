@@ -28,14 +28,15 @@ namespace WoRCP.UI
         public static bool Transparency = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "EnableTransparency", null));
         public static Form form;
         public static ACCENT CurrentAccent = ACCENT.ENABLE_ACRYLICBLURBEHIND;
-        public static string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
+        private static string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
+        public static Font glyphs = new Font("Segoe MDL2 Assets", 16f);
         public static bool CustomTheme;
 
         //Global rounding
-        public static int PanelRounding = 5;
-        public static int ToggleRounding = 10;
-        public static int ButtonRounding = 5;
-        public static int SliderBarRounding = 3;
+        public static byte PanelRounding = 5;
+        public static byte ToggleRounding = 10;
+        public static byte ButtonRounding = 5;
+        public static byte SliderBarRounding = 3;
 
         #endregion
 
@@ -114,7 +115,7 @@ namespace WoRCP.UI
                 string color = r + ", " + g + ", " + b;
 
                 //Set fore color
-                if (control.ForeColor == Color.White || control.ForeColor == Color.Black) { control.ForeColor = Text; }
+                if (control.ForeColor == Color.White || control.ForeColor == Color.Black) control.ForeColor = Text;
 
                 //Set background color
                 if (color == "50, 50, 65") control.BackColor = Accent;
@@ -125,13 +126,10 @@ namespace WoRCP.UI
                 else if (color == "25, 25, 27" || color == "251, 251, 251") control.BackColor = Panel;
                 else if (color == "35, 35, 40" || color == "242, 242, 242") control.BackColor = BrightPanel;
 
-                //Check if the control is acrylic enabled
-                if (control.Tag == "Acrylic") { if (Transparency) EnableAcrylic(form, control, true); }
-
                 //Check if the control has children
                 if (control.HasChildren) { foreach (Control childControl in control.Controls) { Set(childControl); } }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
@@ -209,10 +207,12 @@ namespace WoRCP.UI
             Read();
             Set(mainform);
             WindowUtils.changeAppTheme(mainform, !ThemeMode);
-            if (acrylicpanel != null && Transparency)
-            {
-                EnableAcrylic(mainform, acrylicpanel, true);
-            }
+
+            //Change icons to match windows 10/11's iconography
+            if (Convert.ToInt32(Build) >= 22000) glyphs = new Font("Segoe Fluent Icons", 16f);
+
+            //Check if acrylic is enabled
+            if (acrylicpanel != null && Transparency) EnableAcrylic(mainform, acrylicpanel, true);
         }
         #endregion
 
@@ -221,14 +221,7 @@ namespace WoRCP.UI
         {
             var MyIni = new IniFile(Application.StartupPath + @"\Theme.ini");
             string mode = "DarkMode";
-            if (ThemeMode)
-            {
-                mode = "LightMode";
-            }
-            else
-            {
-                mode = "DarkMode";
-            }
+            if (ThemeMode) mode = "LightMode";
 
             if (MyIni.KeyExists("Acryliccolor", mode))
             {
@@ -254,14 +247,11 @@ namespace WoRCP.UI
         private static Color toColor(string str)
         {
             string[] subs = str.Split(' ');
-            int r = Convert.ToInt32(subs[0]);
-            int g = Convert.ToInt32(subs[1]);
-            int b = Convert.ToInt32(subs[2]);
-            int a = 255;
-            if (subs.Length > 3)
-            {
-                a = Convert.ToInt32(subs[3]);
-            }
+            byte r = Convert.ToByte(subs[0]);
+            byte g = Convert.ToByte(subs[1]);
+            byte b = Convert.ToByte(subs[2]);
+            byte a = 255;
+            if (subs.Length > 3) a = Convert.ToByte(subs[3]);
             return Color.FromArgb(a, r, g, b);
         }
         #endregion

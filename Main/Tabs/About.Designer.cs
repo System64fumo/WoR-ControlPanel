@@ -47,8 +47,6 @@ namespace WoRCP.Tabs
             this.FirmwareLabel = new System.Windows.Forms.Label();
             this.LogoPanel = new System.Windows.Forms.Panel();
             this.AboutPanel = new WoRCP.UI.CollapsiblePanel();
-            this.CreditsValue = new System.Windows.Forms.Label();
-            this.VersionValue = new System.Windows.Forms.Label();
             this.DiscordLink = new System.Windows.Forms.LinkLabel();
             this.flowLayoutPanel1.SuspendLayout();
             this.HardwarePanel.SuspendLayout();
@@ -253,8 +251,6 @@ namespace WoRCP.Tabs
             this.AboutPanel.BackColor = System.Drawing.Color.Transparent;
             this.AboutPanel.Collapsed = true;
             this.AboutPanel.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.AboutPanel.Controls.Add(this.CreditsValue);
-            this.AboutPanel.Controls.Add(this.VersionValue);
             this.AboutPanel.Controls.Add(this.DiscordLink);
             this.AboutPanel.Icon = "";
             this.AboutPanel.LeftContent = new string[] {
@@ -264,38 +260,15 @@ namespace WoRCP.Tabs
             this.AboutPanel.Location = new System.Drawing.Point(10, 185);
             this.AboutPanel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.AboutPanel.Name = "AboutPanel";
-            this.AboutPanel.RightContent = new string[0];
+            this.AboutPanel.RightContent = new string[] {
+        "Unavailable",
+        "",
+        "Created by Amir & Marcin"};
             this.AboutPanel.Rounding = 5;
             this.AboutPanel.Size = new System.Drawing.Size(640, 60);
             this.AboutPanel.TabIndex = 5;
             this.AboutPanel.Text = "About";
             this.AboutPanel.Title = "About";
-            // 
-            // CreditsValue
-            // 
-            this.CreditsValue.BackColor = System.Drawing.Color.Transparent;
-            this.CreditsValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CreditsValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.CreditsValue.Location = new System.Drawing.Point(480, 163);
-            this.CreditsValue.Margin = new System.Windows.Forms.Padding(0);
-            this.CreditsValue.Name = "CreditsValue";
-            this.CreditsValue.Size = new System.Drawing.Size(150, 50);
-            this.CreditsValue.TabIndex = 39;
-            this.CreditsValue.Text = "Created by Amir && Marcin";
-            this.CreditsValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // VersionValue
-            // 
-            this.VersionValue.BackColor = System.Drawing.Color.Transparent;
-            this.VersionValue.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.VersionValue.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.VersionValue.Location = new System.Drawing.Point(480, 61);
-            this.VersionValue.Margin = new System.Windows.Forms.Padding(0);
-            this.VersionValue.Name = "VersionValue";
-            this.VersionValue.Size = new System.Drawing.Size(150, 50);
-            this.VersionValue.TabIndex = 38;
-            this.VersionValue.Text = "Unavailable";
-            this.VersionValue.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // DiscordLink
             // 
@@ -348,7 +321,5 @@ namespace WoRCP.Tabs
         private System.Windows.Forms.Label RevisionLabel;
         private WoRCP.UI.CollapsiblePanel AboutPanel;
         private System.Windows.Forms.LinkLabel DiscordLink;
-        private System.Windows.Forms.Label CreditsValue;
-        private System.Windows.Forms.Label VersionValue;
     }
 }

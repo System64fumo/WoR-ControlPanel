@@ -209,7 +209,7 @@ namespace WoRCP.Tabs
             this.Name = "Peripherals";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Peripherals_Load);
-            this.EnabledChanged += new System.EventHandler(this.Peripherals_EnabledChanged);
+            this.VisibleChanged += new System.EventHandler(this.Peripherals_VisibleChanged);
             this.ControlContainer.ResumeLayout(false);
             this.roundedPanel1.ResumeLayout(false);
             this.roundedPanel1.PerformLayout();

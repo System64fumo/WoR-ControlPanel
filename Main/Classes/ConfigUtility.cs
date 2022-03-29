@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 using WoRCP;
 
 class ConfigUtility //This class contains everything that's related to config.txt
@@ -27,13 +28,17 @@ class ConfigUtility //This class contains everything that's related to config.tx
                         Values[Array.IndexOf(checks, check)] = line.Replace(check, ""); //Replace the check with null leaving you with the check's value (Before: Arm_freq=Value, After: Value)
                     }
                 }
-                if (line.Contains("hdmi_cvt=")) //TODO make this better if possible and by that i mean handle it in the loop above
+                if (line.Contains("hdmi_cvt=")) //TODO: make this better if possible and by that i mean handle it in the loop above
                 {
                     Width = Values[9].Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
                     Height = Values[9].Remove(0, Width.Length + 1).Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
                     Refresh = Values[9].Remove(0, Width.Length + Height.Length + 2);
                     Values[9] = null;
                 }
+            }
+            for (int i = 0; i < Values.Length; i++)
+            {
+                if (Values[i] == null) Values[i] = StockValues[i];
             }
         }
         else
@@ -48,15 +53,29 @@ class ConfigUtility //This class contains everything that's related to config.tx
     {
         if (File.Exists(path)) //Check if config.txt exists
         {
-            string config = ""; //New config.txt
-            int checkcount = 0;
-            foreach (string line in File.ReadAllLines(path)) //For every line in config.txt
+            string[] config = new string[0]; //New config.txt
+            foreach (string i in File.ReadAllLines(path)) //For every line in config.txt
             {
-                foreach (string check in checks) //Add other unknown lines (Lines that don't have a check in ConfigUtility)
+                //TODO: Fix this mess
+                //It was reverted because the new system didn't work as intended and kept on
+                //deleting everything that worcp did not check for leaving you with a broken config
+                if (
+                        !i.Contains("arm_freq=") &&
+                        !i.Contains("gpu_freq=") &&
+                        !i.Contains("gpu_mem=") &&
+                        !i.Contains("over_voltage=") &&
+                        !i.Contains("force_turbo=") &&
+                        !i.Contains("hdmi_cvt=") &&
+                        !i.Contains("hdmi_group=") &&
+                        !i.Contains("hdmi_mode=") &&
+                        !i.Contains("disable_overscan=") &&
+                        !i.Contains("disable_splash=") &&
+                        !i.Contains("hdmi_force_hotplug=")
+                        )
                 {
-                    if (!line.Contains(check)) checkcount++;
+                    config = config.Concat(new string[] { i }).ToArray();
                 }
-                if (checkcount == checks.Length) config += line + Environment.NewLine;
+
             }
 
             foreach (string check in checks)
@@ -64,12 +83,14 @@ class ConfigUtility //This class contains everything that's related to config.tx
                 //Check if the value is not null nor the stock value then write it tp Config.txt
                 if (Values[Array.IndexOf(checks, check)] != null && Values[Array.IndexOf(checks, check)] != StockValues[Array.IndexOf(checks, check)].ToString())
                 {
-                    config += check + Values[Array.IndexOf(checks, check)] + "\n";
+                    config = config.Concat(new string[] { check + Values[Array.IndexOf(checks, check)] }).ToArray();
                 }
             }
-
             StreamWriter sw = new StreamWriter(path);
-            sw.WriteLine(config); //Save the new config.txt
+            foreach (string i in config)
+            {
+                sw.WriteLine(i); //Save the new config.txt
+            }
             sw.Close();
         }
         else

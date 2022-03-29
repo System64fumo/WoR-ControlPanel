@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Windows.Forms;
+using WoRCP.UI;
 
 namespace WoRCP.Tabs
 {
@@ -22,7 +24,8 @@ namespace WoRCP.Tabs
             Firmware.Text = Configuration.FirmwareVer;
             Revision.Text = Configuration.Revision;
             SerialNumber.Text = Configuration.SerialNo;
-            VersionValue.Text = Configuration.Version;
+            AboutPanel.RightContent[0] = Configuration.Version;
+            DeviceIcon.Font = new Font(Theme.glyphs.Name, 20.25f);
             if (Configuration.CPUArch == "ARM64")
             {
                 DeviceIcon.Text = "";
