@@ -72,7 +72,7 @@ namespace WoRCP.Tabs
 
         #region Toggles
         //Overlay
-        private void OverlayToggle_ToggledEvent(object sender, EventArgs e)
+        public void OverlayToggle_ToggledEvent(object sender, EventArgs e)
         {
             Configuration.OverlayEnabled = OverlayToggle.Toggled;
             if (OverlayToggle.Toggled)

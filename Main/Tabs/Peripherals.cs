@@ -74,7 +74,7 @@ namespace WoRCP.Tabs
             }
             catch (NotSupportedException)
             {
-                var result = MessageBox.Show("GPIO Error , Attempt to fix it ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                DialogResult result = MessageBox.Show("GPIO Error , Attempt to fix it ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes) { Process.Start("CMD", "sc config rhproxy start = demand"); }
                 else { Program.Log("[Error] Unable to initialize GPIO"); }
             }
@@ -89,9 +89,11 @@ namespace WoRCP.Tabs
                 try
                 {
                     //GPIO Pin Style
-                    RoundedButton pin = new RoundedButton();
-                    pin.ButtonText = "";
-                    pin.Size = new Size(28, 28);
+                    RoundedButton pin = new RoundedButton
+                    {
+                        ButtonText = "",
+                        Size = new Size(28, 28)
+                    };
                     pin.Font = new Font(pin.Font.Name, 10f);
                     pin.Margin = new Padding(0, 0, 3, 3);
                     pin.Rounding = 2;

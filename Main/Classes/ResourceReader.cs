@@ -72,33 +72,44 @@ namespace WoRCP
         #region Reading
         private static void Tick(object sender, EventArgs e)
         {
-            try
+            if (CountersDefined && Temprature != null)
             {
-                if (CountersDefined && Temprature != null)
+                try
                 {
                     CPU = CPU.Concat(new[] { Math.Round(CPUUsage.NextValue()) }).ToArray();
                     Mem = Mem.Concat(new[] { Configuration.Totalmemory - Math.Round(Memory.NextValue() / 1024, 1) }).ToArray();
                     DiskR = DiskR.Concat(new[] { Math.Round(DiskRead.NextValue() / 1048576, 1) }).ToArray();
                     DiskW = DiskW.Concat(new[] { Math.Round(DiskWrite.NextValue() / 1048576, 1) }).ToArray();
-                    Temp = searcher.Get().OfType<ManagementObject>().First();
-                    Temprature = Temprature.Concat(new[] { (Convert.ToDouble(Temp.GetPropertyValue("HighPrecisionTemperature").ToString()) - 2732) / 10 }).ToArray();
+
+
+
                     if (trayicon.Visible) { changeTrayIcon(); }
                     if (CPU.Length > 10) { CPU = CPU.Skip(1).ToArray(); }
                     if (Mem.Length > 10) { Mem = Mem.Skip(1).ToArray(); }
                     if (DiskR.Length > 10) { DiskR = DiskR.Skip(1).ToArray(); }
                     if (DiskW.Length > 10) { DiskW = DiskW.Skip(1).ToArray(); }
-                    if (Temprature.Length > 10) { Temprature = Temprature.Skip(1).ToArray(); }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Program.Log("[Warn] Resource counters are undefined, Unable to read.");
+                    timer.Enabled = false;
+                    Program.Log("[Error] An unexpected error has occured.");
+                    Program.Log("[Exception] " + ex);
                 }
+            }
+            else
+            {
+                Program.Log("[Warn] Resource counters are undefined, Unable to read.");
+            }
+
+            try
+            {
+                Temp = searcher.Get().OfType<ManagementObject>().First();
+                Temprature = Temprature.Concat(new[] { (Convert.ToDouble(Temp.GetPropertyValue("HighPrecisionTemperature").ToString()) - 2732) / 10 }).ToArray();
+                if (Temprature.Length > 10) { Temprature = Temprature.Skip(1).ToArray(); }
             }
             catch (Exception ex)
             {
-                timer.Enabled = false;
-                Program.Log("[Error] An unexpected error has occured.");
-                Program.Log("[Exception] " + ex);
+                Program.Log("[Warning] Unable to read temperature.");
             }
         }
         #endregion
@@ -117,8 +128,8 @@ namespace WoRCP
         #region Tray icon
         public static void changeTrayIcon()
         {
-            var image = new Bitmap(32, 32);
-            var graphics = Graphics.FromImage(image);
+            Bitmap image = new Bitmap(32, 32);
+            Graphics graphics = Graphics.FromImage(image);
             SolidBrush forecolor = new SolidBrush(Theme.Text);
             if (Configuration.TrayTempWarning && Temprature[9] > Convert.ToInt32(ConfigUtility.Values[5]))
             {

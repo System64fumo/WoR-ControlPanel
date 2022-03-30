@@ -13,12 +13,13 @@ namespace WoRCP.Tabs
     {
         //Main
         #region Variables
-        private string ExtractLocation = "";
-        private string Name = "";
-        private string Background = "";
-        private string Url = "";
-        private string Category = "";
-        private string AppSize = "";
+        private string ExtractLocation;
+        private string Name;
+        private string Background;
+        private string Url;
+        private string Executable;
+        private string Category;
+        private string AppSize;
         private string[] Items = new string[] { };
         private string ListPath = Path.GetTempPath() + "list.txt";
         #endregion
@@ -53,7 +54,7 @@ namespace WoRCP.Tabs
                         Program.Log("[Exception] " + ex);
                     }
                 });
-                
+
                 //Add apps to the appstore
                 if (File.Exists(ListPath))
                 {
@@ -66,9 +67,10 @@ namespace WoRCP.Tabs
                         if (line.Contains("[Icon]")) { Background = line.Remove(0, 7); }
                         if (line.Contains("[Size]")) { AppSize = line.Remove(0, 7); }
                         if (line.Contains("[Link]")) { Url = line.Remove(0, 7); }
-                        if (line.Contains("[Path]")) { ExtractLocation = line.Remove(0, 6); AddApp(Name, Category, Background, Url, ExtractLocation, AppSize); }
+                        if (line.Contains("[Exe]")) { Executable = line.Remove(0, 6); }
+                        if (line.Contains("[Path]")) { ExtractLocation = line.Remove(0, 7); AddApp(Name, Category, Background, Url,Executable, ExtractLocation, AppSize); }
                     }
-                    Program.Log("[Info] Apps found : " + Configuration.ApplicationsFound);
+                    Program.Log("[Info] Apps found: " + Configuration.ApplicationsFound);
                 }
             }
         }
@@ -76,19 +78,20 @@ namespace WoRCP.Tabs
 
         //Methods
         #region Add application
-        private void AddApp(string Name, string Category, string Icon, string Url, string Path, string Applicationsize)
+        private void AddApp(string Name, string Category, string Icon, string Url,string exe, string Path, string Applicationsize)
         {
             AppUI app = new AppUI();
             Theme.Set(app);
             app.AppName.Text = Name;
             app.Category.Text = Category;
             app.Link = Url;
+            app.Executable = exe;
             app.AppPath = Path;
             app.Icon = Icon;
             app.ApplicationSize.Text = Applicationsize + "MB";
             Items = new List<string>(Items) { Name }.ToArray();
             Container.Controls.Add(app);
-            Program.Log("[Info] Added : " + Name + " Link : " + Url + " Path : " + Path);
+            Program.Log("[Info] Added: " + Name + " Link: " + Url + " Path: " + Path);
         }
         #endregion
     }

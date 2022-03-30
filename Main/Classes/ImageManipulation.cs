@@ -2,7 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 
-class ImageManipulation
+public class ImageManipulation
 {
     #region Change image color
     public static Bitmap ToColorTone(Image image, Color color)

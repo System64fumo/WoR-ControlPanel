@@ -91,7 +91,7 @@ namespace WoRCP.UI
             else
             {
                 int regValInt = (int)Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\DWM", "ColorizationColor", null);
-                var regValHex = regValInt.ToString("X");
+                string regValHex = regValInt.ToString("X");
                 string HexColor = regValHex.Remove(0, 2);
                 byte r = byte.Parse(HexColor.Substring(0, 2), NumberStyles.AllowHexSpecifier);
                 byte g = byte.Parse(HexColor.Substring(2, 2), NumberStyles.AllowHexSpecifier);
@@ -140,10 +140,9 @@ namespace WoRCP.UI
         #region Acrylic
         public static void EnableAcrylic(Form window, Control ctrl = null, bool changekey = false)
         {
-            if (window is null) throw new ArgumentNullException(nameof(window));
             Color panelcolor = Color.FromArgb(Math.Min(255, ctrl.BackColor.R - 1), Math.Min(255, ctrl.BackColor.G - 1), ctrl.BackColor.B);
             ctrl.BackColor = panelcolor;
-            var accentPolicy = new AccentPolicy
+            AccentPolicy accentPolicy = new AccentPolicy
             {
                 AccentState = CurrentAccent,
                 GradientColor = ToRGBA(Acryliccolor)
@@ -219,30 +218,15 @@ namespace WoRCP.UI
         #region Custom theme
         private static void loadCustomTheme()
         {
-            var MyIni = new IniFile(Application.StartupPath + @"\Theme.ini");
+            IniFile MyIni = new IniFile(Application.StartupPath + @"\Theme.ini");
             string mode = "DarkMode";
             if (ThemeMode) mode = "LightMode";
 
-            if (MyIni.KeyExists("Acryliccolor", mode))
-            {
-                Acryliccolor = toColor(MyIni.Read("Acryliccolor", mode));
-            }
-            if (MyIni.KeyExists("Inactive", mode))
-            {
-                Inactive = toColor(MyIni.Read("Inactive", mode));
-            }
-            if (MyIni.KeyExists("Background", mode))
-            {
-                Background = toColor(MyIni.Read("Background", mode));
-            }
-            if (MyIni.KeyExists("BrightPanel", mode))
-            {
-                BrightPanel = toColor(MyIni.Read("BrightPanel", mode));
-            }
-            if (MyIni.KeyExists("Text", mode))
-            {
-                Text = toColor(MyIni.Read("Text", mode));
-            }
+            if (MyIni.KeyExists("Acryliccolor", mode))  Acryliccolor = toColor(MyIni.Read("Acryliccolor", mode));
+            if (MyIni.KeyExists("Inactive", mode))      Inactive = toColor(MyIni.Read("Inactive", mode));
+            if (MyIni.KeyExists("Background", mode))    Background = toColor(MyIni.Read("Background", mode));
+            if (MyIni.KeyExists("BrightPanel", mode))   BrightPanel = toColor(MyIni.Read("BrightPanel", mode));
+            if (MyIni.KeyExists("Text", mode))          Text = toColor(MyIni.Read("Text", mode));
         }
         private static Color toColor(string str)
         {

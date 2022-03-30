@@ -9,7 +9,7 @@ namespace WoRCP.UI
     {
         //Main
         #region Variables
-        private bool IsToggled = false;
+        private bool toggled;
         Color color = Theme.Inactive;
         Color knobcolor = Color.White;
         public event EventHandler ToggledEvent;
@@ -19,11 +19,11 @@ namespace WoRCP.UI
         [Category("Advanced")]
         public bool Toggled
         {
-            get { return IsToggled; }
+            get { return toggled; }
             set
             {
-                IsToggled = value;
-                if (IsToggled)
+                toggled = value;
+                if (toggled)
                 {
                     color = Theme.Accent;
                     ToggleKnob.Left = 23;
@@ -37,7 +37,7 @@ namespace WoRCP.UI
                 {
                     color = Color.FromArgb(100, 100, 100);
                 }
-                this.Invalidate();
+                Invalidate();
             }
         }
         #endregion
@@ -52,7 +52,7 @@ namespace WoRCP.UI
         #region Toggle
         private void toggle()
         {
-            if (IsToggled)
+            if (toggled)
             {
                 color = Theme.Inactive;
                 ToggleKnob.Left = 3;
@@ -62,7 +62,7 @@ namespace WoRCP.UI
                 color = Theme.Accent;
                 ToggleKnob.Left = 23;
             }
-            IsToggled = !IsToggled;
+            toggled = !toggled;
             Invalidate();
             ToggledEvent?.Invoke(this, EventArgs.Empty);
         }
@@ -82,8 +82,15 @@ namespace WoRCP.UI
         #region Enabled Changed
         private void Toggle_EnabledChanged(object sender, EventArgs e)
         {
-            if (Enabled) { knobcolor = Color.White; ToggleKnob.Invalidate(); color = Theme.Accent; Invalidate(); }
-            else { knobcolor = Color.FromArgb(150, 150, 150); ToggleKnob.Invalidate(); color = Color.FromArgb(100, 100, 100); Invalidate(); }
+            if (Enabled)
+            {
+                knobcolor = Color.White;
+                if (toggled) color = Theme.Accent;
+                else color = Theme.Inactive;
+
+                Invalidate();
+            }
+            else { knobcolor = Color.FromArgb(150, 150, 150); color = Color.FromArgb(100, 100, 100); Invalidate(); }
         }
         #endregion
 
@@ -91,27 +98,15 @@ namespace WoRCP.UI
 
         private void Toggle_MouseEnter(object sender, EventArgs e)
         {
-            if (IsToggled)
-            {
-                color = Theme.BrightAccent;
-            }
-            else
-            {
-                color = Theme.BrightPanel;
-            }
+            if (toggled) color = Theme.BrightAccent;
+            else color = Theme.BrightPanel;
             Invalidate();
         }
 
         private void Toggle_MouseLeave(object sender, EventArgs e)
         {
-            if (IsToggled)
-            {
-                color = Theme.Accent;
-            }
-            else
-            {
-                color = Theme.Inactive;
-            }
+            if (toggled) color = Theme.Accent;
+            else color = Theme.Inactive;
             Invalidate();
         }
         #endregion

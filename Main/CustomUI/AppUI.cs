@@ -4,6 +4,9 @@ using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WoRCP.UI;
@@ -14,11 +17,12 @@ namespace WoRCP
     {
         //Main
         #region Variables
-        public string Link = "";
-        public string AppPath = "";
-        public string Icon = "";
+        public string Link;
+        public string AppPath;
+        public string Executable;
+        public string Icon;
         private bool Installed;
-        private readonly string DownloadPath = Path.GetTempPath() + @"\Download.zip";
+        private readonly string DownloadPath = Path.GetTempPath() + "Download.zip";
         private bool AnimationState = true;
         private Color clr = Theme.BrightAccent;
         #endregion
@@ -48,6 +52,18 @@ namespace WoRCP
             {
                 if (Installed) //Uninstall app
                 {
+                    //Remove shortcut
+                    string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\" + Executable + ".lnk";
+                    if (Executable.Contains(@"\"))
+                    {
+                        path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\" + Executable.Substring(Executable.LastIndexOf(@"\") + 1) + ".lnk";
+                    }
+
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+
                     InstallButton.Enabled = false;
                     Directory.Delete(AppPath, true);
                     InstallButton.ButtonText = "Install";
@@ -63,9 +79,9 @@ namespace WoRCP
                     Animation.Enabled = true;
 
                     //Start downloading the file
-                    using (var client = new HttpClient())
+                    using (HttpClient client = new HttpClient())
                     {
-                        var uri = new Uri(Link);
+                        Uri uri = new Uri(Link);
                         if (File.Exists(DownloadPath)) { File.Delete(DownloadPath); }
                         await DownloadFileTaskAsync(client, uri, DownloadPath);
                     }
@@ -75,6 +91,20 @@ namespace WoRCP
 
                     //Delete the zip
                     File.Delete(DownloadPath);
+
+                    //Create shortcut
+                    IShellLink link = (IShellLink)new ShellLink();
+                    link.SetPath(AppPath + @"\" + Executable + ".exe");
+                    IPersistFile file = (IPersistFile)link;
+                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                    if (Executable.Contains(@"\"))
+                    {
+                        file.Save(Path.Combine(desktopPath, Executable.Substring(Executable.LastIndexOf(@"\") + 1) + ".lnk"), false);
+                    }
+                    else
+                    {
+                        file.Save(Path.Combine(desktopPath, Executable + ".lnk"), false);
+                    }
 
                     //Finish
                     InstallButton.ButtonText = "Uninstall";
@@ -127,10 +157,10 @@ namespace WoRCP
         private async Task DownloadFileTaskAsync(HttpClient client, Uri uri, string FileName)
         {
             //Get the file stream from the link
-            using (var stream = await client.GetStreamAsync(uri))
+            using (Stream stream = await client.GetStreamAsync(uri))
             {
                 //Create a new file from the filestream
-                using (var filestream = new FileStream(FileName, FileMode.CreateNew))
+                using (FileStream filestream = new FileStream(FileName, FileMode.CreateNew))
                 {
                     await stream.CopyToAsync(filestream);
                 }
@@ -170,6 +200,39 @@ namespace WoRCP
                     }
                 });
             }
+        }
+        #endregion
+
+        #region Create shortcut
+        [ComImport]
+        [Guid("00021401-0000-0000-C000-000000000046")]
+        internal class ShellLink
+        {
+        }
+
+        [ComImport]
+        [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
+        [Guid("000214F9-0000-0000-C000-000000000046")]
+        internal interface IShellLink
+        {
+            void GetPath([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszFile, int cchMaxPath, out IntPtr pfd, int fFlags);
+            void GetIDList(out IntPtr ppidl);
+            void SetIDList(IntPtr pidl);
+            void GetDescription([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszName, int cchMaxName);
+            void SetDescription([MarshalAs(UnmanagedType.LPWStr)] string pszName);
+            void GetWorkingDirectory([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszDir, int cchMaxPath);
+            void SetWorkingDirectory([MarshalAs(UnmanagedType.LPWStr)] string pszDir);
+            void GetArguments([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszArgs, int cchMaxPath);
+            void SetArguments([MarshalAs(UnmanagedType.LPWStr)] string pszArgs);
+            void GetHotkey(out short pwHotkey);
+            void SetHotkey(short wHotkey);
+            void GetShowCmd(out int piShowCmd);
+            void SetShowCmd(int iShowCmd);
+            void GetIconLocation([Out, MarshalAs(UnmanagedType.LPWStr)] StringBuilder pszIconPath, int cchIconPath, out int piIcon);
+            void SetIconLocation([MarshalAs(UnmanagedType.LPWStr)] string pszIconPath, int iIcon);
+            void SetRelativePath([MarshalAs(UnmanagedType.LPWStr)] string pszPathRel, int dwReserved);
+            void Resolve(IntPtr hwnd, int fFlags);
+            void SetPath([MarshalAs(UnmanagedType.LPWStr)] string pszFile);
         }
         #endregion
     }

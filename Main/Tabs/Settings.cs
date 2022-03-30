@@ -44,8 +44,8 @@ namespace WoRCP.Tabs
             }
 
             //Change glyphs
-            IssuesIcon.Font = new Font(Theme.glyphs.Name,20.25f);
-            label5.Font = new Font(Theme.glyphs.Name,48f);
+            IssuesIcon.Font = new Font(Theme.glyphs.Name, 20.25f);
+            label5.Font = new Font(Theme.glyphs.Name, 48f);
 
             //Add a button for every resolution in the resolution list
             foreach (string R in Res)
@@ -153,21 +153,24 @@ namespace WoRCP.Tabs
                                     Overvoltage.Text = OvervoltageSlider.Value.ToString();
                                     break;
                                 case 4: //Force_Turbo=
-                                    ForceTurbo.Text = "Enabled";
+                                    if (Convert.ToBoolean(val)) ForceTurbo.Text = "Enabled";
+                                    else ForceTurbo.Text = "Disabled";
                                     ForceTurboToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                                 case 5: //Temp_Limit=
                                         //TODO: Add temp limit GUI Option
                                     break;
                                 case 6: //Disable_Overscan=
-                                    OverscanState.Text = "Enabled";
-                                    OverscanToggle.Toggled = Convert.ToBoolean(val);
+                                    if (!Convert.ToBoolean(val)) OverscanState.Text = "Enabled";
+                                    else OverscanState.Text = "Disabled";
+                                    OverscanToggle.Toggled = !Convert.ToBoolean(val);
                                     break;
                                 case 7: //Disable_Splash=
                                         //TODO: Add disable splash GUI Option
                                     break;
                                 case 8: //HDMI_Force_Hotplug=
-                                    HotplugState.Text = "Enabled";
+                                    if (Convert.ToBoolean(val)) HotplugState.Text = "Enabled";
+                                    else HotplugState.Text = "Disabled";
                                     HotplugToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                             }

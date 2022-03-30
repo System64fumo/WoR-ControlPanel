@@ -31,7 +31,10 @@ namespace WoRCP.Tabs
         //Get rid of the tick event when unloading the tab
         private void Performance_VisibleChanged(object sender, EventArgs e)
         {
-            if(!Visible) ResourceReader.timer.Tick -= UpdateCharts;
+            if (!Visible)
+            {
+                ResourceReader.timer.Tick -= UpdateCharts;
+            }
         }
         #endregion
 

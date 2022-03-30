@@ -26,6 +26,14 @@ namespace WoRCP
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            //Check if the app should be minimized on startup
+            if (Configuration.MinimizeToTray)
+            {
+                ShowInTaskbar = false;
+                Hide();
+            }
+
+            //Initial Logging
             Program.Log("[Info] Welcome to WoR Control Panel");
             Program.Log("[Info] Version: " + Configuration.Version);
             Program.Log("[Info] Windows: " + Configuration.Build);
@@ -36,13 +44,15 @@ namespace WoRCP
             //Easteregg
             RGBStrip.Visible = Configuration.RGBMode;
 
+            //Theming
             drawBrush = new SolidBrush(Theme.Text);
             CloseButton.Font = new Font(Theme.glyphs.Name, 9.75f);
             MinimizeButton.Font = new Font(Theme.glyphs.Name, 9.75f);
-
-            LoadTab(new Performance(), 210);
             ResourceReader.changeTrayIcon();
             ChangeIcon();
+
+            //Load the default tab
+            LoadTab(new Performance(), 210);
         }
         #endregion
 

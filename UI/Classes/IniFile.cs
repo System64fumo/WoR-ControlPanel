@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WoRCP.UI
 {
-    class IniFile
+    public class IniFile
     {
         string Path;
         string EXE = Assembly.GetExecutingAssembly().GetName().Name;
@@ -24,7 +24,7 @@ namespace WoRCP.UI
 
         public string Read(string Key, string Section = null)
         {
-            var RetVal = new StringBuilder(255);
+            StringBuilder RetVal = new StringBuilder(255);
             GetPrivateProfileString(Section ?? EXE, Key, "", RetVal, 255, Path);
             return RetVal.ToString();
         }

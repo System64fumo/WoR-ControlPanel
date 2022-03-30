@@ -16,7 +16,9 @@ namespace WoRCP.UI
         public static void changeAppTheme(Form form, bool value)
         {
             if (DwmSetWindowAttribute(form.Handle, 19, new[] { Convert.ToInt32(value) }, 4) != 0)
+            {
                 DwmSetWindowAttribute(form.Handle, 20, new[] { Convert.ToInt32(value) }, 4);
+            }
         }
         public static void changeRounding(Form form, bool value)
         {

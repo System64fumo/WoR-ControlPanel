@@ -52,7 +52,7 @@ namespace WoRCP
         public static string FirmwareVer = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSVersion", null);
         public static string FirmwareDate = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\HARDWARE\DESCRIPTION\System\BIOS", "BIOSReleaseDate", null);
         private static readonly ManagementObjectSearcher baseboardSearcher = new ManagementObjectSearcher("root\\CIMV2", "SELECT * FROM Win32_BaseBoard");
-        static public string SerialNo
+        public static string SerialNo
         {
             get
             {
@@ -81,6 +81,7 @@ namespace WoRCP
         public static bool AdvancedOC;
         public static bool TrayTempWarning;
         public static bool RGBMode;
+        public static string LaunchMode;
         #endregion
 
         #region Appstore
@@ -96,7 +97,7 @@ namespace WoRCP
         public static bool OverlayAlwaysOnTop = true;
         public static bool OverlayRounded = true;
         public static bool OverlayPortrait = true;
-        public static bool MinimizeToTray = false;
+        public static bool MinimizeToTray;
         #endregion
     }
 }

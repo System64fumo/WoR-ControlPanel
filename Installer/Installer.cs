@@ -1,10 +1,12 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
@@ -21,8 +23,10 @@ namespace Installer
         //Main
         #region Variables
         readonly bool Internet = NetworkInterface.GetIsNetworkAvailable();
-        private readonly string Link = "https://github.com/AmirDahan/WoR-ControlPanel/releases/latest/download/x86.zip";
+        private readonly string Link = "https://github.com/AmirDahan/WoR-ControlPanel/releases/latest/download/WoRCP.zip";
         private readonly string Assemblyver = "https://raw.githubusercontent.com/AmirDahan/WoR-ControlPanel/main/Main/Properties/AssemblyInfo.cs";
+        public static string CPUArch = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment", "PROCESSOR_ARCHITECTURE", null);
+        private static string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
         private string AppPath = @"C:\Program Files\WoR Control Panel";
         private bool Installed;
         private bool UpdateAvailable;
@@ -38,6 +42,7 @@ namespace Installer
         public WoRCPInstaller()
         {
             InitializeComponent();
+            Icon = Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
         }
 
         private async void Installer_Load(object sender, EventArgs e)
@@ -76,6 +81,10 @@ namespace Installer
                                 ServerVersion = "V" + a + "." + b + "." + c;
                                 AcrylicPanel.Invalidate();
                             }
+                        }
+                        if (File.Exists(Application.StartupPath + @"\Version.txt"))
+                        {
+                            File.Delete(Application.StartupPath + @"\Version.txt");
                         }
                     }
                 }
@@ -136,37 +145,53 @@ namespace Installer
                 else //Install app
                 {
                     InstallButton.Enabled = false;
-                    using (var client = new HttpClient())
+                    using (HttpClient client = new HttpClient())
                     {
                         InstallButton.ButtonText = "Installing";
                         InstallButton.Color = WoRCP.UI.Theme.BrightAccent;
                         ChooseDirButton.Enabled = false;
-                        var uri = new Uri(Link);
+                        Uri uri = new Uri(Link);
                         if (File.Exists(DownloadPath)) { File.Delete(DownloadPath); }
                         await DownloadFileTaskAsync(client, uri, DownloadPath);
                         ZipFile.ExtractToDirectory(DownloadPath, AppPath);
                         File.Delete(DownloadPath);
                         InstallButton.ButtonText = "Uninstall";
                     }
-
+                    if (CPUArch == "ARM64" && Convert.ToInt32(Build) >= 22504)
+                    {
+                        if (File.Exists(AppPath + @"\WoRCP.exe"))
+                        {
+                            File.Delete(AppPath + @"\WoRCP.exe");
+                            FileInfo fi = new FileInfo(AppPath + @"\WoRCParm64.exe");
+                            fi.MoveTo(AppPath + @"\WoRCP.exe");
+                        }
+                    }
+                    else
+                    {
+                        if (File.Exists(AppPath + @"\WoRCParm64.exe"))
+                        {
+                            File.Delete(AppPath + @"\WoRCParm64.exe");
+                        }
+                    }
                     //Create shortcut
                     IShellLink link = (IShellLink)new ShellLink();
-                    link.SetDescription("My Description");
                     link.SetPath(AppPath + @"\WoRCP.exe");
                     IPersistFile file = (IPersistFile)link;
                     string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
                     file.Save(Path.Combine(desktopPath, "WoRCP.lnk"), false);
+
 
                     InstallButton.Enabled = true;
                     InstallButton.Color = Color.FromArgb(235, 0, 65);
                 }
                 Installed = !Installed;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 InstallButton.ButtonText = "Error";
                 InstallButton.Enabled = false;
                 InstallButton.Color = Color.FromArgb(235, 0, 65);
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -202,9 +227,9 @@ namespace Installer
         #region Download file
         private async Task DownloadFileTaskAsync(HttpClient client, Uri uri, string FileName)
         {
-            using (var s = await client.GetStreamAsync(uri))
+            using (Stream s = await client.GetStreamAsync(uri))
             {
-                using (var fs = new FileStream(FileName, FileMode.CreateNew))
+                using (FileStream fs = new FileStream(FileName, FileMode.CreateNew))
                 {
                     await s.CopyToAsync(fs);
                 }

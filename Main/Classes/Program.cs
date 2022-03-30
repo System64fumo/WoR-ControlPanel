@@ -9,10 +9,13 @@
                     |__/     \__/ \______/ |__/  |__/       \______/ |__/      
 */
 using System;
+using System.IO;
 using System.Windows.Forms;
+using WoRCP.UI;
+
 namespace WoRCP
 {
-    static class Program
+    class Program
     {
         [STAThread]
         static void Main()
@@ -21,10 +24,11 @@ namespace WoRCP
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             MainWindow Window = new MainWindow();
-            GetGreeting();                  //Get current time greeting
-            UI.Theme.Initialize(Window);    //Initialize theme
-            Configuration.Initialize();     //Initializes the config
-            Application.Run(Window);        //Show the main window
+            GetGreeting();              //Get current time greeting
+            Theme.Initialize(Window);   //Initialize theme
+            Configuration.Initialize(); //Initializes the config
+            checkSettings();            //Check the settings file
+            Application.Run(Window);    //Show the main window
         }
 
         //Methods
@@ -49,6 +53,29 @@ namespace WoRCP
         public static string Spacing(int amount)
         {
             return "".PadRight(amount, '⠀');
+        }
+        #endregion
+
+        #region Check settings
+        private static void checkSettings()
+        {
+            if (File.Exists(Application.StartupPath + @"\Settings.ini"))
+            {
+                IniFile MyIni = new IniFile(Application.StartupPath + @"\Settings.ini");
+                if (MyIni.KeyExists("StartMinimized", "Options"))
+                {
+                    Configuration.MinimizeToTray = Convert.ToBoolean(MyIni.Read("StartMinimized", "Options"));
+                    ResourceReader.trayicon.Visible = Convert.ToBoolean(MyIni.Read("StartMinimized", "Options"));
+                    /*
+                    Configuration.OverlayEnabled = Convert.ToBoolean(MyIni.Read("Enabled", "Overlay"));
+                    if (Convert.ToBoolean(MyIni.Read("Enabled", "Overlay")))
+                    {
+                        Configuration.overlay.StartPosition = FormStartPosition.Manual;
+                        Configuration.overlay.Location = new System.Drawing.Point(Convert.ToInt32(ConfigUtility.Width) - Configuration.overlay.Width, 0);
+                        Configuration.overlay.Show();
+                    }*/
+                }
+            }
         }
         #endregion
     }

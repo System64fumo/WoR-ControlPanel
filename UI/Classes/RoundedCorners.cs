@@ -56,8 +56,6 @@ namespace WoRCP.UI
 
         private static void FillRoundedRectangle(Graphics graphics, Brush brush, Rectangle bounds, int cornerRadius)
         {
-            if (graphics == null) throw new ArgumentNullException("graphics");
-            if (brush == null) throw new ArgumentNullException("brush");
             using (GraphicsPath path = RoundedRect(bounds, cornerRadius)) { graphics.FillPath(brush, path); }
         }
 
