@@ -226,6 +226,7 @@ namespace WoRCP.UI
             if (MyIni.KeyExists("Inactive", mode))      Inactive = toColor(MyIni.Read("Inactive", mode));
             if (MyIni.KeyExists("Background", mode))    Background = toColor(MyIni.Read("Background", mode));
             if (MyIni.KeyExists("BrightPanel", mode))   BrightPanel = toColor(MyIni.Read("BrightPanel", mode));
+            if (MyIni.KeyExists("Panel", mode))         Panel = toColor(MyIni.Read("Panel", mode));
             if (MyIni.KeyExists("Text", mode))          Text = toColor(MyIni.Read("Text", mode));
         }
         private static Color toColor(string str)
