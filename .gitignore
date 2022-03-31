@@ -1,7 +1,5 @@
 bin
 obj
-.gitignore
-*.dll
 *.exe
 *.zip
 *.log
