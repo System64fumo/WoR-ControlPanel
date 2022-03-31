@@ -242,8 +242,6 @@ namespace Installer
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel AcrylicPanel;
         private System.Windows.Forms.Panel panel2;
         private WoRCP.UI.RoundedButton InstallButton;
         private WoRCP.UI.RoundedPanel PathPanel;
@@ -256,6 +254,7 @@ namespace Installer
         private System.Windows.Forms.Button CloseButton;
         private System.Windows.Forms.Label BottomLabel;
         private System.Windows.Forms.Panel BottomPanel;
+        public System.Windows.Forms.Panel AcrylicPanel;
     }
 }
 

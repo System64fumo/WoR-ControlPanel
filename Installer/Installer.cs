@@ -32,7 +32,7 @@ namespace Installer
         private bool UpdateAvailable;
         private readonly string DownloadPath = Path.GetTempPath() + @"\Download.zip";
         private Font font = new Font("Segoe UI", 32f);
-        private SolidBrush DrawBrush = new SolidBrush(WoRCP.UI.Theme.Text);
+        private SolidBrush DrawBrush;
         string AppName = "WoR ControlPanel";
         string ServerVersion = "V0.0.0";
         string LocalVersion = "V0.0.0";
@@ -56,8 +56,7 @@ namespace Installer
                 InstallButton.ButtonText = "Uninstall";
             }
 
-            //Initialization
-            WoRCP.UI.Theme.Initialize(this, AcrylicPanel);
+            DrawBrush = new SolidBrush(WoRCP.UI.Theme.Text);
 
             await Task.Run(() =>
             {
