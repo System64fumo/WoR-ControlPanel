@@ -202,6 +202,7 @@ namespace WoRCP
             {
                 drawBrush = new SolidBrush(Theme.Text);
                 Theme.Initialize(this);
+                Theme.Set(Tabcontainer);
             }
             PreviousThemeMode = Theme.ThemeMode;
 
@@ -210,8 +211,8 @@ namespace WoRCP
             {
                 //TODO: Add animation
                 SidePanel.BackColor = Theme.Panel;
-                Theme.CurrentAccent = Theme.ACCENT.ENABLE_ACRYLICBLURBEHIND;
-                Theme.EnableAcrylic(this, SidePanel, true);
+                Theme.CurrentAccent = WindowUtils.ACCENT.ENABLE_ACRYLICBLURBEHIND;
+                WindowUtils.EnableAcrylic(this, SidePanel, true);
             }
         }
 
@@ -222,8 +223,8 @@ namespace WoRCP
             {
                 //TODO: Add animation
                 SidePanel.BackColor = Theme.Panel;
-                Theme.CurrentAccent = Theme.ACCENT.DISABLED;
-                Theme.EnableAcrylic(this, SidePanel);
+                Theme.CurrentAccent = WindowUtils.ACCENT.DISABLED;
+                WindowUtils.EnableAcrylic(this, SidePanel);
                 TransparencyKey = Color.Empty;
             }
         }

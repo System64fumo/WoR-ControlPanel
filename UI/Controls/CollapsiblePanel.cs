@@ -18,8 +18,8 @@ namespace WoRCP.UI
         private string[] rightcontent = new string[0];
         private Color panelcolor = Color.FromArgb(25, 25, 27);
         private Color currentcolor = Color.FromArgb(25, 25, 27);
-        private Font font = Theme.glyphs;
-        private Font textfont = new Font("Segoe UI", 9f);
+        private readonly Font font = Theme.glyphs;
+        private readonly Font textfont = new Font("Segoe UI", 9f);
         private string title = "Expandable panel";
         #endregion
 
@@ -121,34 +121,19 @@ namespace WoRCP.UI
         #region Paint events
         private void CollapsiblePanel_Paint(object sender, PaintEventArgs e)
         {
-            if (currentcolor == Color.FromArgb(50, 50, 65)) currentcolor = Theme.Accent;
-            else if (currentcolor == Color.FromArgb(60, 60, 75)) currentcolor = Theme.BrightAccent;
-            else if (currentcolor == Color.FromArgb(40, 40, 55)) currentcolor = Theme.DarkAccent;
-            else if (currentcolor == Color.FromArgb(30, 30, 35) || currentcolor == Color.FromArgb(225, 225, 225)) currentcolor = Theme.Inactive;
-            else if (currentcolor == Color.FromArgb(20, 20, 20) || currentcolor == Color.FromArgb(243, 243, 243)) currentcolor = Theme.Background;
-            else if (currentcolor == Color.FromArgb(25, 25, 27) || currentcolor == Color.FromArgb(251, 251, 251)) currentcolor = Theme.Panel;
-            else if (currentcolor == Color.FromArgb(35, 35, 40) || currentcolor == Color.FromArgb(242, 242, 242)) currentcolor = Theme.BrightPanel;
+            currentcolor = Theme.ReturnColor(currentcolor);
             RoundedCorners.Paint(e, Width, Height, Rounding, currentcolor);
             BackColor = Color.Transparent;
 
             SolidBrush drawBrush;
-            if (Enabled)
-            {
-                drawBrush = new SolidBrush(ForeColor);
-            }
-            else
-            {
-                drawBrush = new SolidBrush(Theme.Disabled);
-            }
+            if (Enabled) drawBrush = new SolidBrush(ForeColor);
+            else drawBrush = new SolidBrush(Theme.Disabled);
 
             int septop = 60;
             for (int i = 0; i < leftcontent.Length; i++)
             {
                 //Draw the left content
-                if (leftcontent[i] != "")
-                {
-                    e.Graphics.DrawLine(new Pen(Theme.Background, 1), new Point(0, septop), new Point(Width, septop));
-                }
+                if (leftcontent[i] != "") e.Graphics.DrawLine(new Pen(Theme.Background, 1), new Point(0, septop), new Point(Width, septop));
                 e.Graphics.DrawString(leftcontent[i], textfont, drawBrush, 45, septop + 18);
 
                 //Draw the right content
@@ -164,26 +149,16 @@ namespace WoRCP.UI
 
         private void Panel1_Paint(object sender, PaintEventArgs e)
         {
-            if (panelcolor == Color.FromArgb(50, 50, 65)) panelcolor = Theme.Accent;
-            else if (panelcolor == Color.FromArgb(60, 60, 75)) panelcolor = Theme.BrightAccent;
-            else if (panelcolor == Color.FromArgb(40, 40, 55)) panelcolor = Theme.DarkAccent;
-            else if (panelcolor == Color.FromArgb(30, 30, 35) || panelcolor == Color.FromArgb(225, 225, 225)) panelcolor = Theme.Inactive;
-            else if (panelcolor == Color.FromArgb(20, 20, 20) || panelcolor == Color.FromArgb(243, 243, 243)) panelcolor = Theme.Background;
-            else if (panelcolor == Color.FromArgb(25, 25, 27) || panelcolor == Color.FromArgb(251, 251, 251)) panelcolor = Theme.Panel;
-            else if (panelcolor == Color.FromArgb(35, 35, 40) || panelcolor == Color.FromArgb(242, 242, 242)) panelcolor = Theme.BrightPanel;
+            panelcolor = Theme.ReturnColor(panelcolor);
             RoundedCorners.Paint(e, Width, Height, Rounding, panelcolor);
             panel1.Width = Width;
 
+            //Change the text's fore color to match the state of the Panel
             SolidBrush drawBrush;
-            if (Enabled)
-            {
-                drawBrush = new SolidBrush(ForeColor);
-            }
-            else
-            {
-                drawBrush = new SolidBrush(Theme.Disabled);
-            }
+            if (Enabled) drawBrush = new SolidBrush(ForeColor);
+            else drawBrush = new SolidBrush(Theme.Disabled);
 
+            //Draw text
             e.Graphics.DrawString(icon, font, drawBrush, 12, 21);
             e.Graphics.DrawString(title, panel1.Font, drawBrush, 45, 23);
             e.Graphics.DrawString(expander, new Font(font.Name, 10f), drawBrush, Width - 38, 23);

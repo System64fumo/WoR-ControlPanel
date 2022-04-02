@@ -68,7 +68,7 @@ namespace WoRCP.Tabs
                         if (line.Contains("[Size]")) { AppSize = line.Remove(0, 7); }
                         if (line.Contains("[Link]")) { Url = line.Remove(0, 7); }
                         if (line.Contains("[Exe]")) { Executable = line.Remove(0, 6); }
-                        if (line.Contains("[Path]")) { ExtractLocation = line.Remove(0, 7); AddApp(Name, Category, Background, Url,Executable, ExtractLocation, AppSize); }
+                        if (line.Contains("[Path]")) { ExtractLocation = line.Remove(0, 7); AddApp(Name, Category, Background, Url, Executable, ExtractLocation, AppSize); }
                     }
                     Program.Log("[Info] Apps found: " + Configuration.ApplicationsFound);
                 }
@@ -78,7 +78,7 @@ namespace WoRCP.Tabs
 
         //Methods
         #region Add application
-        private void AddApp(string Name, string Category, string Icon, string Url,string exe, string Path, string Applicationsize)
+        private void AddApp(string Name, string Category, string Icon, string Url, string exe, string Path, string Applicationsize)
         {
             AppUI app = new AppUI();
             Theme.Set(app);

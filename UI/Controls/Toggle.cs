@@ -87,7 +87,6 @@ namespace WoRCP.UI
                 knobcolor = Color.White;
                 if (toggled) color = Theme.Accent;
                 else color = Theme.Inactive;
-
                 Invalidate();
             }
             else { knobcolor = Color.FromArgb(150, 150, 150); color = Color.FromArgb(100, 100, 100); Invalidate(); }

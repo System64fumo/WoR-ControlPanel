@@ -26,8 +26,7 @@ namespace Installer
         private readonly string Link = "https://github.com/AmirDahan/WoR-ControlPanel/releases/latest/download/WoRCP.zip";
         private readonly string Assemblyver = "https://raw.githubusercontent.com/AmirDahan/WoR-ControlPanel/main/Main/Properties/AssemblyInfo.cs";
         public static string CPUArch = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment", "PROCESSOR_ARCHITECTURE", null);
-        private static string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
-        private string AppPath = @"C:\Program Files\WoR Control Panel";
+        private static readonly string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
         private bool Installed;
         private bool UpdateAvailable;
         private readonly string DownloadPath = Path.GetTempPath() + @"\Download.zip";
@@ -48,7 +47,7 @@ namespace Installer
         private async void Installer_Load(object sender, EventArgs e)
         {
             //Check if the application is installed
-            if (Directory.Exists(AppPath))
+            if (Directory.Exists(PathTextbox.Text))
             {
                 Installed = true;
                 ChooseDirButton.Enabled = false;
@@ -94,12 +93,12 @@ namespace Installer
             });
 
             // TODO: Add update code
-            if (UpdateAvailable)
+            /*if (UpdateAvailable)
             {
                 BottomLabel.Text = "An update is available! " + LocalVersion + " -> " + ServerVersion;
                 InstallButton.ButtonText = "Update";
                 PathPanel.Visible = false;
-            }
+            }*/
         }
         #endregion
 
@@ -128,7 +127,7 @@ namespace Installer
                 if (Installed) //Uninstall app
                 {
                     InstallButton.Enabled = false;
-                    Directory.Delete(AppPath, true);
+                    Directory.Delete(PathTextbox.Text, true);
                     InstallButton.ButtonText = "Install";
                     InstallButton.Enabled = true;
                     ChooseDirButton.Enabled = true;
@@ -152,29 +151,29 @@ namespace Installer
                         Uri uri = new Uri(Link);
                         if (File.Exists(DownloadPath)) { File.Delete(DownloadPath); }
                         await DownloadFileTaskAsync(client, uri, DownloadPath);
-                        ZipFile.ExtractToDirectory(DownloadPath, AppPath);
+                        ZipFile.ExtractToDirectory(DownloadPath, PathTextbox.Text);
                         File.Delete(DownloadPath);
                         InstallButton.ButtonText = "Uninstall";
                     }
                     if (CPUArch == "ARM64" && Convert.ToInt32(Build) >= 22504)
                     {
-                        if (File.Exists(AppPath + @"\WoRCP.exe"))
+                        if (File.Exists(PathTextbox.Text + @"\WoRCP.exe"))
                         {
-                            File.Delete(AppPath + @"\WoRCP.exe");
-                            FileInfo fi = new FileInfo(AppPath + @"\WoRCParm64.exe");
-                            fi.MoveTo(AppPath + @"\WoRCP.exe");
+                            File.Delete(PathTextbox.Text + @"\WoRCP.exe");
+                            FileInfo fi = new FileInfo(PathTextbox.Text + @"\WoRCParm64.exe");
+                            fi.MoveTo(PathTextbox.Text + @"\WoRCP.exe");
                         }
                     }
                     else
                     {
-                        if (File.Exists(AppPath + @"\WoRCParm64.exe"))
+                        if (File.Exists(PathTextbox.Text + @"\WoRCParm64.exe"))
                         {
-                            File.Delete(AppPath + @"\WoRCParm64.exe");
+                            File.Delete(PathTextbox.Text + @"\WoRCParm64.exe");
                         }
                     }
                     //Create shortcut
                     IShellLink link = (IShellLink)new ShellLink();
-                    link.SetPath(AppPath + @"\WoRCP.exe");
+                    link.SetPath(PathTextbox.Text + @"\WoRCP.exe");
                     IPersistFile file = (IPersistFile)link;
                     string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
                     file.Save(Path.Combine(desktopPath, "WoRCP.lnk"), false);

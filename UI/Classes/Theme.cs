@@ -3,7 +3,6 @@ using System;
 using System.Drawing;
 using System.Globalization;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 
@@ -11,7 +10,14 @@ namespace WoRCP.UI
 {
     public class Theme
     {
+        //TODO: Fix custom theme support
+        //Current issue: when you switch from dark mode to light mode or vise versa when using a
+        //custom theme it will break the theme
+
         #region Theme config
+        //TODO: Move this to another class
+        //TODO: Replace all of this with an array
+
         //Color list                                                        |  Dark Mode  |  Light Mode |
         public static Color Acryliccolor = Color.FromArgb(175, 0, 0, 0); // | 0 0 0       | 255 255 255 |
         public static Color Accent = Color.FromArgb(50, 50, 65);         // | 50 50 65    | 50 50 65    |
@@ -27,9 +33,10 @@ namespace WoRCP.UI
         public static bool ThemeMode = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null));
         public static bool Transparency = Convert.ToBoolean(Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "EnableTransparency", null));
         public static Form form;
-        public static ACCENT CurrentAccent = ACCENT.ENABLE_ACRYLICBLURBEHIND;
-        private static string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
+        public static WindowUtils.ACCENT CurrentAccent = WindowUtils.ACCENT.ENABLE_ACRYLICBLURBEHIND;
+        private static readonly string Build = (string)Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion", "CurrentBuild", null);
         public static Font glyphs = new Font("Segoe MDL2 Assets", 16f);
+        public static Font font = new Font("Segoe UI", 9f);
         public static bool CustomTheme;
 
         //Global rounding
@@ -46,7 +53,6 @@ namespace WoRCP.UI
             //[Read theme]
             if (Registry.GetValue(@"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize", "AppsUseLightTheme", null) == null)
             {
-
                 MessageBox.Show("Unable to read Windows Theme" + Environment.NewLine + "Reverting to backup Theme", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning); //Show warning
             }
             else
@@ -57,7 +63,7 @@ namespace WoRCP.UI
                 if (File.Exists(Application.StartupPath + @"\Theme.ini"))
                 {
                     CustomTheme = true;
-                    loadCustomTheme();
+                    LoadCustomTheme();
                 }
                 else //Load the stock theme
                 {
@@ -69,7 +75,7 @@ namespace WoRCP.UI
                         Background = Color.FromArgb(243, 243, 243);
                         BrightPanel = Color.FromArgb(242, 242, 242);
                         Panel = Color.FromArgb(251, 251, 251);
-                        Text = Color.Black;
+                        Text = Color.FromArgb(0, 0, 0);
                     }
                     else //Dark mode
                     {
@@ -78,7 +84,7 @@ namespace WoRCP.UI
                         Background = Color.FromArgb(20, 20, 20);
                         BrightPanel = Color.FromArgb(35, 35, 40);
                         Panel = Color.FromArgb(25, 25, 27);
-                        Text = Color.White;
+                        Text = Color.FromArgb(255, 255, 255);
                     }
                 }
             }
@@ -109,22 +115,23 @@ namespace WoRCP.UI
         {
             try
             {
-                int r = control.BackColor.R;
-                int g = control.BackColor.G;
-                int b = control.BackColor.B;
-                string color = r + ", " + g + ", " + b;
+                //Get the background color of the control
+                Color bcolor = Color.FromArgb(control.BackColor.R, control.BackColor.G, control.BackColor.B);
+
+                //Get the forecolor of the control
+                Color fcolor = Color.FromArgb(control.ForeColor.R, control.ForeColor.G, control.ForeColor.B);
 
                 //Set fore color
-                if (control.ForeColor == Color.White || control.ForeColor == Color.Black) control.ForeColor = Text;
+                if (fcolor == Color.FromArgb(255, 255, 255) || fcolor == Color.FromArgb(0, 0, 0))
+                {
+                    control.ForeColor = Text;
+                }
 
                 //Set background color
-                if (color == "50, 50, 65") control.BackColor = Accent;
-                else if (color == "60, 60, 75") control.BackColor = BrightAccent;
-                else if (color == "40, 40, 55") control.BackColor = DarkAccent;
-                else if (color == "30, 30, 35" || color == "225, 225, 225") control.BackColor = Inactive;
-                else if (color == "20, 20, 20" || color == "243, 243, 243") control.BackColor = Background;
-                else if (color == "25, 25, 27" || color == "251, 251, 251") control.BackColor = Panel;
-                else if (color == "35, 35, 40" || color == "242, 242, 242") control.BackColor = BrightPanel;
+                if (control.BackColor != Color.Transparent)
+                {
+                    control.BackColor = ReturnColor(bcolor);
+                }
 
                 //Check if the control has children
                 if (control.HasChildren) { foreach (Control childControl in control.Controls) { Set(childControl); } }
@@ -133,70 +140,22 @@ namespace WoRCP.UI
             {
 
             }
-
         }
         #endregion
 
-        #region Acrylic
-        public static void EnableAcrylic(Form window, Control ctrl = null, bool changekey = false)
+        #region Return correct color
+        public static Color ReturnColor(Color color)
         {
-            Color panelcolor = Color.FromArgb(Math.Min(255, ctrl.BackColor.R - 1), Math.Min(255, ctrl.BackColor.G - 1), ctrl.BackColor.B);
-            ctrl.BackColor = panelcolor;
-            AccentPolicy accentPolicy = new AccentPolicy
-            {
-                AccentState = CurrentAccent,
-                GradientColor = ToRGBA(Acryliccolor)
-            };
-            unsafe
-            {
-                SetWindowCompositionAttribute(
-                    new HandleRef(window, window.Handle),
-                    new WindowCompositionAttributeData
-                    {
-                        Attribute = WCA.ACCENT_POLICY,
-                        Data = &accentPolicy,
-                        DataLength = Marshal.SizeOf<AccentPolicy>()
-                    });
-            }
-            if (changekey) window.TransparencyKey = panelcolor;
-        }
-
-        private static uint ToRGBA(Color color)
-        {
-            return (uint)(color.R + (color.G * 256) + (color.B * 256 * 256) + (color.A * 256 * 256 * 256));
-        }
-
-        [DllImport("user32.dll")]
-        private static extern int SetWindowCompositionAttribute(HandleRef hWnd, in WindowCompositionAttributeData data);
-
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
-
-        private unsafe struct WindowCompositionAttributeData
-        {
-            public WCA Attribute;
-            public void* Data;
-            public int DataLength;
-        }
-
-        private enum WCA { ACCENT_POLICY = 19 }
-
-        public enum ACCENT
-        {
-            DISABLED = 0,
-            ENABLE_GRADIENT = 1,
-            ENABLE_TRANSPARENTGRADIENT = 2,
-            ENABLE_BLURBEHIND = 3,
-            ENABLE_ACRYLICBLURBEHIND = 4,
-            INVALID_STATE = 5
-        }
-
-        private struct AccentPolicy
-        {
-            public ACCENT AccentState;
-            public uint AccentFlags;
-            public uint GradientColor;
-            public uint AnimationId;
+            //TODO: Replace this with switch case
+            Color newcolor = color;
+            if (color == Color.FromArgb(50, 50, 65)) newcolor = Accent;
+            else if (color == Color.FromArgb(60, 60, 75)) newcolor = BrightAccent;
+            else if (color == Color.FromArgb(40, 40, 55)) newcolor = DarkAccent;
+            else if (color == Color.FromArgb(30, 30, 35) || color == Color.FromArgb(225, 225, 225)) newcolor = Inactive;
+            else if (color == Color.FromArgb(20, 20, 20) || color == Color.FromArgb(243, 243, 243)) newcolor = Background;
+            else if (color == Color.FromArgb(25, 25, 27) || color == Color.FromArgb(251, 251, 251)) newcolor = Panel;
+            else if (color == Color.FromArgb(35, 35, 40) || color == Color.FromArgb(242, 242, 242)) newcolor = BrightPanel;
+            return newcolor;
         }
         #endregion
 
@@ -205,31 +164,30 @@ namespace WoRCP.UI
         {
             Read();
             Set(mainform);
-            WindowUtils.changeAppTheme(mainform, !ThemeMode);
+            WindowUtils.ChangeAppTheme(mainform, !ThemeMode);
 
             //Change icons to match windows 10/11's iconography
             if (Convert.ToInt32(Build) >= 22000) glyphs = new Font("Segoe Fluent Icons", 16f);
 
             //Check if acrylic is enabled
-            if (acrylicpanel != null && Transparency) EnableAcrylic(mainform, acrylicpanel, true);
+            if (acrylicpanel != null && Transparency) WindowUtils.EnableAcrylic(mainform, acrylicpanel, true);
         }
         #endregion
 
         #region Custom theme
-        private static void loadCustomTheme()
+        private static void LoadCustomTheme()
         {
             IniFile MyIni = new IniFile(Application.StartupPath + @"\Theme.ini");
             string mode = "DarkMode";
             if (ThemeMode) mode = "LightMode";
-
-            if (MyIni.KeyExists("Acryliccolor", mode))  Acryliccolor = toColor(MyIni.Read("Acryliccolor", mode));
-            if (MyIni.KeyExists("Inactive", mode))      Inactive = toColor(MyIni.Read("Inactive", mode));
-            if (MyIni.KeyExists("Background", mode))    Background = toColor(MyIni.Read("Background", mode));
-            if (MyIni.KeyExists("BrightPanel", mode))   BrightPanel = toColor(MyIni.Read("BrightPanel", mode));
-            if (MyIni.KeyExists("Panel", mode))         Panel = toColor(MyIni.Read("Panel", mode));
-            if (MyIni.KeyExists("Text", mode))          Text = toColor(MyIni.Read("Text", mode));
+            if (MyIni.KeyExists("Acryliccolor", mode))  Acryliccolor = ToColor(MyIni.Read("Acryliccolor", mode));
+            if (MyIni.KeyExists("Inactive", mode))      Inactive = ToColor(MyIni.Read("Inactive", mode));
+            if (MyIni.KeyExists("Background", mode))    Background = ToColor(MyIni.Read("Background", mode));
+            if (MyIni.KeyExists("BrightPanel", mode))   BrightPanel = ToColor(MyIni.Read("BrightPanel", mode));
+            if (MyIni.KeyExists("Panel", mode))         Panel = ToColor(MyIni.Read("Panel", mode));
+            if (MyIni.KeyExists("Text", mode))          Text = ToColor(MyIni.Read("Text", mode));
         }
-        private static Color toColor(string str)
+        private static Color ToColor(string str)
         {
             string[] subs = str.Split(' ');
             byte r = Convert.ToByte(subs[0]);
@@ -238,6 +196,13 @@ namespace WoRCP.UI
             byte a = 255;
             if (subs.Length > 3) a = Convert.ToByte(subs[3]);
             return Color.FromArgb(a, r, g, b);
+        }
+        #endregion
+
+        #region Within range
+        public static int WithinRange(int val)
+        {
+            return Math.Min(255, Math.Max(val, 0));
         }
         #endregion
     }

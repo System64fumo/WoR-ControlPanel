@@ -125,7 +125,7 @@ namespace Installer
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(640, 53);
             this.label1.TabIndex = 5;
-            this.label1.Text = "Thank your for downloading WoR CP!";
+            this.label1.Text = "Thank you for downloading WoR CP!";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label2

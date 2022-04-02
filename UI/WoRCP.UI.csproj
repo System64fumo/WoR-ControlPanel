@@ -75,8 +75,10 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Controls\CollapsiblePanel.resx">
@@ -84,9 +86,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\RoundedButton.resx">
       <DependentUpon>RoundedButton.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\RoundedPanel.resx">
-      <DependentUpon>RoundedPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Slider.resx">
       <DependentUpon>Slider.cs</DependentUpon>
