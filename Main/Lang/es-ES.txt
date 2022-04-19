@@ -1,0 +1,113 @@
+//Controls
+Activado
+Desactivado
+Alto
+Bajo
+Instalar
+Desinstalar
+Guardar
+Refrescar
+Predeterminados
+Montar
+Desmontar
+Editar
+Ver
+
+//Main Window
+Buenos Días
+Buenas Tardes
+Buenas Noches
+
+//Tabs
+Rendimiento
+Periféricos
+Aplicaciones
+Sobre
+Overlay
+Ajustes
+
+//Performance
+Procesador
+Memoria
+Temperatura
+Lectura
+Escritura
+
+//Peripherals
+Esta pestaña ha sido desactivada.\nLa funcionalidad de GPIO sólo está disponible en la Raspberry Pi.
+Pines GPIO
+No hay ningún pin seleccionado.
+Controles GPIO
+Estado de los pines
+
+//Applications
+¡Compatible con tu dispositivo!
+¡Instala fácilmente aplicaciones ARM desde WoR-CP con un click!
+
+//About
+Procesador
+Memoria
+Firmware
+Revisión
+Número de serie
+Sobre
+Versión
+Discord
+Créditos
+
+//Overlay
+Overlay
+Overlay principal
+Siempre encima
+Apariencia
+Opacidad
+Esquinas redondeadas
+Gráficos
+Vertical
+Icono de la barra de tareas
+Enseñar icono de la barra de tareas
+Minimizar a la barra de tareas
+Aviso de temperatura
+
+//Settings
+No se puede leer config.txt
+Tu Raspberry Pi está corriendo a la velocidad de fábrica.
+Tu Raspberry Pi está overclockeada.
+Tu Raspberry Pi está underclockeada.
+¡Aviso! Tu overclock es muy alto, tu Raspberry Pi podría no encenderse.
+No se han encontrado problemas.
+Problemas encontrados.
+La partición de arranque no está montada
+Por favor monta la partición de arranque\npara poder overclockear.
+Tu partición de arranque está montado y se puede acceder desde \n Disco
+Tu archivo config.txt se enseñará aquí cuando montes la partición de arranque\n
+Overclockeo
+Frecuencia de CPU
+Frecuencia de GPU
+Memoria de GPU
+Sobrevoltaje
+Forzar Turbo
+Pantalla
+Overscan
+Hotplug
+Splash
+Otro
+Documentación
+
+//Debugger
+Tema
+Modo claro
+Transparencia
+Acento brillante
+Acento
+Acento oscuro
+Panel claro
+Inactivo
+Panel
+Fondo
+Logs
+Guardar logs al escritorio
+Experimental
+Overclockeo avanzado
+Al habilitar este ajuste aceptas que estás poniendo tu Raspberry Pi en peligro.\nProceda bajo su propio riesgo.
+Aviso
