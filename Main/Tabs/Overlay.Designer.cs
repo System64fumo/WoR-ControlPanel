@@ -108,6 +108,7 @@ namespace WoRCP.Tabs
             this.BottomRightBTN.BackColor = System.Drawing.Color.Transparent;
             this.BottomRightBTN.ButtonText = "";
             this.BottomRightBTN.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.BottomRightBTN.Glyph = false;
             this.BottomRightBTN.Location = new System.Drawing.Point(160, 90);
             this.BottomRightBTN.Margin = new System.Windows.Forms.Padding(0);
             this.BottomRightBTN.Name = "BottomRightBTN";
@@ -121,6 +122,7 @@ namespace WoRCP.Tabs
             this.TopRightBTN.BackColor = System.Drawing.Color.Transparent;
             this.TopRightBTN.ButtonText = "";
             this.TopRightBTN.Color = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(40)))), ((int)(((byte)(55)))));
+            this.TopRightBTN.Glyph = false;
             this.TopRightBTN.Location = new System.Drawing.Point(160, 0);
             this.TopRightBTN.Margin = new System.Windows.Forms.Padding(0);
             this.TopRightBTN.Name = "TopRightBTN";
@@ -134,6 +136,7 @@ namespace WoRCP.Tabs
             this.BottomLeftBTN.BackColor = System.Drawing.Color.Transparent;
             this.BottomLeftBTN.ButtonText = "";
             this.BottomLeftBTN.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.BottomLeftBTN.Glyph = false;
             this.BottomLeftBTN.Location = new System.Drawing.Point(0, 90);
             this.BottomLeftBTN.Margin = new System.Windows.Forms.Padding(0);
             this.BottomLeftBTN.Name = "BottomLeftBTN";
@@ -147,6 +150,7 @@ namespace WoRCP.Tabs
             this.TopLeftBTN.BackColor = System.Drawing.Color.Transparent;
             this.TopLeftBTN.ButtonText = "";
             this.TopLeftBTN.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.TopLeftBTN.Glyph = false;
             this.TopLeftBTN.Location = new System.Drawing.Point(0, 0);
             this.TopLeftBTN.Margin = new System.Windows.Forms.Padding(0);
             this.TopLeftBTN.Name = "TopLeftBTN";
@@ -245,9 +249,9 @@ namespace WoRCP.Tabs
             this.collapsiblePanel3.Icon = "";
             this.collapsiblePanel3.LeftContent = new string[] {
         "Opacity",
-        "Style",
+        "Rounded corners",
         "Charts",
-        "Orientation"};
+        "Vertical"};
             this.collapsiblePanel3.Location = new System.Drawing.Point(10, 330);
             this.collapsiblePanel3.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
             this.collapsiblePanel3.Name = "collapsiblePanel3";
@@ -280,7 +284,7 @@ namespace WoRCP.Tabs
             this.ChartsState.Name = "ChartsState";
             this.ChartsState.Size = new System.Drawing.Size(150, 50);
             this.ChartsState.TabIndex = 66;
-            this.ChartsState.Text = "Minimal";
+            this.ChartsState.Text = "Disabled";
             this.ChartsState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // ChartsToggle
@@ -306,7 +310,7 @@ namespace WoRCP.Tabs
             this.Orientation.Name = "Orientation";
             this.Orientation.Size = new System.Drawing.Size(150, 50);
             this.Orientation.TabIndex = 59;
-            this.Orientation.Text = "Portrait";
+            this.Orientation.Text = "Disabled";
             this.Orientation.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // OrientationToggle
@@ -332,7 +336,7 @@ namespace WoRCP.Tabs
             this.StyleState.Name = "StyleState";
             this.StyleState.Size = new System.Drawing.Size(150, 50);
             this.StyleState.TabIndex = 56;
-            this.StyleState.Text = "Flat";
+            this.StyleState.Text = "Disabled";
             this.StyleState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // OpacityState
@@ -478,6 +482,7 @@ namespace WoRCP.Tabs
             this.ForeColor = System.Drawing.Color.White;
             this.Name = "Overlay";
             this.Size = new System.Drawing.Size(660, 470);
+            this.Load += new System.EventHandler(this.Overlay_Load);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.roundedPanel1.ResumeLayout(false);
             this.PositionPanel.ResumeLayout(false);

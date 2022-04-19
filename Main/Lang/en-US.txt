@@ -1,0 +1,114 @@
+//Controls
+Enabled
+Disabled
+High
+Low
+Install
+Uninstall
+Save
+Refresh
+Defaults
+Mount
+Unmount
+Edit
+View
+
+//Main Window
+Good Morning
+Good Afternoon
+Good Evening
+
+//Tabs
+Performance
+Peripherals
+Applications
+About
+Overlay
+Settings
+
+//Performance
+Processor
+Memory
+Temperature
+Read
+Write
+
+//Peripherals
+This tab has been disabled.\nGPIO Functionality is only available on Raspberry Pi
+GPIO Pins
+No pin selected
+GPIO Controls
+Pin State
+
+//Applications
+Compatible with your device!
+Easily install Arm applications from WoR-CP with one click!
+
+//About
+Processor
+Memory
+Firmware
+Revision
+Serial No
+About
+Version
+Discord
+Credits
+
+//Overlay
+Overlay
+Main overlay
+Always on top
+Appearance
+Opacity
+Rounded corners
+Charts
+Vertical
+Tray icon
+Show tray icon
+Minimize to tray
+Temperature warning
+
+//Settings
+Unable to read config.txt
+Your Pi is running at stock speeds
+Your Pi is overclocked
+Your Pi is underclocked
+Warning! your overclock is too high, Your raspberry pi might not boot
+No issues found
+Issues found
+Boot partition is not mounted
+Please mount your boot partition\nto be able to overclock
+Your boot partition is mounted and can be accessed from \n Drive
+Your config.txt will be shown here once you mount your boot partition\n
+Overclocking
+CPU Frequency
+GPU Frequency
+GPU Memory
+Over Voltage
+Force Turbo
+Display
+Overscan
+Hotplug
+Splash
+Other
+Config.txt
+Documentation
+
+//Debugger
+Theme
+Light mode
+Transperancy
+Bright Accent
+Accent
+Dark Accent
+Bright Panel
+Inactive
+Panel
+Background
+Logs
+Save log to desktop
+Experimental
+Advanced overclocking
+By enabling this setting you agree that you are putting your raspberry pi at risk.\nProceed at your own risk
+Warning

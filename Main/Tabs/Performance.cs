@@ -12,6 +12,9 @@ namespace WoRCP.Tabs
         public Performance() { InitializeComponent(); }
         private void Performance_Load(object sender, EventArgs e)
         {
+            //Set the tab's language
+            SetLanguage();
+
             //Theming
             ThemeCharts();
             RoundCharts();
@@ -31,10 +34,19 @@ namespace WoRCP.Tabs
         //Get rid of the tick event when unloading the tab
         private void Performance_VisibleChanged(object sender, EventArgs e)
         {
-            if (!Visible)
-            {
-                ResourceReader.timer.Tick -= UpdateCharts;
-            }
+            if (Visible) return;
+            ResourceReader.timer.Tick -= UpdateCharts;
+        }
+        #endregion
+
+        #region Language
+        private void SetLanguage()
+        {
+            CPULabel.Text = Language.Strings[22];
+            MemoryLabel.Text = Language.Strings[23];
+            TempratureLabel.Text = Language.Strings[24];
+            ReadLabel.Text = Language.Strings[25];
+            WriteLabel.Text = Language.Strings[26];
         }
         #endregion
 

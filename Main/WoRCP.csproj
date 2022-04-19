@@ -227,6 +227,7 @@
     <Compile Include="Classes\Configuration.cs" />
     <Compile Include="Classes\ConfigUtility.cs" />
     <Compile Include="Classes\ImageManipulation.cs" />
+    <Compile Include="Classes\Language.cs" />
     <Compile Include="Classes\ResourceReader.cs" />
     <Compile Include="CustomUI\AppUI.cs">
       <SubType>UserControl</SubType>
@@ -352,6 +353,7 @@
     <None Include="Resources\PiLogo.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Lang\en-US.txt" />
     <Content Include="Other\worcpicon.ico" />
     <None Include="Resources\BackgroundDark.png" />
     <None Include="Resources\Graph.png" />

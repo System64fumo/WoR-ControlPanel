@@ -8,7 +8,6 @@ public class ImageManipulation
     public static Bitmap ToColorTone(Image image, Color color)
     {
         //creating a new bitmap image with selected color.
-
         float r = color.R / 255f;
         float g = color.G / 255f;
         float b = color.B / 255f;
@@ -30,8 +29,8 @@ public class ImageManipulation
         {
                 new Point(0, 0),
                 new Point(image.Width - 1, 0),
-                new Point(0, image.Height - 1),
-            };
+                new Point(0, image.Height - 1)
+        };
         Rectangle rect = new Rectangle(0, 0, image.Width, image.Height);
 
         Bitmap myBitmap = new Bitmap(image.Width, image.Height);
@@ -70,21 +69,19 @@ public class ImageManipulation
     #region Invert image color
     public static Image InvertColor(Image Source)
     {
-        Bitmap bmpDest = new Bitmap(Source.Width,
-                 Source.Height);
+        Bitmap bmpDest = new Bitmap(Source.Width, Source.Height);
 
         ColorMatrix clrMatrix = new ColorMatrix(new float[][]
-           {
+        {
             new float[] {-1, 0, 0, 0, 0},
             new float[] {0, -1, 0, 0, 0},
             new float[] {0, 0, -1, 0, 0},
             new float[] {0, 0, 0, 1, 0},
             new float[] {1, 1, 1, 0, 1}
-           });
+        });
 
         using (ImageAttributes attrImage = new ImageAttributes())
         {
-
             attrImage.SetColorMatrix(clrMatrix);
 
             using (Graphics g = Graphics.FromImage(bmpDest))
@@ -95,7 +92,6 @@ public class ImageManipulation
                 attrImage);
             }
         }
-
         return bmpDest;
     }
     #endregion

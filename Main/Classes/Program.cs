@@ -20,15 +20,31 @@ namespace WoRCP
         [STAThread]
         static void Main()
         {
-            //Welcome to WoR CP!
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            MainWindow Window = new MainWindow();
-            GetGreeting();              //Get current time greeting
-            Theme.Initialize(Window);   //Initialize theme
-            Configuration.Initialize(); //Initializes the config
-            checkSettings();            //Check the settings file
-            Application.Run(Window);    //Show the main window
+            try
+            {
+                //Welcome to WoR CP!
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+                MainWindow Window = new MainWindow();
+                Theme.Initialize(Window);   //Initialize theme
+                Configuration.Initialize(); //Initializes the config
+                Language.Initialize();      //Initialize the language
+                checkSettings();            //Check the settings file
+                Application.Run(Window);    //Show the main window
+            }
+            catch (Exception ex)
+            {
+                Log("[Critical Error] " + ex);
+            }
+            finally
+            {
+                MessageBox.Show("WoR Control panel has crashed unexpectedly.");
+                MessageBox.Show("A log has been created on your desktop" + Environment.NewLine + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt" + Environment.NewLine + "If you had any issues with WoRCP or your Pi" + Environment.NewLine + "please send this log to the developer");
+                StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt");
+                sw.WriteLine(LogOutput);
+                sw.Close();
+                // This code always executed even if application crashes.
+            }
         }
 
         //Methods
@@ -38,14 +54,16 @@ namespace WoRCP
         #endregion
 
         #region Greetings Text
-        public static void GetGreeting()
+        public static string GetGreeting()
         {
-            int time = Convert.ToInt16(DateTime.Now.ToString("HH")); // Get the time in 24hr format
+            // Get the time in 24hr format
+            int time = Convert.ToInt16(DateTime.Now.ToString("HH"));
 
             // Check what time of day it is and adjust greeing accordingly
-            if (time <= 12) { Configuration.Greeting = "Good Morning"; }
-            else if (time >= 12) { Configuration.Greeting = "Good Afternoon"; }
-            else if (time >= 17) { Configuration.Greeting = "Good Evening"; }
+            if (time >= 12) return Language.Strings[14];
+            else if (time >= 17) return Language.Strings[15];
+            return Language.Strings[13];
+
         }
         #endregion
 
@@ -59,22 +77,21 @@ namespace WoRCP
         #region Check settings
         private static void checkSettings()
         {
-            if (File.Exists(Application.StartupPath + @"\Settings.ini"))
+            if (!File.Exists(Application.StartupPath + @"\Settings.ini")) return; //Check if settings.ini exists
+
+            IniFile MyIni = new IniFile(Application.StartupPath + @"\Settings.ini");
+            if (MyIni.KeyExists("StartMinimized", "Options"))
             {
-                IniFile MyIni = new IniFile(Application.StartupPath + @"\Settings.ini");
-                if (MyIni.KeyExists("StartMinimized", "Options"))
+                Configuration.MinimizeToTray = Convert.ToBoolean(MyIni.Read("StartMinimized", "Options"));
+                ResourceReader.trayicon.Visible = Convert.ToBoolean(MyIni.Read("StartMinimized", "Options"));
+                /*
+                Configuration.OverlayEnabled = Convert.ToBoolean(MyIni.Read("Enabled", "Overlay"));
+                if (Convert.ToBoolean(MyIni.Read("Enabled", "Overlay")))
                 {
-                    Configuration.MinimizeToTray = Convert.ToBoolean(MyIni.Read("StartMinimized", "Options"));
-                    ResourceReader.trayicon.Visible = Convert.ToBoolean(MyIni.Read("StartMinimized", "Options"));
-                    /*
-                    Configuration.OverlayEnabled = Convert.ToBoolean(MyIni.Read("Enabled", "Overlay"));
-                    if (Convert.ToBoolean(MyIni.Read("Enabled", "Overlay")))
-                    {
-                        Configuration.overlay.StartPosition = FormStartPosition.Manual;
-                        Configuration.overlay.Location = new System.Drawing.Point(Convert.ToInt32(ConfigUtility.Width) - Configuration.overlay.Width, 0);
-                        Configuration.overlay.Show();
-                    }*/
-                }
+                    Configuration.overlay.StartPosition = FormStartPosition.Manual;
+                    Configuration.overlay.Location = new System.Drawing.Point(Convert.ToInt32(ConfigUtility.Width) - Configuration.overlay.Width, 0);
+                    Configuration.overlay.Show();
+                }*/
             }
         }
         #endregion

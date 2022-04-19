@@ -181,6 +181,7 @@ namespace WoRCP.Tabs
             this.SaveButton.ButtonText = "Save";
             this.SaveButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(35)))));
             this.SaveButton.Dock = System.Windows.Forms.DockStyle.Left;
+            this.SaveButton.Glyph = false;
             this.SaveButton.Location = new System.Drawing.Point(0, 0);
             this.SaveButton.Margin = new System.Windows.Forms.Padding(0);
             this.SaveButton.Name = "SaveButton";
@@ -195,6 +196,7 @@ namespace WoRCP.Tabs
             this.DefaultsButton.ButtonText = "Defaults";
             this.DefaultsButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(35)))));
             this.DefaultsButton.Dock = System.Windows.Forms.DockStyle.Right;
+            this.DefaultsButton.Glyph = false;
             this.DefaultsButton.Location = new System.Drawing.Point(294, 0);
             this.DefaultsButton.Margin = new System.Windows.Forms.Padding(0);
             this.DefaultsButton.Name = "DefaultsButton";
@@ -208,6 +210,7 @@ namespace WoRCP.Tabs
             this.RefreshButton.BackColor = System.Drawing.Color.Transparent;
             this.RefreshButton.ButtonText = "Refresh";
             this.RefreshButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(35)))));
+            this.RefreshButton.Glyph = false;
             this.RefreshButton.Location = new System.Drawing.Point(145, 0);
             this.RefreshButton.Margin = new System.Windows.Forms.Padding(0);
             this.RefreshButton.Name = "RefreshButton";
@@ -272,6 +275,7 @@ namespace WoRCP.Tabs
             this.MountButton.BackColor = System.Drawing.Color.Transparent;
             this.MountButton.ButtonText = "Mount";
             this.MountButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.MountButton.Glyph = false;
             this.MountButton.Location = new System.Drawing.Point(10, 201);
             this.MountButton.Margin = new System.Windows.Forms.Padding(0);
             this.MountButton.Name = "MountButton";
@@ -604,6 +608,7 @@ namespace WoRCP.Tabs
             this.SaveCustomRes.BackColor = System.Drawing.Color.Transparent;
             this.SaveCustomRes.ButtonText = "✓";
             this.SaveCustomRes.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.SaveCustomRes.Glyph = false;
             this.SaveCustomRes.Location = new System.Drawing.Point(196, 5);
             this.SaveCustomRes.Margin = new System.Windows.Forms.Padding(0);
             this.SaveCustomRes.Name = "SaveCustomRes";
@@ -762,6 +767,7 @@ namespace WoRCP.Tabs
             this.ConfigDocsButton.BackColor = System.Drawing.Color.Transparent;
             this.ConfigDocsButton.ButtonText = "View";
             this.ConfigDocsButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.ConfigDocsButton.Glyph = false;
             this.ConfigDocsButton.Location = new System.Drawing.Point(530, 121);
             this.ConfigDocsButton.Margin = new System.Windows.Forms.Padding(0);
             this.ConfigDocsButton.Name = "ConfigDocsButton";
@@ -775,6 +781,7 @@ namespace WoRCP.Tabs
             this.ConfigEditorButton.BackColor = System.Drawing.Color.Transparent;
             this.ConfigEditorButton.ButtonText = "Edit";
             this.ConfigEditorButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.ConfigEditorButton.Glyph = false;
             this.ConfigEditorButton.Location = new System.Drawing.Point(530, 71);
             this.ConfigEditorButton.Margin = new System.Windows.Forms.Padding(0);
             this.ConfigEditorButton.Name = "ConfigEditorButton";

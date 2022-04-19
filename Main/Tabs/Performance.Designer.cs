@@ -400,9 +400,9 @@ namespace WoRCP.Tabs
             this.CPULabel.Location = new System.Drawing.Point(10, 10);
             this.CPULabel.Margin = new System.Windows.Forms.Padding(0);
             this.CPULabel.Name = "CPULabel";
-            this.CPULabel.Size = new System.Drawing.Size(40, 21);
+            this.CPULabel.Size = new System.Drawing.Size(78, 21);
             this.CPULabel.TabIndex = 21;
-            this.CPULabel.Text = "CPU";
+            this.CPULabel.Text = "Processor";
             // 
             // CPUChart
             // 

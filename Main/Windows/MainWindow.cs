@@ -26,6 +26,9 @@ namespace WoRCP
 
         private void MainWindow_Load(object sender, EventArgs e)
         {
+            //Set the Form's language
+            SetLanguage();
+
             //Check if the app should be minimized on startup
             if (Configuration.MinimizeToTray)
             {
@@ -39,7 +42,7 @@ namespace WoRCP
             Program.Log("[Info] Windows: " + Configuration.Build);
             Program.Log("[Info] Running on: " + Configuration.DeviceName + " / " + Configuration.CPUArch);
             Program.Log("[Info] Custom theme: " + Theme.CustomTheme.ToString());
-            Greeting.Text = Configuration.Greeting + "\n" + Configuration.User + "!";
+            Greeting.Text = Program.GetGreeting() + "\n" + Configuration.User + "!";
 
             //Easteregg
             RGBStrip.Visible = Configuration.RGBMode;
@@ -79,6 +82,18 @@ namespace WoRCP
         }
         #endregion
 
+        #region Language
+        private void SetLanguage()
+        {
+            PerformanceButton.Text = Program.Spacing(4) + Language.Strings[16];
+            PeripheralsButton.Text = Program.Spacing(4) + Language.Strings[17];
+            AppstoreButton.Text = Program.Spacing(4) + Language.Strings[18];
+            AboutButton.Text = Program.Spacing(4) + Language.Strings[19];
+            OverlayButton.Text = Program.Spacing(4) + Language.Strings[20];
+            SettingsButton.Text = Program.Spacing(4) + Language.Strings[21];
+        }
+        #endregion
+
         //Methods
         #region Icon
 
@@ -108,7 +123,8 @@ namespace WoRCP
             try //Try to load the tabs
             {
                 Program.Log("[Info] Loading" + userctrl.Name + " tab");
-                if (Configuration.OverlayEnabled || ResourceReader.trayicon.Visible) { ResourceReader.timer.Enabled = true; }
+                if (Configuration.OverlayEnabled || ResourceReader.trayicon.Visible) ResourceReader.timer.Enabled = true;
+                else ResourceReader.timer.Enabled = false;
                 Theme.Set(userctrl);
                 if (Tabcontainer.Controls.Count > 0)
                 {

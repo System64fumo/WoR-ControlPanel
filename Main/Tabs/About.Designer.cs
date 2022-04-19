@@ -263,7 +263,7 @@ namespace WoRCP.Tabs
             this.AboutPanel.RightContent = new string[] {
         "Unavailable",
         "",
-        "Created by Amir & Marcin"};
+        " Amir & Marcin"};
             this.AboutPanel.Rounding = 5;
             this.AboutPanel.Size = new System.Drawing.Size(640, 60);
             this.AboutPanel.TabIndex = 5;

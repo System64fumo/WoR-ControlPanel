@@ -280,6 +280,7 @@ namespace WoRCP
             this.SaveButton.BackColor = System.Drawing.Color.Transparent;
             this.SaveButton.ButtonText = "Save";
             this.SaveButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.SaveButton.Glyph = false;
             this.SaveButton.Location = new System.Drawing.Point(470, 271);
             this.SaveButton.Margin = new System.Windows.Forms.Padding(0);
             this.SaveButton.Name = "SaveButton";
@@ -337,7 +338,8 @@ namespace WoRCP
             this.collapsiblePanel4.Location = new System.Drawing.Point(10, 405);
             this.collapsiblePanel4.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
             this.collapsiblePanel4.Name = "collapsiblePanel4";
-            this.collapsiblePanel4.RightContent = new string[0];
+            this.collapsiblePanel4.RightContent = new string[] {
+        "Disabled ⠀⠀⠀⠀⠀"};
             this.collapsiblePanel4.Rounding = 5;
             this.collapsiblePanel4.Size = new System.Drawing.Size(581, 60);
             this.collapsiblePanel4.TabIndex = 17;

@@ -13,6 +13,9 @@ namespace WoRCP
         public Debugger() { InitializeComponent(); }
         private void Debugger_Load(object sender, EventArgs e)
         {
+            //Set the Form's language
+            SetLanguage();
+
             string spacing = Program.Spacing(6);
             //Display the theme system's values in text
             ThemePanel.RightContent[0] = Theme.ThemeMode.ToString();
@@ -42,6 +45,31 @@ namespace WoRCP
         private void MinimizeButton_Click(object sender, System.EventArgs e) { WindowState = FormWindowState.Minimized; }
         #endregion
 
+        #region Language
+        private void SetLanguage()
+        {
+            ThemePanel.Title = Language.Strings[78];
+            ThemePanel.LeftContent[0] = Language.Strings[78];
+            ThemePanel.LeftContent[1] = Language.Strings[79];
+            ThemePanel.LeftContent[2] = Language.Strings[80];
+            ThemePanel.LeftContent[3] = Language.Strings[81];
+            ThemePanel.LeftContent[4] = Language.Strings[82];
+            ThemePanel.LeftContent[5] = Language.Strings[83];
+            ThemePanel.LeftContent[6] = Language.Strings[84];
+            ThemePanel.LeftContent[7] = Language.Strings[85];
+            ThemePanel.LeftContent[8] = Language.Strings[86];
+
+            collapsiblePanel3.Title = Language.Strings[87];
+            label2.Text = Language.Strings[88];
+            SaveButton.ButtonText = Language.Strings[6];
+
+            collapsiblePanel4.Title = Language.Strings[89];
+            collapsiblePanel4.LeftContent[0] = Language.Strings[90];
+            collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Toggled) + " " + Program.Spacing(5);
+
+        }
+        #endregion
+
         //Methods
         #region Update the logger
         private void LogUpdater_Tick(object sender, EventArgs e)
@@ -61,6 +89,7 @@ namespace WoRCP
         #region Toggles
         private void AdvancedOCToggle_ToggledEvent(object sender, EventArgs e)
         {
+            collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Toggled) + " " + Program.Spacing(5);
             Configuration.AdvancedOC = AdvancedOCToggle.Toggled;
             MessageBox.Show("By enabling this setting you agree that you are putting your raspberry pi at risk.\nProceed at your own risk", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
@@ -69,8 +98,8 @@ namespace WoRCP
         #region Buttons
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("A log has been created on your desktop" + Environment.NewLine + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Log.txt" + Environment.NewLine + "If you had any issues with WoRCP or your Pi" + Environment.NewLine + "please send this log to the developer");
-            StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + "\\Log.txt");
+            MessageBox.Show("A log has been created on your desktop" + Environment.NewLine + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt" + Environment.NewLine + "If you had any issues with WoRCP or your Pi" + Environment.NewLine + "please send this log to the developer");
+            StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt");
             sw.WriteLine(Program.LogOutput);
             sw.Close();
         }

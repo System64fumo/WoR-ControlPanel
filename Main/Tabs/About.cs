@@ -17,6 +17,9 @@ namespace WoRCP.Tabs
 
         private void About_Load(object sender, EventArgs e)
         {
+            //Set the tab's language
+            SetLanguage();
+
             DeviceName.Text = Configuration.DeviceName;
             DeviceModel.Text = Configuration.DeviceModel;
             Processor.Text = Configuration.CPUName;
@@ -31,6 +34,21 @@ namespace WoRCP.Tabs
                 DeviceIcon.Text = "";
                 DeviceIcon.Image = Properties.Resources.PiLogo;
             }
+        }
+        #endregion
+
+        #region Language
+        private void SetLanguage()
+        {
+            ProcessorLabel.Text = Language.Strings[34];
+            MemoryLabel.Text = Language.Strings[35];
+            FirmwareLabel.Text = Language.Strings[36];
+            RevisionLabel.Text = Language.Strings[37];
+            SerialLabel.Text = Language.Strings[38];
+            AboutPanel.Title = Language.Strings[39];
+            AboutPanel.LeftContent[0] = Language.Strings[40];
+            AboutPanel.LeftContent[1] = Language.Strings[41];
+            AboutPanel.LeftContent[2] = Language.Strings[42];
         }
         #endregion
 

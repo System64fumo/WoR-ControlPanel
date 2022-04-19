@@ -28,42 +28,46 @@ namespace WoRCP.Tabs
             WidthTB.Text = Screen.PrimaryScreen.Bounds.Width.ToString();
             HeightTB.Text = Screen.PrimaryScreen.Bounds.Height.ToString();
         }
-        private void Settings_Load(object sender, EventArgs e)
+        private async void Settings_Load(object sender, EventArgs e)
         {
-            //Wallpaper preview
-            try
-            {
-                Image Wallpaper = new Bitmap(Image.FromFile(Configuration.Wallpaper), new Size(Desktop.Width - 10, Desktop.Height - 10));
-                Desktop.BackgroundImage = ImageManipulation.OverlayImage(Wallpaper, Desktop.BackgroundImage, 5, 5, 0, 0);
-                Wallpaper.Dispose();
-            }
-            catch (Exception ex)
-            {
-                Program.Log("[Error] Unable to get wallpaper.");
-                Program.Log("[Exception] " + ex);
-            }
+            //Set the tab's language
+            SetLanguage();
+
+            //Update the wallpaper on the screen preview panel
+            WallpaperpPreview();
 
             //Change glyphs
             IssuesIcon.Font = new Font(Theme.glyphs.Name, 20.25f);
             label5.Font = new Font(Theme.glyphs.Name, 48f);
 
             //Add a button for every resolution in the resolution list
-            foreach (string R in Res)
-            {
-                RoundedButton Button = new RoundedButton
-                {
-                    Size = new Size(256, 35),
-                    ButtonText = R,
-                    Color = Theme.BrightPanel,
-                    Margin = new Padding(0, 0, 0, 5)
-                };
-                Button.Click += Btn_Click;
-                ResolutionList.Controls.Add(Button);
-                string width = Button.ButtonText.Remove(Button.ButtonText.IndexOf("x"));
-                string height = Button.ButtonText.Replace(width + "x", "");
-            }
-            CustomResolutionPanel.SendToBack();
+            ConfigureResolutions();
+
             Configure();
+        }
+        #endregion
+
+        #region Language
+        private void SetLanguage()
+        {
+            SaveButton.ButtonText = Language.Strings[6];
+            RefreshButton.ButtonText = Language.Strings[7];
+            DefaultsButton.ButtonText = Language.Strings[8];
+
+            OverclockingPanel.Title = Language.Strings[66];
+            OverclockingPanel.LeftContent[0] = Language.Strings[67];
+            OverclockingPanel.LeftContent[1] = Language.Strings[68];
+            OverclockingPanel.LeftContent[2] = Language.Strings[69];
+            OverclockingPanel.LeftContent[3] = Language.Strings[70];
+            OverclockingPanel.LeftContent[4] = Language.Strings[71];
+
+            DisplayPanel.Title = Language.Strings[72];
+            OverscanLabel.Text = Language.Strings[73];
+            HotplugLabel.Text = Language.Strings[74];
+
+            OtherPanel.Title = Language.Strings[76];
+            OtherPanel.LeftContent[0] = Language.Strings[77];
+            OtherPanel.LeftContent[1] = Language.Strings[78];
         }
         #endregion
 
@@ -121,6 +125,44 @@ namespace WoRCP.Tabs
         }
         #endregion
 
+        #region Wallpaper preview
+        private void WallpaperpPreview()
+        {
+            try
+            {
+                Image Wallpaper = new Bitmap(Image.FromFile(Configuration.Wallpaper), new Size(Desktop.Width - 10, Desktop.Height - 10));
+                Desktop.BackgroundImage = ImageManipulation.OverlayImage(Wallpaper, Desktop.BackgroundImage, 5, 5, 0, 0);
+                Wallpaper.Dispose();
+            }
+            catch (Exception ex)
+            {
+                Program.Log("[Error] Unable to get wallpaper.");
+                Program.Log("[Exception] " + ex);
+            }
+        }
+        #endregion
+
+        #region Resolution buttons
+        private void ConfigureResolutions()
+        {
+            foreach (string R in Res)
+            {
+                RoundedButton Button = new RoundedButton
+                {
+                    Size = new Size(256, 35),
+                    ButtonText = R,
+                    Color = Theme.BrightPanel,
+                    Margin = new Padding(0, 0, 0, 5)
+                };
+                Button.Click += Btn_Click;
+                ResolutionList.Controls.Add(Button);
+                string width = Button.ButtonText.Remove(Button.ButtonText.IndexOf("x"));
+                string height = Button.ButtonText.Replace(width + "x", "");
+            }
+            CustomResolutionPanel.SendToBack();
+        }
+        #endregion
+
         #region Configure the controls
         private void Configure() //Sets the values of the sliders and toggles based on the config
         {
@@ -153,24 +195,21 @@ namespace WoRCP.Tabs
                                     Overvoltage.Text = OvervoltageSlider.Value.ToString();
                                     break;
                                 case 4: //Force_Turbo=
-                                    if (Convert.ToBoolean(val)) ForceTurbo.Text = "Enabled";
-                                    else ForceTurbo.Text = "Disabled";
+                                    ForceTurbo.Text = Language.State(Convert.ToBoolean(val));
                                     ForceTurboToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                                 case 5: //Temp_Limit=
                                         //TODO: Add temp limit GUI Option
                                     break;
                                 case 6: //Disable_Overscan=
-                                    if (!Convert.ToBoolean(val)) OverscanState.Text = "Enabled";
-                                    else OverscanState.Text = "Disabled";
+                                    OverscanState.Text = Language.State(!Convert.ToBoolean(val));
                                     OverscanToggle.Toggled = !Convert.ToBoolean(val);
                                     break;
                                 case 7: //Disable_Splash=
                                         //TODO: Add disable splash GUI Option
                                     break;
                                 case 8: //HDMI_Force_Hotplug=
-                                    if (Convert.ToBoolean(val)) HotplugState.Text = "Enabled";
-                                    else HotplugState.Text = "Disabled";
+                                    HotplugState.Text = Language.State(Convert.ToBoolean(val));
                                     HotplugToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                             }
@@ -197,9 +236,9 @@ namespace WoRCP.Tabs
 
                     //Change labels text
                     IssuesIcon.Text = "";
-                    Issues.Text = "No issues found";
-                    BootMessageLabel.Text = "Your boot partition is mounted and can be accessed from \n Drive (B:)";
-                    MountButton.ButtonText = "Unmount";
+                    Issues.Text = Language.Strings[60];
+                    BootMessageLabel.Text = Language.Strings[64] + " (B:)";
+                    MountButton.ButtonText = Language.Strings[10];
 
                     //Check for any issues
                     checkConfig();
@@ -207,11 +246,11 @@ namespace WoRCP.Tabs
                 else
                 {
                     IssuesIcon.Text = "";
-                    PiLabel.Text = "Unable to read config.txt";
-                    Issues.Text = "Boot partition is not mounted";
-                    Config.Text = "Your config.txt will be shown here once you mount your boot partition\n";
-                    BootMessageLabel.Text = "Please mount your boot partition \n to be able to overclock";
-                    MountButton.ButtonText = "Mount";
+                    PiLabel.Text = Language.Strings[55];
+                    Issues.Text = Language.Strings[62];
+                    Config.Text = Language.Strings[65];
+                    BootMessageLabel.Text = Language.Strings[63];
+                    MountButton.ButtonText = Language.Strings[9];
                 }
                 OverclockingPanel.Enabled = Configuration.BootMounted;
                 DisplayPanel.Enabled = Configuration.BootMounted;
@@ -239,24 +278,24 @@ namespace WoRCP.Tabs
             //Check if pi is overclocked or not
             if (armfreq == Convert.ToInt32(ConfigUtility.StockValues[0]))  //Stock
             {
-                PiLabel.Text = "Your Pi is running at stock speeds";
+                PiLabel.Text = Language.Strings[56];
                 OverclockingPanel.Icon = "";
             }
             else if (armfreq > Convert.ToInt32(ConfigUtility.StockValues[0])) //Overclocked
             {
-                PiLabel.Text = "Your Pi is overclocked (" + armfreq / 1000.0 + "GHz)";
+                PiLabel.Text = Language.Strings[57] +"(" + armfreq / 1000.0 + "GHz)";
                 OverclockingPanel.Icon = "";
             }
             else if (armfreq < Convert.ToInt32(ConfigUtility.StockValues[0])) //Underclocked
             {
-                PiLabel.Text = "Your Pi is underclocked (" + armfreq / 1000.0 + "GHz)";
+                PiLabel.Text = Language.Strings[58] + "(" + armfreq / 1000.0 + "GHz)";
                 OverclockingPanel.Icon = "";
             }
             OverclockingPanel.Invalidate();
             Configuration.DeviceModel = "Raspberry Pi 4 Model B";
             if (armfreq > 2300 && Configuration.DeviceModel == "Raspberry Pi 4 Model B")
             {
-                Issues.Text = "Warning! your overclock is too high, Your raspberry pi might not boot";
+                Issues.Text = Language.Strings[69];
             }
         }
         #endregion
@@ -316,23 +355,20 @@ namespace WoRCP.Tabs
         #region Toggles
         private void ForceTurboToggle_ToggledEvent(object sender, EventArgs e)
         {
-            if (ForceTurboToggle.Toggled) { ForceTurbo.Text = "Enabled"; }
-            else { ForceTurbo.Text = "Disabled"; }
+            ForceTurbo.Text =  Language.State(ForceTurboToggle.Toggled);
             ConfigUtility.Values[4] = Convert.ToInt32(ForceTurboToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
         }
         private void OverscanToggle_ToggledEvent(object sender, EventArgs e)
         {
-            if (OverscanToggle.Toggled) { OverscanState.Text = "Enabled"; }
-            else { OverscanState.Text = "Disabled"; }
+            OverscanState.Text = Language.State(OverscanToggle.Toggled);
             ConfigUtility.Values[6] = Convert.ToInt32(!OverscanToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
         }
 
         private void HotplugToggle_ToggledEvent(object sender, EventArgs e)
         {
-            if (HotplugToggle.Toggled) { HotplugState.Text = "Enabled"; }
-            else { HotplugState.Text = "Disabled"; }
+            HotplugState.Text = Language.State(HotplugToggle.Toggled);
             ConfigUtility.Values[8] = Convert.ToInt32(HotplugToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
         }

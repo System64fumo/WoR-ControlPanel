@@ -26,6 +26,9 @@ namespace WoRCP.Tabs
         }
         private void Peripherals_Load(object sender, EventArgs e)
         {
+            //Set the tab's language
+            SetLanguage();
+
             if (Configuration.CPUArch == "ARM64")
             {
                 initializeGPIO();
@@ -60,6 +63,18 @@ namespace WoRCP.Tabs
                     }
                 }
             }
+        }
+        #endregion
+
+        #region Language
+        private void SetLanguage()
+        {
+            WarningLabel.Text = Language.Strings[27];
+            GPIOLabel.Text = Language.Strings[28];
+            SelectedPinLabel.Text = Language.Strings[29];
+            collapsiblePanel1.Title = Language.Strings[30];
+            collapsiblePanel1.LeftContent[0] = Language.Strings[31];
+            PinStateState.Text = Language.State(PinStateToggle.Toggled);
         }
         #endregion
 

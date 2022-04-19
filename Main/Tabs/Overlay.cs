@@ -12,16 +12,56 @@ namespace WoRCP.Tabs
         public Overlay()
         {
             InitializeComponent();
+        }
+
+        private void Overlay_Load(object sender, EventArgs e)
+        {
+            //Set the tab's language
+            SetLanguage();
+
             PositionChanged(Configuration.OverlayPos);
             OpacitySlider.Value = Configuration.OverlayOpacity;
-            if (Configuration.OverlayEnabled) { OverlayToggle.Toggled = Configuration.OverlayEnabled; OverlayState.Text = "Enabled"; }
-            if (!Configuration.OverlayMinimal) { ChartsToggle.Toggled = !Configuration.OverlayMinimal; ChartsState.Text = "Full"; }
-            if (Configuration.OverlayRounded) { StyleToggle.Toggled = Configuration.OverlayRounded; StyleState.Text = "Rounded"; }
-            if (Configuration.OverlayAlwaysOnTop) { AlwaysOnTopToggle.Toggled = Configuration.OverlayAlwaysOnTop; AlwaysOnTop.Text = "Enabled"; }
-            if (Configuration.OverlayPortrait) { OrientationToggle.Toggled = Configuration.OverlayPortrait; Orientation.Text = "Portrait"; }
-            if (ResourceReader.trayicon.Visible) { TrayIconToggle.Toggled = ResourceReader.trayicon.Visible; TrayIconState.Text = "Enabled"; }
-            if (Configuration.MinimizeToTray) { MinimizeToTrayToggle.Toggled = Configuration.MinimizeToTray; MinimizeToTrayToggle.Enabled = Configuration.MinimizeToTray; MinimizeToTrayState.Text = "Enabled"; }
-            if (ConfigUtility.Values[5] != null) { TempWarningToggle.Enabled = true; }
+
+            //Toggles
+            OverlayToggle.Toggled = Configuration.OverlayEnabled;
+            ChartsToggle.Toggled = Configuration.OverlayMinimal;
+            StyleToggle.Toggled = Configuration.OverlayRounded;
+            AlwaysOnTopToggle.Toggled = Configuration.OverlayAlwaysOnTop;
+            OrientationToggle.Toggled = Configuration.OverlayPortrait;
+            TrayIconToggle.Toggled = ResourceReader.trayicon.Visible;
+            MinimizeToTrayToggle.Toggled = Configuration.MinimizeToTray;
+            MinimizeToTrayToggle.Enabled = Configuration.MinimizeToTray;
+            TempWarningToggle.Enabled = (ConfigUtility.Values[5] != "0");
+        }
+        #endregion
+
+        #region Language
+        private void SetLanguage()
+        {
+            collapsiblePanel1.Title = Language.Strings[43];
+            collapsiblePanel1.LeftContent[0] = Language.Strings[44];
+            collapsiblePanel1.LeftContent[1] = Language.Strings[45];
+
+            collapsiblePanel3.Title = Language.Strings[46];
+            collapsiblePanel3.LeftContent[0] = Language.Strings[47];
+            collapsiblePanel3.LeftContent[1] = Language.Strings[48];
+            collapsiblePanel3.LeftContent[2] = Language.Strings[49];
+            collapsiblePanel3.LeftContent[3] = Language.Strings[50];
+
+            collapsiblePanel2.Title = Language.Strings[51];
+            collapsiblePanel2.LeftContent[0] = Language.Strings[52];
+            collapsiblePanel2.LeftContent[1] = Language.Strings[53];
+            collapsiblePanel2.LeftContent[2] = Language.Strings[54];
+
+            OverlayState.Text = Language.State(Configuration.OverlayEnabled);
+            ChartsState.Text = Language.State(Configuration.OverlayMinimal);
+            StyleState.Text = Language.State(Configuration.OverlayRounded);
+            AlwaysOnTop.Text = Language.State(Configuration.OverlayAlwaysOnTop);
+            Orientation.Text = Language.State(Configuration.OverlayPortrait);
+            MinimizeToTrayState.Text = Language.State(Configuration.MinimizeToTray);
+            TrayIconState.Text = Language.State(ResourceReader.trayicon.Visible);
+            TempWarningState.Text = Language.State(Configuration.TrayTempWarning);
+
         }
         #endregion
 
@@ -74,20 +114,20 @@ namespace WoRCP.Tabs
         //Overlay
         public void OverlayToggle_ToggledEvent(object sender, EventArgs e)
         {
+            ResourceReader.timer.Enabled = TrayIconToggle.Toggled;
             Configuration.OverlayEnabled = OverlayToggle.Toggled;
-            if (OverlayToggle.Toggled)
+            OverlayState.Text = Language.State(OverlayToggle.Toggled);
+            if (!OverlayToggle.Toggled)
             {
-                OverlayState.Text = "Enabled";
-                Configuration.overlay = new OverlayWindow();
-                PositionChanged(Configuration.OverlayPos);
-                Configuration.overlay.Show();
-            }
-            else
-            {
-                OverlayState.Text = "Disabled";
+
                 Configuration.overlay.Enabled = false;
                 Configuration.overlay.Dispose();
+                return;
             }
+
+            Configuration.overlay = new OverlayWindow();
+            PositionChanged(Configuration.OverlayPos);
+            Configuration.overlay.Show();
         }
 
         //Information appearance
@@ -96,14 +136,7 @@ namespace WoRCP.Tabs
             Configuration.OverlayMinimal = ChartsToggle.Toggled;
             Configuration.overlay.ChartType();
             PositionChanged(Configuration.OverlayPos);
-            if (ChartsToggle.Toggled)
-            {
-                ChartsState.Text = "Full";
-            }
-            else
-            {
-                ChartsState.Text = "Minimal";
-            }
+            ChartsState.Text = Language.State(ChartsToggle.Toggled);
         }
 
         //Always on top
@@ -111,14 +144,7 @@ namespace WoRCP.Tabs
         {
             Configuration.overlay.TopMost = AlwaysOnTopToggle.Toggled;
             Configuration.OverlayAlwaysOnTop = AlwaysOnTopToggle.Toggled;
-            if (AlwaysOnTopToggle.Toggled)
-            {
-                AlwaysOnTop.Text = "Enabled";
-            }
-            else
-            {
-                AlwaysOnTop.Text = "Disabled";
-            }
+            AlwaysOnTop.Text = Language.State(AlwaysOnTopToggle.Toggled);
         }
 
         //Orientation
@@ -127,14 +153,7 @@ namespace WoRCP.Tabs
             Configuration.OverlayPortrait = OrientationToggle.Toggled;
             Configuration.overlay.Orientation();
             PositionChanged(Configuration.OverlayPos);
-            if (OrientationToggle.Toggled)
-            {
-                Orientation.Text = "Portrait";
-            }
-            else
-            {
-                Orientation.Text = "Landscape";
-            }
+            Orientation.Text = Language.State(OrientationToggle.Toggled);
         }
 
         //Rounding appearance
@@ -142,31 +161,22 @@ namespace WoRCP.Tabs
         {
             Configuration.OverlayRounded = StyleToggle.Toggled;
             Configuration.overlay.RoundCharts();
-            if (StyleToggle.Toggled)
-            {
-                StyleState.Text = "Rounded";
-            }
-            else
-            {
-                StyleState.Text = "Flat";
-            }
+            StyleState.Text = Language.State(StyleToggle.Toggled);
         }
 
         //Tray icon
         private void TrayIconToggle_ToggledEvent(object sender, EventArgs e)
         {
+            ResourceReader.timer.Enabled = TrayIconToggle.Toggled;
             ResourceReader.trayicon.Visible = TrayIconToggle.Toggled;
             MinimizeToTrayToggle.Enabled = TrayIconToggle.Toggled;
-            if (TrayIconToggle.Toggled)
+            TrayIconState.Text = Language.State(TrayIconToggle.Toggled);
+            if (!TrayIconToggle.Toggled)
             {
-                TrayIconState.Text = "Enabled";
-            }
-            else
-            {
-                TrayIconState.Text = "Disabled";
                 MinimizeToTrayState.Text = "Disabled";
                 MinimizeToTrayToggle.Toggled = false;
                 Configuration.MinimizeToTray = false;
+                return;
             }
         }
 
@@ -174,28 +184,14 @@ namespace WoRCP.Tabs
         private void MinimizeToTrayToggle_ToggledEvent(object sender, EventArgs e)
         {
             Configuration.MinimizeToTray = MinimizeToTrayToggle.Toggled;
-            if (MinimizeToTrayToggle.Toggled)
-            {
-                MinimizeToTrayState.Text = "Enabled";
-            }
-            else
-            {
-                MinimizeToTrayState.Text = "Disabled";
-            }
+            MinimizeToTrayState.Text = Language.State(MinimizeToTrayToggle.Toggled);
         }
 
         //Temp warning
         private void TempLimitToggle_ToggledEvent(object sender, EventArgs e)
         {
             Configuration.TrayTempWarning = TempWarningToggle.Toggled;
-            if (TempWarningToggle.Toggled)
-            {
-                TempWarningState.Text = "Enabled";
-            }
-            else
-            {
-                TempWarningState.Text = "Disabled";
-            }
+            TempWarningState.Text = Language.State(TempWarningToggle.Toggled);
         }
         #endregion
 

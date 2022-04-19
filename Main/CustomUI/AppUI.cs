@@ -16,11 +16,14 @@ namespace WoRCP
     partial class AppUI : UserControl
     {
         //Main
+        #region Properties
+        public string Link { get; set; }
+        public string AppPath { get; set; }
+        public string Executable { get; set; }
+        public string Icon { get; set; }
+        #endregion
+
         #region Variables
-        public string Link;
-        public string AppPath;
-        public string Executable;
-        public string Icon;
         private bool Installed;
         private readonly string DownloadPath = Path.GetTempPath() + "Download.zip";
         private bool AnimationState = true;
@@ -39,7 +42,11 @@ namespace WoRCP
             {
                 Installed = true;
                 InstallButton.Color = Theme.Accent;
-                InstallButton.ButtonText = "Uninstall";
+                InstallButton.ButtonText = Language.Strings[5];
+            }
+            else
+            {
+                InstallButton.ButtonText = Language.Strings[4];
             }
         }
         #endregion
@@ -66,7 +73,7 @@ namespace WoRCP
 
                     InstallButton.Enabled = false;
                     Directory.Delete(AppPath, true);
-                    InstallButton.ButtonText = "Install";
+                    InstallButton.ButtonText = Language.Strings[4];
                     InstallButton.Enabled = true;
                     InstallButton.Color = Theme.Inactive;
                     Program.Log("[Info] Succesfully uninstalled " + AppName.Text);
@@ -75,7 +82,6 @@ namespace WoRCP
                 {
                     //Installation process starts
                     InstallButton.Enabled = false;
-                    InstallButton.ButtonText = "Installing";
                     Animation.Enabled = true;
 
                     //Start downloading the file
@@ -107,7 +113,7 @@ namespace WoRCP
                     }
 
                     //Finish
-                    InstallButton.ButtonText = "Uninstall";
+                    InstallButton.ButtonText = Language.Strings[5];
                     Animation.Enabled = false;
                     InstallButton.Color = Theme.Accent;
                     InstallButton.Enabled = true;

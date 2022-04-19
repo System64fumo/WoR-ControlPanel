@@ -46,6 +46,12 @@ namespace Installer
 
         private async void Installer_Load(object sender, EventArgs e)
         {
+            if (Program.silent)
+            {
+                this.Hide();
+                this.ShowInTaskbar = false;
+                this.Visible = false;
+            }
             //Check if the application is installed
             if (Directory.Exists(PathTextbox.Text))
             {
@@ -61,29 +67,28 @@ namespace Installer
             {
                 try //Get app version
                 {
-                    if (Internet)
-                    {
-                        using (WebClient wc = new WebClient())
-                        {
-                            wc.DownloadFile(new Uri(Assemblyver), Application.StartupPath + @"\Version.txt");
-                        }
+                    if (!Internet) return;
 
-                        foreach (string line in File.ReadAllLines(Application.StartupPath + @"\Version.txt"))
+                    using (WebClient wc = new WebClient())
+                    {
+                        wc.DownloadFile(new Uri(Assemblyver), Application.StartupPath + @"\Version.txt");
+                    }
+
+                    foreach (string line in File.ReadAllLines(Application.StartupPath + @"\Version.txt"))
+                    {
+                        if (line.Contains("[assembly: AssemblyVersion(") && !line.Contains("//"))
                         {
-                            if (line.Contains("[assembly: AssemblyVersion(") && !line.Contains("//"))
-                            {
-                                string version = line.Remove(0, 28).Remove(5, 5);
-                                int a = Convert.ToInt32(version.Remove(1));
-                                int b = Convert.ToInt32(version.Remove(0, 2).Remove(1, 2));
-                                int c = Convert.ToInt32(version.Remove(0, 4)) - 1;
-                                ServerVersion = "V" + a + "." + b + "." + c;
-                                AcrylicPanel.Invalidate();
-                            }
+                            string version = line.Remove(0, 28).Remove(5, 5);
+                            int a = Convert.ToInt32(version.Remove(1));
+                            int b = Convert.ToInt32(version.Remove(0, 2).Remove(1, 2));
+                            int c = Convert.ToInt32(version.Remove(0, 4)) - 1;
+                            ServerVersion = "V" + a + "." + b + "." + c;
+                            AcrylicPanel.Invalidate();
                         }
-                        if (File.Exists(Application.StartupPath + @"\Version.txt"))
-                        {
-                            File.Delete(Application.StartupPath + @"\Version.txt");
-                        }
+                    }
+                    if (File.Exists(Application.StartupPath + @"\Version.txt"))
+                    {
+                        File.Delete(Application.StartupPath + @"\Version.txt");
                     }
                 }
                 catch
@@ -109,7 +114,8 @@ namespace Installer
         private void DragMove(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left) { Left += e.X - lastPoint.X; Top += e.Y - lastPoint.Y; } }
         private void CloseButton_Click(object sender, EventArgs e)
         {
-            if (File.Exists(Path.GetTempPath() + "list.txt")) { File.Delete(Path.GetTempPath() + "list.txt"); }
+            if (File.Exists(Path.GetTempPath() + "list.txt"))
+                File.Delete(Path.GetTempPath() + "list.txt");
             Application.Exit();
         }
         private void MinimizeButton_Click(object sender, EventArgs e)
@@ -121,6 +127,41 @@ namespace Installer
         //Controls
         #region Buttons
         private async void InstallButton_Click(object sender, EventArgs e)
+        {
+            install();
+        }
+
+        private void ChooseDirButton_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
+            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
+            {
+                PathTextbox.Text = folderBrowserDialog1.SelectedPath + @"\WoR Control Panel";
+            }
+        }
+        #endregion
+
+        //Events
+        #region Paint events
+        private void AcrylicPanel_Paint(object sender, PaintEventArgs e)
+        {
+            SizeF AppNameSize = e.Graphics.MeasureString(AppName, font);
+            e.Graphics.DrawString(AppName, font, DrawBrush, AcrylicPanel.Width / 2 - AppNameSize.Width / 2 + 26, AcrylicPanel.Height / 2 - AppNameSize.Height / 2);
+
+            SizeF AppVersionSize = e.Graphics.MeasureString(ServerVersion, font);
+            e.Graphics.DrawString(ServerVersion, new Font("Segoe UI Semibold", 9f), DrawBrush, AcrylicPanel.Width / 2 + AppNameSize.Width / 2 - AppVersionSize.Width / 2 + 26, AcrylicPanel.Height / 2 - AppNameSize.Height / 2 + 50);
+
+            Image newImage = Properties.Resources.Icon;
+            RectangleF srcRect = new RectangleF(0, 0, 96, 64);
+            GraphicsUnit units = GraphicsUnit.Pixel;
+
+            e.Graphics.DrawImage(newImage, AcrylicPanel.Width / 2 - 75 - AppNameSize.Width / 2, AcrylicPanel.Height / 2 - 28, srcRect, units);
+        }
+        #endregion
+
+        //Methods
+        #region Install/Uninstall
+        private async void install()
         {
             try
             {
@@ -135,10 +176,7 @@ namespace Installer
 
                     //Remove shortcut
                     string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\WoRCP.lnk";
-                    if (File.Exists(path))
-                    {
-                        File.Delete(path);
-                    }
+                    if (File.Exists(path)) File.Delete(path);
                 }
                 else //Install app
                 {
@@ -192,36 +230,8 @@ namespace Installer
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        private void ChooseDirButton_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog folderBrowserDialog1 = new FolderBrowserDialog();
-            if (folderBrowserDialog1.ShowDialog() == DialogResult.OK)
-            {
-                PathTextbox.Text = folderBrowserDialog1.SelectedPath + @"\WoR Control Panel";
-            }
-        }
         #endregion
 
-        //Events
-        #region Paint events
-        private void AcrylicPanel_Paint(object sender, PaintEventArgs e)
-        {
-            SizeF AppNameSize = e.Graphics.MeasureString(AppName, font);
-            e.Graphics.DrawString(AppName, font, DrawBrush, AcrylicPanel.Width / 2 - AppNameSize.Width / 2 + 26, AcrylicPanel.Height / 2 - AppNameSize.Height / 2);
-
-            SizeF AppVersionSize = e.Graphics.MeasureString(ServerVersion, font);
-            e.Graphics.DrawString(ServerVersion, new Font("Segoe UI Semibold", 9f), DrawBrush, AcrylicPanel.Width / 2 + AppNameSize.Width / 2 - AppVersionSize.Width / 2 + 26, AcrylicPanel.Height / 2 - AppNameSize.Height / 2 + 50);
-
-            Image newImage = Properties.Resources.Icon;
-            RectangleF srcRect = new RectangleF(0, 0, 96, 64);
-            GraphicsUnit units = GraphicsUnit.Pixel;
-
-            e.Graphics.DrawImage(newImage, AcrylicPanel.Width / 2 - 75 - AppNameSize.Width / 2, AcrylicPanel.Height / 2 - 28, srcRect, units);
-        }
-        #endregion
-
-        //Methods
         #region Download file
         private async Task DownloadFileTaskAsync(HttpClient client, Uri uri, string FileName)
         {

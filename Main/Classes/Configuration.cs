@@ -15,18 +15,19 @@ namespace WoRCP
             switch (DeviceModel)
             {
                 case "Raspberry Pi 4 Model B":
-                    ConfigUtility.StockValues = new string[] { "1500", "500", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1500", "500", "32", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
                     break;
                 case "Raspberry Pi 3 Model B+":
-                    ConfigUtility.StockValues = new string[] { "1400", "400", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1400", "400", "32", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
                     break;
                 case "Raspberry Pi 3 Model B":
-                    ConfigUtility.StockValues = new string[] { "1200", "400", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1200", "400", "32", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
                     break;
                 default: //Unknown Pi
-                    ConfigUtility.StockValues = new string[] { "1500", "250", "32", "0", "0", "85", "0", "0", "0", "0", "0", "0" };
+                    ConfigUtility.StockValues = new string[] { "1500", "250", "32", "0", "0", "0", "0", "0", "0", "0", "0", "0" };
                     break;
             }
+            ConfigUtility.Values = ConfigUtility.StockValues;
             //Set default screen height and width
             ConfigUtility.Width = Screen.PrimaryScreen.Bounds.Width.ToString();
             ConfigUtility.Height = Screen.PrimaryScreen.Bounds.Height.ToString();
@@ -35,7 +36,6 @@ namespace WoRCP
 
         #region Registry mess
         //User
-        public static string Greeting;
         public static string User = Environment.UserName;
         public static string Wallpaper = (string)Registry.GetValue(@"HKEY_CURRENT_USER\Control Panel\Desktop", "WallPaper", null);
 
@@ -84,16 +84,12 @@ namespace WoRCP
         public static string LaunchMode;
         #endregion
 
-        #region Appstore
-        public static int ApplicationsFound = 0;
-        #endregion
-
         #region Overlay
         public static OverlayWindow overlay = new OverlayWindow();
         public static int OverlayPos = 1;
         public static int OverlayOpacity = 90;
         public static bool OverlayEnabled;
-        public static bool OverlayMinimal;
+        public static bool OverlayMinimal = true;
         public static bool OverlayAlwaysOnTop = true;
         public static bool OverlayRounded = true;
         public static bool OverlayPortrait = true;
