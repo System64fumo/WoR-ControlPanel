@@ -1,0 +1,113 @@
+//Beheer
+Geaktiveer
+Gestrem
+Hoog
+Laag
+Installeer
+Deïnstalleer
+Stoor
+Verfris
+Verstek
+Monteer
+Ontkoppel
+Wysig
+Beskou
+
+//Hoofvenster
+Goeie more
+Goeie middag
+Goeienaand
+
+//Tabs
+Optrede
+Randapparatuur
+Aansoeke
+Oor
+Oorleg
+Instellings
+
+//Optrede
+Verwerker
+Geheue
+Temperatuur
+Lees
+Skryf
+
+//Randapparatuur
+Hierdie oortjie is gedeaktiveer.\nGPIO-funksionaliteit is slegs op Raspberry Pi beskikbaar
+GPIO-penne
+Geen pen gekies nie
+GPIO-kontroles
+Pin Staat
+
+//Toepassings
+Versoenbaar met jou toestel!
+Installeer Arm-toepassings maklik vanaf WoR-CP met een klik!
+
+//Oor
+Verwerker
+Geheue
+Firmware
+Hersiening
+Reeksnr
+Oor
+Weergawe
+Onenigheid
+Krediete
+
+//Oorlê
+Oorleg
+Hoof oorleg
+Altyd bo
+Voorkoms
+Ondeursigtigheid
+Afgeronde hoeke
+Grafieke
+Vertikaal
+Skinkbord-ikoon
+Wys skinkbordikoon
+Minimaliseer na skinkbord
+Waarskuwing oor temperatuur
+
+//Instellings
+Kan nie config.txt lees nie
+Jou Pi loop teen voorraadspoed
+Jou Pi is oorklok
+Jou Pi is onderklok
+Waarskuwing! jou oorklok is te hoog, jou raspberry pi sal dalk nie begin nie
+Geen probleme gevind nie
+Kwessies gevind
+Selflaaipartisie is nie gemonteer nie
+Monteer asseblief jou selflaaipartisie\r\nom te kan oorklok
+Jou selflaai-partisie is gemonteer en kan verkry word vanaf \n Drive
+Jou config.txt sal hier gewys word sodra jy jou selflaaipartisie gemonteer het\n
+Oorklok
+SVE frekwensie
+GPU frekwensie
+GPU geheue
+Oorspanning
+Force Turbo
+Vertoon
+Oorskandering
+Warmprop
+Spat
+Ander
+Dokumentasie
+
+//Ontfouter
+Tema
+Ligte modus
+Deursigtigheid
+Helder aksent
+Aksent
+Donker aksent
+Helder Paneel
+Onaktief
+Paneel
+Agtergrond
+Logs
+Stoor log op die lessenaar
+Eksperimenteel
+Gevorderde oorklokkering
+Deur hierdie instelling te aktiveer stem jy in dat jy jou raspberry pi in gevaar stel.\nGaan voort op eie risiko
+Waarskuwing
