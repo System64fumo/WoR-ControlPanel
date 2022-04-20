@@ -1,0 +1,113 @@
+//Steuerung
+Aktiviert
+Deaktiviert
+Hoch
+Niedrig
+Installieren
+Deinstallieren
+Speichern
+Aktualisieren
+Standardwerte
+Einhängen
+Aushängen
+Bearbeiten
+Ansehen
+
+//Hauptfenster
+Guten Morgen
+Guten Nachmittag
+Guten Abend
+
+//Tabs
+Leistung
+Peripherie
+Anwendungen
+Über
+Overlay
+Einstellungen
+
+//Leistung
+Prozessor
+Speicher
+Temperatur
+Lesen
+Schreiben
+
+//Peripheriegeräte
+Diese Registerkarte wurde deaktiviert.\nGPIO-Funktionalität ist nur auf Raspberry Pi verfügbar
+GPIO-Pins
+Kein Stift ausgewählt
+GPIO-Steuerelemente
+Pin-Zustand
+
+//Anwendungen
+Kompatibel mit Ihrem Gerät!
+Installieren Sie ganz einfach Arm-Anwendungen von WoR-CP mit einem Klick!
+
+//Über
+Prozessor
+Arbeitsspeicher
+Firmware
+Revision
+Seriennummer
+Über
+Version
+Discord
+Credits
+
+//Überlagerung
+Overlay
+Haupt Overlay
+Immer oben
+Erscheinungsbild
+Opazität
+Abgerundete Ecken
+Diagramme
+Vertikal
+Benachrichtigungssymbol
+Taskleistensymbol anzeigen
+In Taskleiste minimieren
+Temperaturwarnung
+
+//Einstellungen
+config.txt kann nicht gelesen werden
+Ihr Pi läuft mit Standardgeschwindigkeiten
+Dein Pi ist übertaktet
+Dein Pi ist untertaktet
+Warnung! Ihre Übertaktung ist zu hoch, Ihr Raspberry Pi bootet möglicherweise nicht
+Keine Probleme gefunden
+Fehler gefunden
+Boot-Partition ist nicht gemountet
+Bitte mounten Sie Ihre Boot-Partition\r\num übertakten zu können
+Ihre Startpartition ist gemountet und kann von \n Laufwerk aus aufgerufen werden
+Ihre config.txt wird hier angezeigt, sobald Sie Ihre Boot-Partition gemountet haben\n
+Übertakten
+CPU-Frequenz
+GPU-Frequenz
+GPU-Speicher
+Over Voltage
+Force Turbo
+Anzeige
+Overscan
+Hotplug
+Splash
+Sonstiges
+Dokumentation
+
+//Debugger
+Thema
+Lichtmodus
+Transparenz
+Heller Akzent
+Akzent
+Dunkler Akzent
+Helles Panel
+Inaktiv
+Panel
+Hintergrund
+Protokolle
+Protokoll auf dem Desktop speichern
+Experimental
+Erweiterte Übertaktung
+Indem Sie diese Einstellung aktivieren, stimmen Sie zu, dass Sie Ihren Himbeer-Pi einem Risiko aussetzen.\nFahren Sie auf eigene Gefahr fort
+Warnung
