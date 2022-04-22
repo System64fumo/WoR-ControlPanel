@@ -27,18 +27,19 @@ class ConfigUtility //This class contains everything that's related to config.tx
         {
             foreach (string check in checks)
             {
-                if (line.Contains(check)) //Check if the line contains a check (Example: Arm_freq=Value)
-                {
-                    Values[Array.IndexOf(checks, check)] = line.Replace(check, ""); //Replace the check with null leaving you with the check's value (Before: Arm_freq=Value, After: Value)
-                }
+                //Check if the line contains a check (Example: Arm_freq=Value)
+                if (!line.Contains(check)) continue;
+
+                //Replace the check with null leaving you with the check's value (Before: Arm_freq=Value, After: Value)
+                Values[Array.IndexOf(checks, check)] = line.Replace(check, ""); 
             }
-            if (line.Contains("hdmi_cvt=")) //TODO: make this better if possible and by that i mean handle it in the loop above
-            {
-                Width = Values[9].Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
-                Height = Values[9].Remove(0, Width.Length + 1).Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
-                Refresh = Values[9].Remove(0, Width.Length + Height.Length + 2);
-                Values[9] = null;
-            }
+
+            //TODO: make this better if possible and by that i mean handle it in the loop above
+            if (!line.Contains("hdmi_cvt=")) continue;
+            Width = Values[9].Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
+            Height = Values[9].Remove(0, Width.Length + 1).Substring(0, Values[9].IndexOf(" ")).Replace(" ", "");
+            Refresh = Values[9].Remove(0, Width.Length + Height.Length + 2);
+            Values[9] = null;
         }
         for (int i = 0; i < Values.Length; i++)
         {

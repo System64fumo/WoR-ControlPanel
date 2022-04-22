@@ -62,12 +62,12 @@ namespace WoRCP.Tabs
             OverclockingPanel.LeftContent[4] = Language.Strings[71];
 
             DisplayPanel.Title = Language.Strings[72];
-            OverscanLabel.Text = Language.Strings[73];
-            HotplugLabel.Text = Language.Strings[74];
+            DisplayPanel.LeftContent[4] = Language.Strings[73];
+            DisplayPanel.LeftContent[5] = Language.Strings[74];
+            DisplayPanel.LeftContent[5] = Language.Strings[75];
 
             OtherPanel.Title = Language.Strings[76];
-            OtherPanel.LeftContent[0] = Language.Strings[77];
-            OtherPanel.LeftContent[1] = Language.Strings[78];
+            OtherPanel.LeftContent[1] = Language.Strings[77];
         }
         #endregion
 
@@ -202,14 +202,15 @@ namespace WoRCP.Tabs
                                         //TODO: Add temp limit GUI Option
                                     break;
                                 case 6: //Disable_Overscan=
-                                    OverscanState.Text = Language.State(!Convert.ToBoolean(val));
+                                    DisplayPanel.RightContent[4] = Language.State(!Convert.ToBoolean(val)) + Program.Spacing(6);
                                     OverscanToggle.Toggled = !Convert.ToBoolean(val);
                                     break;
                                 case 7: //Disable_Splash=
-                                        //TODO: Add disable splash GUI Option
+                                    DisplayPanel.RightContent[6] = Language.State(!Convert.ToBoolean(val)) + Program.Spacing(6);
+                                    SplashToggle.Toggled = !Convert.ToBoolean(val);
                                     break;
                                 case 8: //HDMI_Force_Hotplug=
-                                    HotplugState.Text = Language.State(Convert.ToBoolean(val));
+                                    DisplayPanel.RightContent[5] = Language.State(Convert.ToBoolean(val)) + Program.Spacing(6);
                                     HotplugToggle.Toggled = Convert.ToBoolean(val);
                                     break;
                             }
@@ -361,16 +362,26 @@ namespace WoRCP.Tabs
         }
         private void OverscanToggle_ToggledEvent(object sender, EventArgs e)
         {
-            OverscanState.Text = Language.State(OverscanToggle.Toggled);
+            DisplayPanel.RightContent[4] = Language.State(OverscanToggle.Toggled) + Program.Spacing(6);
             ConfigUtility.Values[6] = Convert.ToInt32(!OverscanToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
+            DisplayPanel.Invalidate();
         }
 
         private void HotplugToggle_ToggledEvent(object sender, EventArgs e)
         {
-            HotplugState.Text = Language.State(HotplugToggle.Toggled);
+            DisplayPanel.RightContent[5] = Language.State(HotplugToggle.Toggled) + Program.Spacing(6);
             ConfigUtility.Values[8] = Convert.ToInt32(HotplugToggle.Toggled).ToString();
             SaveButton.Color = Theme.Accent;
+            DisplayPanel.Invalidate();
+        }
+
+        private void SplashToggle_ToggledEvent(object sender, EventArgs e)
+        {
+            DisplayPanel.RightContent[6] = Language.State(SplashToggle.Toggled) + Program.Spacing(6);
+            ConfigUtility.Values[7] = Convert.ToInt32(!SplashToggle.Toggled).ToString();
+            SaveButton.Color = Theme.Accent;
+            DisplayPanel.Invalidate();
         }
         #endregion
 

@@ -15,6 +15,7 @@ namespace WoRCP.UI
         private Color currentcolor = Theme.Accent;
         private Font font = Theme.font;
         private bool glyph;
+        private bool hovering;
         #endregion
 
         #region Properties
@@ -22,7 +23,17 @@ namespace WoRCP.UI
         public Color Color
         {
             get { return currentcolor; }
-            set { currentcolor = value; Invalidate(); }
+            set
+            {
+                if (hovering)
+                {
+                    currentcolor = Color.FromArgb(Theme.WithinRange(value.R + 10), Theme.WithinRange(value.G + 10), Theme.WithinRange(value.B + 10));
+                    Invalidate();
+                    return;
+                }
+                currentcolor = value;
+                Invalidate();
+            }
         }
         [Category("Advanced")]
         public string ButtonText
@@ -86,12 +97,14 @@ namespace WoRCP.UI
         #region Hover events
         private void RoundedButton_MouseEnter(object sender, EventArgs e)
         {
+            hovering = true;
             currentcolor = Color.FromArgb(Theme.WithinRange(currentcolor.R + 10), Theme.WithinRange(currentcolor.G + 10), Theme.WithinRange(currentcolor.B + 10));
             Invalidate();
         }
 
         private void RoundedButton_MouseLeave(object sender, EventArgs e)
         {
+            hovering = false;
             currentcolor = Color.FromArgb(Theme.WithinRange(currentcolor.R - 10), Theme.WithinRange(currentcolor.G - 10), Theme.WithinRange(currentcolor.B - 10));
             Invalidate();
         }

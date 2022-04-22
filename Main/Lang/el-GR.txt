@@ -92,7 +92,6 @@ Overclocking
 Hotplug
 Splash
 Άλλα
-Config.txt
 Τεκμηρίωση
 
 //Debugger

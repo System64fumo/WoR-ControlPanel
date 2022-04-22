@@ -353,11 +353,26 @@
     <None Include="Resources\PiLogo.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Lang\en-US.txt" />
+    <None Include="Lang\af-AF.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\de-DE.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\el-GR.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\en-US.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Lang\es-ES.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <Content Include="Other\worcpicon.ico" />
     <None Include="Resources\BackgroundDark.png" />
     <None Include="Resources\Graph.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Runtime.WindowsRuntime.5.0.0-preview.5.20278.1\build\net461\System.Runtime.WindowsRuntime.targets" Condition="Exists('packages\System.Runtime.WindowsRuntime.5.0.0-preview.5.20278.1\build\net461\System.Runtime.WindowsRuntime.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

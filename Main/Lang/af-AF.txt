@@ -92,7 +92,6 @@ Oorskandering
 Warmprop
 Spat
 Ander
-Config.txt
 Dokumentasie
 
 //Ontfouter

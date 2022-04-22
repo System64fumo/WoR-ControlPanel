@@ -92,7 +92,6 @@ Overscan
 Hotplug
 Splash
 Other
-Config.txt
 Documentation
 
 //Debugger

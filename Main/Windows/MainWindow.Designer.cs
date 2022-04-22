@@ -85,7 +85,7 @@ namespace WoRCP
             this.PerformanceButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PerformanceButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PerformanceButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PerformanceButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PerformanceButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.PerformanceButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PerformanceButton.Location = new System.Drawing.Point(0, 200);
             this.PerformanceButton.Name = "PerformanceButton";
@@ -106,7 +106,7 @@ namespace WoRCP
             this.PeripheralsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PeripheralsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.PeripheralsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.PeripheralsButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PeripheralsButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.PeripheralsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PeripheralsButton.Location = new System.Drawing.Point(0, 250);
             this.PeripheralsButton.Name = "PeripheralsButton";
@@ -127,7 +127,7 @@ namespace WoRCP
             this.AppstoreButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.AppstoreButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.AppstoreButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AppstoreButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AppstoreButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AppstoreButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AppstoreButton.Location = new System.Drawing.Point(0, 300);
             this.AppstoreButton.Name = "AppstoreButton";
@@ -148,7 +148,7 @@ namespace WoRCP
             this.AboutButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.AboutButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.AboutButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.AboutButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.AboutButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.AboutButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.AboutButton.Location = new System.Drawing.Point(0, 350);
             this.AboutButton.Name = "AboutButton";
@@ -169,7 +169,7 @@ namespace WoRCP
             this.OverlayButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.OverlayButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.OverlayButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.OverlayButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.OverlayButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.OverlayButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.OverlayButton.Location = new System.Drawing.Point(0, 400);
             this.OverlayButton.Name = "OverlayButton";
@@ -190,7 +190,7 @@ namespace WoRCP
             this.SettingsButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.SettingsButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.SettingsButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.SettingsButton.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.SettingsButton.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.SettingsButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.SettingsButton.Location = new System.Drawing.Point(0, 450);
             this.SettingsButton.Name = "SettingsButton";
@@ -207,7 +207,7 @@ namespace WoRCP
             // 
             this.Greeting.BackColor = System.Drawing.Color.Transparent;
             this.Greeting.Dock = System.Windows.Forms.DockStyle.Top;
-            this.Greeting.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Greeting.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.Greeting.Image = ((System.Drawing.Image)(resources.GetObject("Greeting.Image")));
             this.Greeting.Location = new System.Drawing.Point(0, 0);
             this.Greeting.Name = "Greeting";
@@ -235,7 +235,7 @@ namespace WoRCP
             this.MinimizeButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.MinimizeButton.FlatAppearance.BorderSize = 0;
             this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MinimizeButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.MinimizeButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F);
             this.MinimizeButton.Location = new System.Drawing.Point(570, 0);
             this.MinimizeButton.Name = "MinimizeButton";
             this.MinimizeButton.Size = new System.Drawing.Size(45, 30);
@@ -252,7 +252,7 @@ namespace WoRCP
             this.CloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(20)))), ((int)(((byte)(33)))));
             this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
             this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.CloseButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F);
             this.CloseButton.Location = new System.Drawing.Point(615, 0);
             this.CloseButton.Name = "CloseButton";
             this.CloseButton.Size = new System.Drawing.Size(45, 30);

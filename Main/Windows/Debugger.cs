@@ -49,22 +49,22 @@ namespace WoRCP
         private void SetLanguage()
         {
             ThemePanel.Title = Language.Strings[78];
-            ThemePanel.LeftContent[0] = Language.Strings[78];
-            ThemePanel.LeftContent[1] = Language.Strings[79];
-            ThemePanel.LeftContent[2] = Language.Strings[80];
-            ThemePanel.LeftContent[3] = Language.Strings[81];
-            ThemePanel.LeftContent[4] = Language.Strings[82];
-            ThemePanel.LeftContent[5] = Language.Strings[83];
-            ThemePanel.LeftContent[6] = Language.Strings[84];
-            ThemePanel.LeftContent[7] = Language.Strings[85];
-            ThemePanel.LeftContent[8] = Language.Strings[86];
+            ThemePanel.LeftContent[0] = Language.Strings[79];
+            ThemePanel.LeftContent[1] = Language.Strings[80];
+            ThemePanel.LeftContent[2] = Language.Strings[81];
+            ThemePanel.LeftContent[3] = Language.Strings[82];
+            ThemePanel.LeftContent[4] = Language.Strings[83];
+            ThemePanel.LeftContent[5] = Language.Strings[84];
+            ThemePanel.LeftContent[6] = Language.Strings[85];
+            ThemePanel.LeftContent[7] = Language.Strings[86];
+            ThemePanel.LeftContent[8] = Language.Strings[87];
 
-            collapsiblePanel3.Title = Language.Strings[87];
-            label2.Text = Language.Strings[88];
+            collapsiblePanel3.Title = Language.Strings[88];
+            label2.Text = Language.Strings[89];
             SaveButton.ButtonText = Language.Strings[6];
 
-            collapsiblePanel4.Title = Language.Strings[89];
-            collapsiblePanel4.LeftContent[0] = Language.Strings[90];
+            collapsiblePanel4.Title = Language.Strings[90];
+            collapsiblePanel4.LeftContent[0] = Language.Strings[91];
             collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Toggled) + " " + Program.Spacing(5);
 
         }
@@ -91,7 +91,7 @@ namespace WoRCP
         {
             collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Toggled) + " " + Program.Spacing(5);
             Configuration.AdvancedOC = AdvancedOCToggle.Toggled;
-            MessageBox.Show("By enabling this setting you agree that you are putting your raspberry pi at risk.\nProceed at your own risk", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            MessageBox.Show(Language.Strings[92], Language.Strings[93], MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         #endregion
 

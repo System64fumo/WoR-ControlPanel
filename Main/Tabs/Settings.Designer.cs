@@ -71,14 +71,11 @@ namespace WoRCP.Tabs
             this.roundedPanel4 = new WoRCP.UI.RoundedPanel();
             this.WidthTB = new System.Windows.Forms.TextBox();
             this.HotplugToggle = new WoRCP.UI.Toggle();
-            this.HotplugState = new System.Windows.Forms.Label();
-            this.HotplugLabel = new System.Windows.Forms.Label();
-            this.OverscanState = new System.Windows.Forms.Label();
             this.OverscanToggle = new WoRCP.UI.Toggle();
-            this.OverscanLabel = new System.Windows.Forms.Label();
             this.OtherPanel = new WoRCP.UI.CollapsiblePanel();
             this.ConfigDocsButton = new WoRCP.UI.RoundedButton();
             this.ConfigEditorButton = new WoRCP.UI.RoundedButton();
+            this.SplashToggle = new WoRCP.UI.Toggle();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.roundedPanel1.SuspendLayout();
@@ -508,26 +505,36 @@ namespace WoRCP.Tabs
             // DisplayPanel
             // 
             this.DisplayPanel.BackColor = System.Drawing.Color.Transparent;
-            this.DisplayPanel.Collapsed = true;
+            this.DisplayPanel.Collapsed = false;
             this.DisplayPanel.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
+            this.DisplayPanel.Controls.Add(this.SplashToggle);
             this.DisplayPanel.Controls.Add(this.Desktop);
             this.DisplayPanel.Controls.Add(this.ResolutionListPanel);
             this.DisplayPanel.Controls.Add(this.HotplugToggle);
-            this.DisplayPanel.Controls.Add(this.HotplugState);
-            this.DisplayPanel.Controls.Add(this.HotplugLabel);
-            this.DisplayPanel.Controls.Add(this.OverscanState);
             this.DisplayPanel.Controls.Add(this.OverscanToggle);
-            this.DisplayPanel.Controls.Add(this.OverscanLabel);
             this.DisplayPanel.Enabled = false;
             this.DisplayPanel.Icon = "";
-            this.DisplayPanel.LeftContent = new string[0];
+            this.DisplayPanel.LeftContent = new string[] {
+        "",
+        "",
+        "",
+        "",
+        "Overscan",
+        "Hotplug",
+        "Splash"};
             this.DisplayPanel.Location = new System.Drawing.Point(10, 330);
             this.DisplayPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
-            this.DisplayPanel.MaximumSize = new System.Drawing.Size(640, 333);
             this.DisplayPanel.Name = "DisplayPanel";
-            this.DisplayPanel.RightContent = new string[0];
+            this.DisplayPanel.RightContent = new string[] {
+        "",
+        "",
+        "",
+        "",
+        "Disabled⠀⠀⠀⠀⠀⠀",
+        "Disabled⠀⠀⠀⠀⠀⠀",
+        "Disabled⠀⠀⠀⠀⠀⠀"};
             this.DisplayPanel.Rounding = 5;
-            this.DisplayPanel.Size = new System.Drawing.Size(640, 60);
+            this.DisplayPanel.Size = new System.Drawing.Size(640, 417);
             this.DisplayPanel.TabIndex = 61;
             this.DisplayPanel.Title = "Display";
             // 
@@ -535,7 +542,7 @@ namespace WoRCP.Tabs
             // 
             this.Desktop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Desktop.BackgroundImage")));
             this.Desktop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.Desktop.Location = new System.Drawing.Point(37, 62);
+            this.Desktop.Location = new System.Drawing.Point(37, 82);
             this.Desktop.Name = "Desktop";
             this.Desktop.Size = new System.Drawing.Size(286, 160);
             this.Desktop.TabIndex = 0;
@@ -545,7 +552,7 @@ namespace WoRCP.Tabs
             this.ResolutionListPanel.BackColor = System.Drawing.Color.Transparent;
             this.ResolutionListPanel.color = System.Drawing.Color.FromArgb(((int)(((byte)(35)))), ((int)(((byte)(35)))), ((int)(((byte)(40)))));
             this.ResolutionListPanel.Controls.Add(this.ResolutionList);
-            this.ResolutionListPanel.Location = new System.Drawing.Point(343, 62);
+            this.ResolutionListPanel.Location = new System.Drawing.Point(343, 82);
             this.ResolutionListPanel.Margin = new System.Windows.Forms.Padding(0);
             this.ResolutionListPanel.Name = "ResolutionListPanel";
             this.ResolutionListPanel.rounding = 5;
@@ -670,7 +677,7 @@ namespace WoRCP.Tabs
             // HotplugToggle
             // 
             this.HotplugToggle.BackColor = System.Drawing.Color.Transparent;
-            this.HotplugToggle.Location = new System.Drawing.Point(569, 300);
+            this.HotplugToggle.Location = new System.Drawing.Point(590, 334);
             this.HotplugToggle.Margin = new System.Windows.Forms.Padding(0);
             this.HotplugToggle.MaximumSize = new System.Drawing.Size(40, 20);
             this.HotplugToggle.MinimumSize = new System.Drawing.Size(40, 20);
@@ -680,47 +687,10 @@ namespace WoRCP.Tabs
             this.HotplugToggle.Toggled = false;
             this.HotplugToggle.ToggledEvent += new System.EventHandler(this.HotplugToggle_ToggledEvent);
             // 
-            // HotplugState
-            // 
-            this.HotplugState.BackColor = System.Drawing.Color.Transparent;
-            this.HotplugState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HotplugState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.HotplugState.Location = new System.Drawing.Point(409, 284);
-            this.HotplugState.Margin = new System.Windows.Forms.Padding(0);
-            this.HotplugState.Name = "HotplugState";
-            this.HotplugState.Size = new System.Drawing.Size(150, 49);
-            this.HotplugState.TabIndex = 28;
-            this.HotplugState.Text = "Disabled";
-            this.HotplugState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
-            // HotplugLabel
-            // 
-            this.HotplugLabel.BackColor = System.Drawing.Color.Transparent;
-            this.HotplugLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.HotplugLabel.Location = new System.Drawing.Point(40, 283);
-            this.HotplugLabel.Name = "HotplugLabel";
-            this.HotplugLabel.Size = new System.Drawing.Size(179, 50);
-            this.HotplugLabel.TabIndex = 27;
-            this.HotplugLabel.Text = "Hotplug";
-            this.HotplugLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // OverscanState
-            // 
-            this.OverscanState.BackColor = System.Drawing.Color.Transparent;
-            this.OverscanState.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OverscanState.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
-            this.OverscanState.Location = new System.Drawing.Point(409, 233);
-            this.OverscanState.Margin = new System.Windows.Forms.Padding(0);
-            this.OverscanState.Name = "OverscanState";
-            this.OverscanState.Size = new System.Drawing.Size(150, 49);
-            this.OverscanState.TabIndex = 26;
-            this.OverscanState.Text = "Disabled";
-            this.OverscanState.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-            // 
             // OverscanToggle
             // 
             this.OverscanToggle.BackColor = System.Drawing.Color.Transparent;
-            this.OverscanToggle.Location = new System.Drawing.Point(569, 249);
+            this.OverscanToggle.Location = new System.Drawing.Point(590, 283);
             this.OverscanToggle.Margin = new System.Windows.Forms.Padding(0);
             this.OverscanToggle.MaximumSize = new System.Drawing.Size(40, 20);
             this.OverscanToggle.MinimumSize = new System.Drawing.Size(40, 20);
@@ -729,17 +699,6 @@ namespace WoRCP.Tabs
             this.OverscanToggle.TabIndex = 17;
             this.OverscanToggle.Toggled = false;
             this.OverscanToggle.ToggledEvent += new System.EventHandler(this.OverscanToggle_ToggledEvent);
-            // 
-            // OverscanLabel
-            // 
-            this.OverscanLabel.BackColor = System.Drawing.Color.Transparent;
-            this.OverscanLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.OverscanLabel.Location = new System.Drawing.Point(40, 232);
-            this.OverscanLabel.Name = "OverscanLabel";
-            this.OverscanLabel.Size = new System.Drawing.Size(179, 50);
-            this.OverscanLabel.TabIndex = 16;
-            this.OverscanLabel.Text = "Overscan";
-            this.OverscanLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // OtherPanel
             // 
@@ -753,7 +712,7 @@ namespace WoRCP.Tabs
             this.OtherPanel.LeftContent = new string[] {
         "Config.txt",
         "Config.txt Documentation"};
-            this.OtherPanel.Location = new System.Drawing.Point(10, 400);
+            this.OtherPanel.Location = new System.Drawing.Point(10, 757);
             this.OtherPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             this.OtherPanel.Name = "OtherPanel";
             this.OtherPanel.RightContent = new string[0];
@@ -789,6 +748,19 @@ namespace WoRCP.Tabs
             this.ConfigEditorButton.Size = new System.Drawing.Size(100, 30);
             this.ConfigEditorButton.TabIndex = 5;
             this.ConfigEditorButton.Click += new System.EventHandler(this.ConfigEditorButton_Click);
+            // 
+            // SplashToggle
+            // 
+            this.SplashToggle.BackColor = System.Drawing.Color.Transparent;
+            this.SplashToggle.Location = new System.Drawing.Point(590, 382);
+            this.SplashToggle.Margin = new System.Windows.Forms.Padding(0);
+            this.SplashToggle.MaximumSize = new System.Drawing.Size(40, 20);
+            this.SplashToggle.MinimumSize = new System.Drawing.Size(40, 20);
+            this.SplashToggle.Name = "SplashToggle";
+            this.SplashToggle.Size = new System.Drawing.Size(40, 20);
+            this.SplashToggle.TabIndex = 74;
+            this.SplashToggle.Toggled = false;
+            this.SplashToggle.ToggledEvent += new System.EventHandler(this.SplashToggle_ToggledEvent);
             // 
             // Settings
             // 
@@ -845,11 +817,7 @@ namespace WoRCP.Tabs
         private System.Windows.Forms.Label label5;
         private WoRCP.UI.RoundedPanel roundedPanel1;
         private WoRCP.UI.Toggle HotplugToggle;
-        private System.Windows.Forms.Label HotplugState;
-        private System.Windows.Forms.Label HotplugLabel;
-        private System.Windows.Forms.Label OverscanState;
         private WoRCP.UI.Toggle OverscanToggle;
-        private System.Windows.Forms.Label OverscanLabel;
         private System.Windows.Forms.Label Issues;
         private System.Windows.Forms.Label IssuesIcon;
         private System.Windows.Forms.Label PiLabel;
@@ -874,5 +842,6 @@ namespace WoRCP.Tabs
         private System.Windows.Forms.TextBox WidthTB;
         private UI.RoundedPanel roundedPanel6;
         private System.Windows.Forms.TextBox RefreshTB;
+        private UI.Toggle SplashToggle;
     }
 }
