@@ -74,7 +74,7 @@ Unable to read config.txt
 Your Pi is running at stock speeds
 Your Pi is overclocked
 Your Pi is underclocked
-Warning! your overclock is too high, Your raspberry pi might not boot
+Warning! Your overclock is too high, Your Raspberry Pi might not boot
 No issues found
 Issues found
 Boot partition is not mounted
@@ -97,7 +97,7 @@ Documentation
 //Debugger
 Theme
 Light mode
-Transperancy
+Transparency
 Bright Accent
 Accent
 Dark Accent
@@ -109,5 +109,5 @@ Logs
 Save log to desktop
 Experimental
 Advanced overclocking
-By enabling this setting you agree that you are putting your raspberry pi at risk.\nProceed at your own risk
+By enabling this setting you agree that you are putting your Raspberry Pi at risk.\nProceed at your own risk
 Warning
