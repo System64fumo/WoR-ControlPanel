@@ -1,0 +1,114 @@
+//Controls
+Đã bật
+Đã tắt
+Cao
+Thấp
+Cài đặt
+Gỡ cài đặt
+Lưu
+Làm mới
+Mặc định
+Gắn
+Gỡ
+Chỉnh sửa
+Xem
+
+//Main Window
+Chào buổi sáng
+Chào buổi chiều
+Chào buổi tối
+
+//Tabs
+Hiệu năng
+Thiết bị ngoại vi
+Ứng dụng
+Về ứng dụng
+Cửa sổ nổi
+Cài đặt
+
+//Performance
+Vi xử lý
+Bộ nhớ
+Nhiệt độ
+Đọc
+Viết
+
+//Peripherals
+Thẻ này đã bị tắt.\nChức năng GPIO chỉ có sẵn trên Raspberry Pi
+Các chân cắm GPIO
+Chưa có chân cắm được chọn
+Điều khiển GPIO
+Trạng thái chân cắm
+
+//Applications
+Tương thích với thiết bị của bạn
+Dễ dàng cài đặt các ứng dụng dành cho ARM trên Wor-CP chỉ với 1 click!
+
+//About
+Vi xử lý
+Bộ nhớ
+Firmware
+Revision
+Số Seri
+Về ứng dụng
+Phiên bản
+Discord
+Credit
+
+//Overlay
+Cửa sổ nổi
+Cửa sổ nổi chính
+Luôn đứng đầu
+Diện mạo
+Độ mờ
+Các gón tròn
+Biểu đồ
+Đứng
+Biểu tượng thanh tác vụ
+Bật biểu tượng
+Thu nhỏ vào thanh
+cảnh báo nhiệt độ
+
+//Settings
+Không thể đọc được config.txt
+Pi của bạn đang chạy ở tốc độ xung
+Pi của bạn được ép xung
+Pi của bạn được giảm xung
+Cảnh báo! Bạn đã ép xung quá cao, Raspberry Pi của bạn có thể không khởi động.
+Không tìm thấy vấn đề
+Đã tìm thấy vấn đề
+Phân vùng boot chưa được gắn
+Vui lòng gắn phân vùng boot\nđể có thể ép xung
+Phân vùng boot của bạn được gắn và có thể được truy cập từ \nổ cứng
+config.txt sẽ được hiện ở đây ngay sau khi bạn gắn phân vùng boot\n
+Đang ép xung
+Tần số CPU
+Tần số GPU
+Bộ nhớ GPU
+Quá điện áp
+Buộc tần số cưỡng bức
+Trình chiếu
+Quét qua
+Cổng cắm
+Splash
+Khác
+Tài liệu
+
+//Debugger
+Chủ đề
+chế độ sáng
+Độ trong suốt
+Độ sáng
+Màu nhấn tối
+Độ tối
+Bảng điều khiển sáng
+Chưa được kích hoạt
+Bảnh điều khiển
+Hình nền
+Nhật ký
+Lưu nhật ký vào máy tính
+Thí nghiệm
+Ép xung nâng cao
+Bằng cách bật cài đặt này, bạn đã đồng ý với việc đặt Raspberry Pi của bạn vào rủi ro.\nTiếp tục với rủi ro của bạn
+Cảnh báo
+
