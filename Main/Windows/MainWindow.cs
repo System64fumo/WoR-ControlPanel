@@ -118,7 +118,7 @@ namespace WoRCP
         #endregion
 
         #region Tab switcher
-        private void LoadTab(UserControl userctrl, int c)
+        private void LoadTab(UserControl userctrl, int topInPixels)
         {
             try //Try to load the tabs
             {
@@ -143,7 +143,7 @@ namespace WoRCP
                 {
                     Tabcontainer.Controls.Add(userctrl);
                 }
-                Indicator.Top = c;
+                Indicator.Top = topInPixels;
                 userctrl.Dock = DockStyle.Fill;
             }
             catch (Exception ex) //If a tab could not be loaded
@@ -171,6 +171,7 @@ namespace WoRCP
         private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), 360); }
         private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
         private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
+        private void ArgonOneButton_Click(object sender, EventArgs e) { LoadTab(new ArgonOneFan(), 510); }
 
         #endregion
 
@@ -245,5 +246,6 @@ namespace WoRCP
             }
         }
         #endregion
+
     }
 }

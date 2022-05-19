@@ -111,3 +111,8 @@ Eksperimenteel
 Gevorderde oorklokkering
 Deur hierdie instelling te aktiveer stem jy in dat jy jou raspberry pi in gevaar stel.\nGaan voort op eie risiko
 Waarskuwing
+
+//ArgonOneFan
+Argon One Fan Control
+Fan Speed
+Off

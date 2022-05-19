@@ -111,3 +111,8 @@ Panel
 Προχωρημένο overclocking
 Ενεργοποιώντας αυτή τη ρύθμιση, συμφωνείτε ότι θέτετε το raspberry pi σας σε κίνδυνο.\nΠροχωρήστε με δική σας ευθύνη
 Προειδοποίηση
+
+//ArgonOneFan
+Argon One Fan Control
+Fan Speed
+Off

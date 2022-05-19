@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Device.Gpio;
+using System.Device.I2c;
 using System.Diagnostics;
 using System.Drawing;
 using System.Windows.Forms;
@@ -28,13 +29,6 @@ namespace WoRCP.Tabs
         {
             //Set the tab's language
             SetLanguage();
-
-            if (Configuration.CPUArch == "ARM64")
-            {
-                initializeGPIO();
-                addPins();
-                ControlContainer.Visible = true;
-            }
         }
         #endregion
 
@@ -42,26 +36,52 @@ namespace WoRCP.Tabs
         //Closes all of the open pins when unloaing
         private void Peripherals_VisibleChanged(object sender, EventArgs e)
         {
-            if (Configuration.CPUArch == "ARM64" && !Visible)
+            if (Configuration.CPUArch != "ARM64")
             {
-                for (int i = 1; i <= PinNums.Length; i++)
+                return;
+            }
+
+            if (Visible)
+            {
+                InitializeGPIO();
+                AddPins();
+                ControlContainer.Visible = true;
+            }
+            else
+            {
+                if (gpio != null)
                 {
-                    try
+                    for (int i = 0; i < PinNums.Length; i++)
                     {
-                        if (PinNums[i - 1] != 0)
+                        try
                         {
-                            if (gpio.IsPinOpen(PinNums[i - 1]))
+                            if (PinNums[i] != 0)
                             {
-                                gpio.ClosePin(PinNums[i - 1]);
+                                if (gpio.IsPinOpen(PinNums[i]))
+                                {
+                                    gpio.ClosePin(PinNums[i]);
+                                }
                             }
                         }
+                        catch (Exception ex)
+                        {
+                            Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
+                            Program.Log("[Exception] " + ex);
+                        }
                     }
-                    catch (Exception ex)
-                    {
-                        Program.Log("[Error] Unable to close pin number: " + PinNums[i - 1]);
-                        Program.Log("[Exception] " + ex);
-                    }
+                    gpio.Dispose();
+                    gpio = null;
                 }
+
+                if (PinArray.Controls.Count > 0)
+                {
+                    foreach (RoundedButton pin in PinArray.Controls)
+                    {
+                        pin.Click -= Btn_Click;
+                    }
+                    PinArray.Controls.Clear();
+                }
+                ControlContainer.Visible = true;
             }
         }
         #endregion
@@ -80,7 +100,7 @@ namespace WoRCP.Tabs
 
         //Methods
         #region Initialize GPIO
-        public void initializeGPIO()
+        public void InitializeGPIO()
         {
             try //Check if GPIO is supported
             {
@@ -90,14 +110,20 @@ namespace WoRCP.Tabs
             catch (NotSupportedException)
             {
                 DialogResult result = MessageBox.Show("GPIO Error , Attempt to fix it ?", "Error", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (result == DialogResult.Yes) { Process.Start("CMD", "sc config rhproxy start = demand"); }
-                else { Program.Log("[Error] Unable to initialize GPIO"); }
+                if (result == DialogResult.Yes)
+                {
+                    Process.Start("CMD", "sc config rhproxy start = demand");
+                }
+                else
+                {
+                    Program.Log("[Error] Unable to initialize GPIO");
+                }
             }
         }
         #endregion
 
         #region Add GPIO Pins
-        public void addPins()
+        public void AddPins()
         {
             for (int i = 1; i <= PinNums.Length; i++) //TODO: Replace this with a better system
             {

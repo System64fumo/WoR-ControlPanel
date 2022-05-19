@@ -111,3 +111,8 @@ Experimental
 Advanced overclocking
 By enabling this setting you agree that you are putting your Raspberry Pi at risk.\nProceed at your own risk
 Warning
+
+//ArgonOneFan
+Argon One Fan Control
+Fan Speed
+Off
