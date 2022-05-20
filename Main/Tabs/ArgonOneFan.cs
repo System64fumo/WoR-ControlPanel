@@ -21,7 +21,7 @@ namespace WoRCP.Tabs
 
         private void ArgonOneFan_Load(object sender, EventArgs e)
         {
-            SetLanguage();
+            // SetLanguage();
         }
 
         private void ArgonOneFan_VisibleChanged(object sender, EventArgs e)

@@ -31,6 +31,7 @@ namespace WoRCP
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.SidePanel = new System.Windows.Forms.Panel();
+            this.ArgonOneButton = new System.Windows.Forms.Button();
             this.Indicator = new WoRCP.UI.RoundedPanel();
             this.PerformanceButton = new System.Windows.Forms.Button();
             this.PeripheralsButton = new System.Windows.Forms.Button();
@@ -44,7 +45,6 @@ namespace WoRCP
             this.CloseButton = new System.Windows.Forms.Button();
             this.Tabcontainer = new System.Windows.Forms.Panel();
             this.RGBStrip = new System.Windows.Forms.PictureBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.SidePanel.SuspendLayout();
             this.TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RGBStrip)).BeginInit();
@@ -53,7 +53,7 @@ namespace WoRCP
             // SidePanel
             // 
             this.SidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.SidePanel.Controls.Add(this.button1);
+            this.SidePanel.Controls.Add(this.ArgonOneButton);
             this.SidePanel.Controls.Add(this.Indicator);
             this.SidePanel.Controls.Add(this.PerformanceButton);
             this.SidePanel.Controls.Add(this.PeripheralsButton);
@@ -68,6 +68,26 @@ namespace WoRCP
             this.SidePanel.Size = new System.Drawing.Size(175, 550);
             this.SidePanel.TabIndex = 0;
             this.SidePanel.Tag = "Acrylic";
+            // 
+            // ArgonOneButton
+            // 
+            this.ArgonOneButton.BackColor = System.Drawing.Color.Transparent;
+            this.ArgonOneButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.ArgonOneButton.FlatAppearance.BorderSize = 0;
+            this.ArgonOneButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ArgonOneButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.ArgonOneButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ArgonOneButton.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ArgonOneButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ArgonOneButton.Location = new System.Drawing.Point(0, 500);
+            this.ArgonOneButton.Name = "ArgonOneButton";
+            this.ArgonOneButton.Size = new System.Drawing.Size(175, 50);
+            this.ArgonOneButton.TabIndex = 6;
+            this.ArgonOneButton.Text = "           Argon One";
+            this.ArgonOneButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.ArgonOneButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
+            this.ArgonOneButton.UseVisualStyleBackColor = false;
+            this.ArgonOneButton.Click += new System.EventHandler(this.ArgonOneButton_Click);
             // 
             // Indicator
             // 
@@ -280,26 +300,6 @@ namespace WoRCP
             this.RGBStrip.TabStop = false;
             this.RGBStrip.Visible = false;
             // 
-            // button1
-            // 
-            this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.button1.FlatAppearance.BorderSize = 0;
-            this.button1.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.button1.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.button1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.Location = new System.Drawing.Point(0, 500);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(175, 50);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "           Argon One";
-            this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.button1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.button1.UseVisualStyleBackColor = false;
-            this.button1.Click += new System.EventHandler(this.ArgonOneButton_Click);
-            // 
             // MainWindow
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
@@ -341,7 +341,7 @@ namespace WoRCP
         private System.Windows.Forms.Panel SidePanel;
         private System.Windows.Forms.Button MinimizeButton;
         private System.Windows.Forms.PictureBox RGBStrip;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button ArgonOneButton;
     }
 }
 
