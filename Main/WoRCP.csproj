@@ -7,7 +7,7 @@
     <ProjectGuid>{756EEACC-8A08-43D2-953C-6868310CFD00}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WoRCP</RootNamespace>
-    <AssemblyName Condition="'$(Platform)'=='AnyCPU'">WoRCParm64</AssemblyName>
+    <AssemblyName Condition="'$(Platform)'=='AnyCPU'">WoRCP</AssemblyName>
     <AssemblyName Condition="'$(Platform)'=='ARM64'">WoRCParm64</AssemblyName>
     <AssemblyName Condition="'$(Platform)'=='x86'">WoRCPx86</AssemblyName>
     <AssemblyName Condition="'$(Platform)'=='x64'">WoRCPx64</AssemblyName>
@@ -105,7 +105,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -137,21 +137,6 @@
     <ErrorReport>prompt</ErrorReport>
     <Prefer32Bit>true</Prefer32Bit>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-  </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Prefer32Bit>false</Prefer32Bit>
-    <OutputPath>bin\Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <DefineConstants>
-    </DefineConstants>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationManifest>Other\app.manifest</ApplicationManifest>
