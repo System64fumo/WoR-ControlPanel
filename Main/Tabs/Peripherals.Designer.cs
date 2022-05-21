@@ -29,8 +29,8 @@ namespace WoRCP.Tabs
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.ControlContainer = new System.Windows.Forms.FlowLayoutPanel();
             this.GPIOPinsPanel = new WoRCP.UI.RoundedPanel();
             this.SelectedPinLabel = new System.Windows.Forms.Label();
@@ -237,39 +237,39 @@ namespace WoRCP.Tabs
             // TempratureChart
             // 
             this.TempratureChart.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
-            chartArea2.AlignmentStyle = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentStyles.None;
-            chartArea2.AxisX.IsMarginVisible = false;
-            chartArea2.AxisX.LineColor = System.Drawing.Color.Empty;
-            chartArea2.AxisX.MajorGrid.Enabled = false;
-            chartArea2.AxisX.MajorTickMark.Enabled = false;
-            chartArea2.AxisX.Maximum = 10D;
-            chartArea2.AxisY.LineColor = System.Drawing.Color.Empty;
-            chartArea2.AxisY.MajorGrid.Enabled = false;
-            chartArea2.AxisY.MajorTickMark.Enabled = false;
-            chartArea2.AxisY.Maximum = 105D;
-            chartArea2.AxisY.Minimum = 0D;
-            chartArea2.BackColor = System.Drawing.Color.Transparent;
-            chartArea2.BorderWidth = 0;
-            chartArea2.InnerPlotPosition.Auto = false;
-            chartArea2.InnerPlotPosition.Height = 100F;
-            chartArea2.InnerPlotPosition.Width = 100F;
-            chartArea2.Name = "ChartArea1";
-            chartArea2.Position.Auto = false;
-            chartArea2.Position.Height = 100F;
-            chartArea2.Position.Width = 100F;
-            this.TempratureChart.ChartAreas.Add(chartArea2);
+            chartArea1.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
+            chartArea1.AlignmentStyle = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentStyles.None;
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Empty;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.Maximum = 10D;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Empty;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.Maximum = 105D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderWidth = 0;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 100F;
+            chartArea1.InnerPlotPosition.Width = 100F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.TempratureChart.ChartAreas.Add(chartArea1);
             this.TempratureChart.Location = new System.Drawing.Point(430, 112);
             this.TempratureChart.Margin = new System.Windows.Forms.Padding(0);
             this.TempratureChart.Name = "TempratureChart";
-            series2.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
-            series2.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
-            series2.BorderWidth = 3;
-            series2.ChartArea = "ChartArea1";
-            series2.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea;
-            series2.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
-            series2.Name = "Series1";
-            this.TempratureChart.Series.Add(series2);
+            series1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            series1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
+            series1.Name = "Series1";
+            this.TempratureChart.Series.Add(series1);
             this.TempratureChart.Size = new System.Drawing.Size(210, 50);
             this.TempratureChart.TabIndex = 38;
             this.TempratureChart.TabStop = false;
@@ -327,6 +327,7 @@ namespace WoRCP.Tabs
             this.Name = "Peripherals";
             this.Size = new System.Drawing.Size(660, 470);
             this.Load += new System.EventHandler(this.Peripherals_Load);
+            this.VisibleChanged += new System.EventHandler(this.Peripherals_VisibleChanged);
             this.ControlContainer.ResumeLayout(false);
             this.GPIOPinsPanel.ResumeLayout(false);
             this.GPIOPinsPanel.PerformLayout();

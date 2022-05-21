@@ -37,8 +37,19 @@ namespace WoRCP.Tabs
                 return;
             }
 
+            //Theming
+            ThemeCharts();
+            RoundCharts();
+
             InitializeGPIO();
             ControlContainer.Visible = true;
+        }
+        #endregion
+
+        #region Unloading
+        private void Peripherals_VisibleChanged(object sender, EventArgs e)
+        {
+            Dispose();
         }
         #endregion
 
@@ -134,6 +145,9 @@ namespace WoRCP.Tabs
                     var connectionSettings = new I2cConnectionSettings(busId, deviceAddress);
                     i2cDevice = I2cDevice.Create(connectionSettings);
                     FanSpeedSlider.Enabled = true;
+                    ResourceReader.timer.Enabled = true;
+                    UpdateCharts(this, EventArgs.Empty);
+                    ResourceReader.timer.Tick += UpdateCharts;
                 }
             }
             catch (Exception e)
@@ -147,9 +161,11 @@ namespace WoRCP.Tabs
         {
             if (i2cDevice != null)
             {
+                ResourceReader.timer.Tick -= UpdateCharts;
+                ResourceReader.timer.Enabled = false;
+                FanSpeedSlider.Enabled = false;
                 i2cDevice.Dispose();
                 i2cDevice = null;
-                FanSpeedSlider.Enabled = false;
             }
         }
         #endregion
@@ -393,15 +409,45 @@ namespace WoRCP.Tabs
         }
         #endregion
 
-        #region IDisposable
+        #region Updating the charts
+        private void UpdateCharts(object sender, EventArgs e)
+        {
+            try
+            {
+                //Display system resource usage on the labels
+                TemperatureLabel.Text = ResourceReader.Temprature[9] + "°";
 
+                //Update the charts with the system resource usage
+                ResourceReader.UpdateChart(TempratureChart, ResourceReader.Temprature);
+
+            }
+            catch (Exception ex)
+            {
+                Program.Log("[Error] Failed to update charts");
+                Program.Log("[Exception] " + ex);
+            }
+        }
+        #endregion
+
+        #region Theming
+        private void RoundCharts()
+        {
+            RoundedCorners.Round(TempratureChart, Theme.PanelRounding);
+        }
+        private void ThemeCharts()
+        {
+            TempratureChart.Series[0].Color = Color.FromArgb(50, Theme.DarkAccent);
+            TempratureChart.Series[0].BorderColor = Theme.Accent;
+        }
+        #endregion
+
+        #region IDisposable
         protected new void Dispose()
         {
             DisposeGPIO();
             DisposeI2C();
             base.Dispose();
         }
-
         #endregion
     }
 }
