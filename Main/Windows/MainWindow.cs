@@ -132,17 +132,14 @@ namespace WoRCP
                     {
                         if (uc.ToString() != userctrl.ToString())
                         {
-
-                            Tabcontainer.Controls.Add(userctrl);
                             uc.Visible = false;
                             uc.Dispose();
                         }
                     }
                 }
-                else
-                {
-                    Tabcontainer.Controls.Add(userctrl);
-                }
+
+                Tabcontainer.Controls.Add(userctrl);
+                userctrl.Visible = true;
                 Indicator.Top = topInPixels;
                 userctrl.Dock = DockStyle.Fill;
             }

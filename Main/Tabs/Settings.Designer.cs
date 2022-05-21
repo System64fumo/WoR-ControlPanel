@@ -59,6 +59,7 @@ namespace WoRCP.Tabs
             this.GPUFreqSlider = new WoRCP.UI.Slider();
             this.CPUSlider = new WoRCP.UI.Slider();
             this.DisplayPanel = new WoRCP.UI.CollapsiblePanel();
+            this.SplashToggle = new WoRCP.UI.Toggle();
             this.Desktop = new System.Windows.Forms.Panel();
             this.ResolutionListPanel = new WoRCP.UI.RoundedPanel();
             this.ResolutionList = new System.Windows.Forms.FlowLayoutPanel();
@@ -75,7 +76,6 @@ namespace WoRCP.Tabs
             this.OtherPanel = new WoRCP.UI.CollapsiblePanel();
             this.ConfigDocsButton = new WoRCP.UI.RoundedButton();
             this.ConfigEditorButton = new WoRCP.UI.RoundedButton();
-            this.SplashToggle = new WoRCP.UI.Toggle();
             this.flowLayoutPanel1.SuspendLayout();
             this.panel1.SuspendLayout();
             this.roundedPanel1.SuspendLayout();
@@ -538,6 +538,19 @@ namespace WoRCP.Tabs
             this.DisplayPanel.TabIndex = 61;
             this.DisplayPanel.Title = "Display";
             // 
+            // SplashToggle
+            // 
+            this.SplashToggle.BackColor = System.Drawing.Color.Transparent;
+            this.SplashToggle.Location = new System.Drawing.Point(590, 382);
+            this.SplashToggle.Margin = new System.Windows.Forms.Padding(0);
+            this.SplashToggle.MaximumSize = new System.Drawing.Size(40, 20);
+            this.SplashToggle.MinimumSize = new System.Drawing.Size(40, 20);
+            this.SplashToggle.Name = "SplashToggle";
+            this.SplashToggle.Size = new System.Drawing.Size(40, 20);
+            this.SplashToggle.TabIndex = 74;
+            this.SplashToggle.Toggled = false;
+            this.SplashToggle.ToggledEvent += new System.EventHandler(this.SplashToggle_ToggledEvent);
+            // 
             // Desktop
             // 
             this.Desktop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("Desktop.BackgroundImage")));
@@ -748,19 +761,6 @@ namespace WoRCP.Tabs
             this.ConfigEditorButton.Size = new System.Drawing.Size(100, 30);
             this.ConfigEditorButton.TabIndex = 5;
             this.ConfigEditorButton.Click += new System.EventHandler(this.ConfigEditorButton_Click);
-            // 
-            // SplashToggle
-            // 
-            this.SplashToggle.BackColor = System.Drawing.Color.Transparent;
-            this.SplashToggle.Location = new System.Drawing.Point(590, 382);
-            this.SplashToggle.Margin = new System.Windows.Forms.Padding(0);
-            this.SplashToggle.MaximumSize = new System.Drawing.Size(40, 20);
-            this.SplashToggle.MinimumSize = new System.Drawing.Size(40, 20);
-            this.SplashToggle.Name = "SplashToggle";
-            this.SplashToggle.Size = new System.Drawing.Size(40, 20);
-            this.SplashToggle.TabIndex = 74;
-            this.SplashToggle.Toggled = false;
-            this.SplashToggle.ToggledEvent += new System.EventHandler(this.SplashToggle_ToggledEvent);
             // 
             // Settings
             // 

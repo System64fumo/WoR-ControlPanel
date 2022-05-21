@@ -21,7 +21,15 @@ namespace WoRCP.Tabs
 
         private void ArgonOneFan_Load(object sender, EventArgs e)
         {
-            // SetLanguage();
+            SetLanguage();
+            ControlContainer.Visible = true;
+
+            if (Configuration.CPUArch != "ARM64")
+            {
+                return;
+            }
+
+            InitializeI2C();
         }
 
         private void ArgonOneFan_VisibleChanged(object sender, EventArgs e)
@@ -45,10 +53,9 @@ namespace WoRCP.Tabs
         #region Language
         private void SetLanguage()
         {
-            // 95, 96, 97
-            FanSpeedPanelPanel.Title = Language.Strings[95];
-            FanSpeedPanelPanel.LeftContent[0] = Language.Strings[96];
-            offText = Language.Strings[97];
+            FanSpeedPanelPanel.Title = Language.Strings[94];
+            FanSpeedPanelPanel.LeftContent[0] = Language.Strings[95];
+            offText = Language.Strings[96];
             FanSpeedLabel.Text = offText;
         }
         #endregion

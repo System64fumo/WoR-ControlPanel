@@ -207,9 +207,6 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="WoRCP.UI">
-      <HintPath>..\UI\bin\Release\WoRCP.UI.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Configuration.cs" />
@@ -369,7 +366,12 @@
     <None Include="Resources\BackgroundDark.png" />
     <None Include="Resources\Graph.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\UI\WoRCP.UI.csproj">
+      <Project>{2809eda6-ef77-4c11-b43e-d3cc4e293d93}</Project>
+      <Name>WoRCP.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Runtime.WindowsRuntime.5.0.0-preview.5.20278.1\build\net461\System.Runtime.WindowsRuntime.targets" Condition="Exists('packages\System.Runtime.WindowsRuntime.5.0.0-preview.5.20278.1\build\net461\System.Runtime.WindowsRuntime.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
