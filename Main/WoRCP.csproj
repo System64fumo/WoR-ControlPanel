@@ -237,12 +237,6 @@
     <Compile Include="Tabs\Appstore.Designer.cs">
       <DependentUpon>Appstore.cs</DependentUpon>
     </Compile>
-    <Compile Include="Tabs\ArgonOneFan.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Tabs\ArgonOneFan.Designer.cs">
-      <DependentUpon>ArgonOneFan.cs</DependentUpon>
-    </Compile>
     <Compile Include="Tabs\Peripherals.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -300,9 +294,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Tabs\Appstore.resx">
       <DependentUpon>Appstore.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Tabs\ArgonOneFan.resx">
-      <DependentUpon>ArgonOneFan.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Tabs\Peripherals.resx">
       <DependentUpon>Peripherals.cs</DependentUpon>

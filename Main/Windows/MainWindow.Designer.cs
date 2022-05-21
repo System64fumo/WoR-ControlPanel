@@ -31,7 +31,6 @@ namespace WoRCP
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.SidePanel = new System.Windows.Forms.Panel();
-            this.ArgonOneButton = new System.Windows.Forms.Button();
             this.Indicator = new WoRCP.UI.RoundedPanel();
             this.PerformanceButton = new System.Windows.Forms.Button();
             this.PeripheralsButton = new System.Windows.Forms.Button();
@@ -53,7 +52,6 @@ namespace WoRCP
             // SidePanel
             // 
             this.SidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.SidePanel.Controls.Add(this.ArgonOneButton);
             this.SidePanel.Controls.Add(this.Indicator);
             this.SidePanel.Controls.Add(this.PerformanceButton);
             this.SidePanel.Controls.Add(this.PeripheralsButton);
@@ -65,29 +63,9 @@ namespace WoRCP
             this.SidePanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.SidePanel.Location = new System.Drawing.Point(0, 0);
             this.SidePanel.Name = "SidePanel";
-            this.SidePanel.Size = new System.Drawing.Size(175, 550);
+            this.SidePanel.Size = new System.Drawing.Size(175, 500);
             this.SidePanel.TabIndex = 0;
             this.SidePanel.Tag = "Acrylic";
-            // 
-            // ArgonOneButton
-            // 
-            this.ArgonOneButton.BackColor = System.Drawing.Color.Transparent;
-            this.ArgonOneButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.ArgonOneButton.FlatAppearance.BorderSize = 0;
-            this.ArgonOneButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ArgonOneButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(5)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            this.ArgonOneButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.ArgonOneButton.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.ArgonOneButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ArgonOneButton.Location = new System.Drawing.Point(0, 500);
-            this.ArgonOneButton.Name = "ArgonOneButton";
-            this.ArgonOneButton.Size = new System.Drawing.Size(175, 50);
-            this.ArgonOneButton.TabIndex = 6;
-            this.ArgonOneButton.Text = "           Argon One";
-            this.ArgonOneButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.ArgonOneButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
-            this.ArgonOneButton.UseVisualStyleBackColor = false;
-            this.ArgonOneButton.Click += new System.EventHandler(this.ArgonOneButton_Click);
             // 
             // Indicator
             // 
@@ -304,15 +282,15 @@ namespace WoRCP
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(835, 550);
+            this.ClientSize = new System.Drawing.Size(835, 500);
             this.Controls.Add(this.RGBStrip);
             this.Controls.Add(this.Tabcontainer);
             this.Controls.Add(this.TitleBar);
             this.Controls.Add(this.SidePanel);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.MaximumSize = new System.Drawing.Size(835, 550);
-            this.MinimumSize = new System.Drawing.Size(835, 550);
+            this.MaximumSize = new System.Drawing.Size(835, 500);
+            this.MinimumSize = new System.Drawing.Size(835, 500);
             this.Name = "MainWindow";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WoR Control Panel";
@@ -341,7 +319,6 @@ namespace WoRCP
         private System.Windows.Forms.Panel SidePanel;
         private System.Windows.Forms.Button MinimizeButton;
         private System.Windows.Forms.PictureBox RGBStrip;
-        private System.Windows.Forms.Button ArgonOneButton;
     }
 }
 

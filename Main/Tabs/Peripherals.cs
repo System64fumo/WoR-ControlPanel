@@ -42,28 +42,6 @@ namespace WoRCP.Tabs
         }
         #endregion
 
-        #region Unloading
-        //Closes all of the open pins when unloaing
-        private void Peripherals_VisibleChanged(object sender, EventArgs e)
-        {
-            if (Configuration.CPUArch != "ARM64")
-            {
-                return;
-            }
-
-            if (Visible)
-            {
-                InitializeGPIO();
-                ControlContainer.Visible = true;
-            }
-            else
-            {
-                DisposeGPIO();
-                ControlContainer.Visible = false;
-            }
-        }
-        #endregion
-
         #region Language
         private void SetLanguage()
         {
@@ -328,6 +306,7 @@ namespace WoRCP.Tabs
                 return;
             }
 
+            MarkScreenAsBusy();
             if (GPIOCollapsablePanel.Collapsed)
             {
                 SwitchFromGPIOToI2C();
@@ -338,6 +317,8 @@ namespace WoRCP.Tabs
             }
 
             FanSpeedPanelPanel.Collapsed = !GPIOCollapsablePanel.Collapsed;
+            GPIOPinsPanel.Enabled = !GPIOCollapsablePanel.Collapsed;
+            MarkScreenAsAvailable();
         }
 
         private void FanSpeedPanelPanel_CollapsedChanged(object sender, EventArgs e)
@@ -357,6 +338,7 @@ namespace WoRCP.Tabs
             }
 
             GPIOCollapsablePanel.Collapsed = !FanSpeedPanelPanel.Collapsed;
+            GPIOPinsPanel.Enabled = !GPIOCollapsablePanel.Collapsed;
         }
 
         private void SwitchFromGPIOToI2C()
@@ -369,6 +351,18 @@ namespace WoRCP.Tabs
         {
             DisposeI2C();
             InitializeGPIO();
+        }
+
+        private void MarkScreenAsBusy()
+        {
+            ControlContainer.Enabled = false;
+            Cursor = Cursors.WaitCursor;
+        }
+
+        private void MarkScreenAsAvailable()
+        {
+            Cursor = Cursors.Default;
+            ControlContainer.Enabled = true;
         }
 
         #endregion
@@ -404,6 +398,7 @@ namespace WoRCP.Tabs
         protected new void Dispose()
         {
             DisposeGPIO();
+            DisposeI2C();
             base.Dispose();
         }
 

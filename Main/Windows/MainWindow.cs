@@ -168,7 +168,6 @@ namespace WoRCP
         private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), 360); }
         private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
         private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
-        private void ArgonOneButton_Click(object sender, EventArgs e) { LoadTab(new ArgonOneFan(), 510); }
 
         #endregion
 
