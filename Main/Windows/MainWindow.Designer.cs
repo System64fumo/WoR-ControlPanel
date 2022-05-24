@@ -265,7 +265,7 @@ namespace WoRCP
             // 
             this.Tabcontainer.Location = new System.Drawing.Point(175, 27);
             this.Tabcontainer.Name = "Tabcontainer";
-            this.Tabcontainer.Size = new System.Drawing.Size(660, 473);
+            this.Tabcontainer.Size = new System.Drawing.Size(660, 523);
             this.Tabcontainer.TabIndex = 6;
             // 
             // RGBStrip

@@ -7,9 +7,10 @@
     <ProjectGuid>{756EEACC-8A08-43D2-953C-6868310CFD00}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>WoRCP</RootNamespace>
-    <AssemblyName Condition="'$(Platform)'=='ARM64'">WoRCPx64</AssemblyName>
+    <AssemblyName Condition="'$(Platform)'=='AnyCPU'">WoRCP</AssemblyName>
+    <AssemblyName Condition="'$(Platform)'=='ARM64'">WoRCParm64</AssemblyName>
     <AssemblyName Condition="'$(Platform)'=='x86'">WoRCPx86</AssemblyName>
-    <AssemblyName Condition="'$(Platform)'=='x64'">WoRCParm64</AssemblyName>
+    <AssemblyName Condition="'$(Platform)'=='x64'">WoRCPx64</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -36,7 +37,7 @@
       <!-- Prevent default XML and PDB files copied to output in RELEASE. Only *.allowedextension files will be included, which doesn't exist in my case. -->
     *.pdb;
     *.xml
-</AllowedReferenceRelatedFileExtensions>
+    </AllowedReferenceRelatedFileExtensions>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -82,7 +83,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
+    <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
     <DebugType>none</DebugType>
@@ -104,7 +105,7 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Optimize>true</Optimize>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <Optimize>true</Optimize>
@@ -138,21 +139,6 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <Prefer32Bit>false</Prefer32Bit>
-    <OutputPath>bin\Release\</OutputPath>
-    <Optimize>true</Optimize>
-    <DefineConstants>
-    </DefineConstants>
-  </PropertyGroup>
-  <PropertyGroup>
     <ApplicationManifest>Other\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <ItemGroup>
@@ -174,6 +160,7 @@
     <Reference Include="System.Core">
       <Private>False</Private>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Device.Gpio, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>packages\System.Device.Gpio.2.0.0\lib\netstandard2.0\System.Device.Gpio.dll</HintPath>
     </Reference>
@@ -219,9 +206,7 @@
     <Reference Include="System.Windows.Forms">
       <Private>False</Private>
     </Reference>
-    <Reference Include="WoRCP.UI">
-      <HintPath>..\UI\bin\Release\WoRCP.UI.dll</HintPath>
-    </Reference>
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\Configuration.cs" />
@@ -372,7 +357,12 @@
     <None Include="Resources\BackgroundDark.png" />
     <None Include="Resources\Graph.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\UI\WoRCP.UI.csproj">
+      <Project>{2809eda6-ef77-4c11-b43e-d3cc4e293d93}</Project>
+      <Name>WoRCP.UI</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="packages\System.Runtime.WindowsRuntime.5.0.0-preview.5.20278.1\build\net461\System.Runtime.WindowsRuntime.targets" Condition="Exists('packages\System.Runtime.WindowsRuntime.5.0.0-preview.5.20278.1\build\net461\System.Runtime.WindowsRuntime.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

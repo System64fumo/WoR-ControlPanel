@@ -118,7 +118,7 @@ namespace WoRCP
         #endregion
 
         #region Tab switcher
-        private void LoadTab(UserControl userctrl, int c)
+        private void LoadTab(UserControl userctrl, int topInPixels)
         {
             try //Try to load the tabs
             {
@@ -132,18 +132,15 @@ namespace WoRCP
                     {
                         if (uc.ToString() != userctrl.ToString())
                         {
-
-                            Tabcontainer.Controls.Add(userctrl);
                             uc.Visible = false;
                             uc.Dispose();
                         }
                     }
                 }
-                else
-                {
-                    Tabcontainer.Controls.Add(userctrl);
-                }
-                Indicator.Top = c;
+
+                Tabcontainer.Controls.Add(userctrl);
+                userctrl.Visible = true;
+                Indicator.Top = topInPixels;
                 userctrl.Dock = DockStyle.Fill;
             }
             catch (Exception ex) //If a tab could not be loaded
@@ -245,5 +242,6 @@ namespace WoRCP
             }
         }
         #endregion
+
     }
 }

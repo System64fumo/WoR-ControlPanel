@@ -107,25 +107,44 @@ namespace WoRCP
             "Advanced overclocking",
             "By enabling this setting you agree that you are putting your Raspberry Pi at risk.\nProceed at your own risk",
             "Warning",
+            "Argon One Fan Control",
+            "Fan Speed",
+            "Off",
 
         };
         public static string State(bool state)
         {
-            if (state) return Strings[0];
+            if (state)
+            {
+                return Strings[0];
+            }
+
             return Strings[1];
         }
         public static void Initialize()
         {
             CultureInfo ci = CultureInfo.InstalledUICulture;
             string langfile = ci.Name.ToUpper() + ".txt";
-            if (!File.Exists(Application.StartupPath + @"\Lang\" + langfile)) return;
+            if (!File.Exists(Application.StartupPath + @"\Lang\" + langfile))
+            {
+                return;
+            }
+
             string[] lines = File.ReadAllLines(Application.StartupPath + @"\Lang\" + langfile);
             Strings = new string[0];
             foreach (string line in lines)
             {
                 string newline = line;
-                if (newline == string.Empty || newline == "\n" || newline == null || newline.Contains("//")) continue;
-                if (newline.Contains(@"\n")) newline = newline.Replace(@"\n",Environment.NewLine);
+                if (newline == string.Empty || newline == "\n" || newline == null || newline.Contains("//"))
+                {
+                    continue;
+                }
+
+                if (newline.Contains(@"\n"))
+                {
+                    newline = newline.Replace(@"\n", Environment.NewLine);
+                }
+
                 Strings = Strings.Append(newline).ToArray();
             }
         }

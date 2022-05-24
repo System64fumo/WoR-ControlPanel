@@ -184,9 +184,17 @@ namespace WoRCP.UI
         {
             if (Enabled)
             {
+                CollapsedChanging?.Invoke(sender, e);
                 Collapsed = !Collapsed;
+                CollapsedChanged?.Invoke(sender, EventArgs.Empty);
             }
         }
+
+        [Category("Property Changed")]
+        public event EventHandler CollapsedChanging;
+
+        [Category("Property Changed")]
+        public event EventHandler CollapsedChanged;
         #endregion
     }
 }

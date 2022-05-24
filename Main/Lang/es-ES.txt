@@ -111,3 +111,8 @@ Experimental
 Overclockeo avanzado
 Al habilitar este ajuste aceptas que estás poniendo tu Raspberry Pi en peligro.\nProceda bajo su propio riesgo.
 Aviso
+
+//ArgonOneFan
+Control de ventilador de Argon One
+Velocidad de ventilador
+Apagado

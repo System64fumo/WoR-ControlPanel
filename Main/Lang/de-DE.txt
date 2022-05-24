@@ -111,3 +111,8 @@ Experimental
 Erweiterte Übertaktung
 Indem Sie diese Einstellung aktivieren, stimmen Sie zu, dass Sie Ihren Himbeer-Pi einem Risiko aussetzen.\nFahren Sie auf eigene Gefahr fort
 Warnung
+
+//ArgonOneFan
+Argon One Fan Control
+Fan Speed
+Off

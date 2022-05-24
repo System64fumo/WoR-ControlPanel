@@ -29,46 +29,56 @@ namespace WoRCP.Tabs
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.ControlContainer = new System.Windows.Forms.FlowLayoutPanel();
-            this.roundedPanel1 = new WoRCP.UI.RoundedPanel();
+            this.GPIOPinsPanel = new WoRCP.UI.RoundedPanel();
             this.SelectedPinLabel = new System.Windows.Forms.Label();
             this.GPIOLabel = new System.Windows.Forms.Label();
             this.PinArray = new System.Windows.Forms.FlowLayoutPanel();
-            this.collapsiblePanel1 = new WoRCP.UI.CollapsiblePanel();
+            this.GPIOCollapsablePanel = new WoRCP.UI.CollapsiblePanel();
             this.PinModeState = new System.Windows.Forms.Label();
             this.PinModeToggle = new WoRCP.UI.Toggle();
             this.PinModeLabel = new System.Windows.Forms.Label();
             this.PinStateState = new System.Windows.Forms.Label();
             this.PinStateToggle = new WoRCP.UI.Toggle();
+            this.FanSpeedPanelPanel = new WoRCP.UI.CollapsiblePanel();
+            this.TemperatureLabel = new System.Windows.Forms.Label();
+            this.TempratureChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.FanSpeedLabel = new System.Windows.Forms.Label();
+            this.FanSpeedSlider = new WoRCP.UI.Slider();
             this.WarningLabel = new System.Windows.Forms.Label();
             this.ControlContainer.SuspendLayout();
-            this.roundedPanel1.SuspendLayout();
-            this.collapsiblePanel1.SuspendLayout();
+            this.GPIOPinsPanel.SuspendLayout();
+            this.GPIOCollapsablePanel.SuspendLayout();
+            this.FanSpeedPanelPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.TempratureChart)).BeginInit();
             this.SuspendLayout();
             // 
             // ControlContainer
             // 
-            this.ControlContainer.Controls.Add(this.roundedPanel1);
-            this.ControlContainer.Controls.Add(this.collapsiblePanel1);
+            this.ControlContainer.Controls.Add(this.GPIOPinsPanel);
+            this.ControlContainer.Controls.Add(this.GPIOCollapsablePanel);
+            this.ControlContainer.Controls.Add(this.FanSpeedPanelPanel);
             this.ControlContainer.Location = new System.Drawing.Point(0, 0);
             this.ControlContainer.Name = "ControlContainer";
             this.ControlContainer.Size = new System.Drawing.Size(660, 470);
             this.ControlContainer.TabIndex = 1;
             this.ControlContainer.Visible = false;
             // 
-            // roundedPanel1
+            // GPIOPinsPanel
             // 
-            this.roundedPanel1.BackColor = System.Drawing.Color.Transparent;
-            this.roundedPanel1.color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.roundedPanel1.Controls.Add(this.SelectedPinLabel);
-            this.roundedPanel1.Controls.Add(this.GPIOLabel);
-            this.roundedPanel1.Controls.Add(this.PinArray);
-            this.roundedPanel1.Location = new System.Drawing.Point(10, 10);
-            this.roundedPanel1.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.roundedPanel1.Name = "roundedPanel1";
-            this.roundedPanel1.rounding = 10;
-            this.roundedPanel1.Size = new System.Drawing.Size(640, 120);
-            this.roundedPanel1.TabIndex = 0;
+            this.GPIOPinsPanel.BackColor = System.Drawing.Color.Transparent;
+            this.GPIOPinsPanel.color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
+            this.GPIOPinsPanel.Controls.Add(this.SelectedPinLabel);
+            this.GPIOPinsPanel.Controls.Add(this.GPIOLabel);
+            this.GPIOPinsPanel.Controls.Add(this.PinArray);
+            this.GPIOPinsPanel.Location = new System.Drawing.Point(10, 10);
+            this.GPIOPinsPanel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.GPIOPinsPanel.Name = "GPIOPinsPanel";
+            this.GPIOPinsPanel.rounding = 10;
+            this.GPIOPinsPanel.Size = new System.Drawing.Size(640, 120);
+            this.GPIOPinsPanel.TabIndex = 0;
             // 
             // SelectedPinLabel
             // 
@@ -102,27 +112,28 @@ namespace WoRCP.Tabs
             this.PinArray.Size = new System.Drawing.Size(620, 62);
             this.PinArray.TabIndex = 2;
             // 
-            // collapsiblePanel1
+            // GPIOCollapsablePanel
             // 
-            this.collapsiblePanel1.BackColor = System.Drawing.Color.Transparent;
-            this.collapsiblePanel1.Collapsed = false;
-            this.collapsiblePanel1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
-            this.collapsiblePanel1.Controls.Add(this.PinModeState);
-            this.collapsiblePanel1.Controls.Add(this.PinModeToggle);
-            this.collapsiblePanel1.Controls.Add(this.PinModeLabel);
-            this.collapsiblePanel1.Controls.Add(this.PinStateState);
-            this.collapsiblePanel1.Controls.Add(this.PinStateToggle);
-            this.collapsiblePanel1.Icon = "";
-            this.collapsiblePanel1.LeftContent = new string[] {
+            this.GPIOCollapsablePanel.BackColor = System.Drawing.Color.Transparent;
+            this.GPIOCollapsablePanel.Collapsed = false;
+            this.GPIOCollapsablePanel.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
+            this.GPIOCollapsablePanel.Controls.Add(this.PinModeState);
+            this.GPIOCollapsablePanel.Controls.Add(this.PinModeToggle);
+            this.GPIOCollapsablePanel.Controls.Add(this.PinModeLabel);
+            this.GPIOCollapsablePanel.Controls.Add(this.PinStateState);
+            this.GPIOCollapsablePanel.Controls.Add(this.PinStateToggle);
+            this.GPIOCollapsablePanel.Icon = "";
+            this.GPIOCollapsablePanel.LeftContent = new string[] {
         "Pin State"};
-            this.collapsiblePanel1.Location = new System.Drawing.Point(10, 140);
-            this.collapsiblePanel1.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
-            this.collapsiblePanel1.Name = "collapsiblePanel1";
-            this.collapsiblePanel1.RightContent = new string[0];
-            this.collapsiblePanel1.Rounding = 5;
-            this.collapsiblePanel1.Size = new System.Drawing.Size(640, 111);
-            this.collapsiblePanel1.TabIndex = 1;
-            this.collapsiblePanel1.Title = "GPIO Controls";
+            this.GPIOCollapsablePanel.Location = new System.Drawing.Point(10, 140);
+            this.GPIOCollapsablePanel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 0);
+            this.GPIOCollapsablePanel.Name = "GPIOCollapsablePanel";
+            this.GPIOCollapsablePanel.RightContent = new string[0];
+            this.GPIOCollapsablePanel.Rounding = 5;
+            this.GPIOCollapsablePanel.Size = new System.Drawing.Size(640, 111);
+            this.GPIOCollapsablePanel.TabIndex = 1;
+            this.GPIOCollapsablePanel.Title = "GPIO Controls";
+            this.GPIOCollapsablePanel.CollapsedChanged += new System.EventHandler(this.GPIOCollapsablePanel_CollapsedChanged);
             // 
             // PinModeState
             // 
@@ -187,6 +198,113 @@ namespace WoRCP.Tabs
             this.PinStateToggle.Toggled = false;
             this.PinStateToggle.ToggledEvent += new System.EventHandler(this.PinStateToggle_ToggledEvent);
             // 
+            // FanSpeedPanelPanel
+            // 
+            this.FanSpeedPanelPanel.BackColor = System.Drawing.Color.Transparent;
+            this.FanSpeedPanelPanel.Collapsed = true;
+            this.FanSpeedPanelPanel.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
+            this.FanSpeedPanelPanel.Controls.Add(this.TemperatureLabel);
+            this.FanSpeedPanelPanel.Controls.Add(this.TempratureChart);
+            this.FanSpeedPanelPanel.Controls.Add(this.FanSpeedLabel);
+            this.FanSpeedPanelPanel.Controls.Add(this.FanSpeedSlider);
+            this.FanSpeedPanelPanel.Icon = "";
+            this.FanSpeedPanelPanel.LeftContent = new string[] {
+        "Fan Speed",
+        "Temperature"};
+            this.FanSpeedPanelPanel.Location = new System.Drawing.Point(10, 251);
+            this.FanSpeedPanelPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
+            this.FanSpeedPanelPanel.Name = "FanSpeedPanelPanel";
+            this.FanSpeedPanelPanel.RightContent = new string[0];
+            this.FanSpeedPanelPanel.Rounding = 5;
+            this.FanSpeedPanelPanel.Size = new System.Drawing.Size(640, 60);
+            this.FanSpeedPanelPanel.TabIndex = 63;
+            this.FanSpeedPanelPanel.Title = "Argon One Fan Control";
+            this.FanSpeedPanelPanel.CollapsedChanged += new System.EventHandler(this.FanSpeedPanelPanel_CollapsedChanged);
+            // 
+            // TemperatureLabel
+            // 
+            this.TemperatureLabel.BackColor = System.Drawing.Color.Transparent;
+            this.TemperatureLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.TemperatureLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.TemperatureLabel.Location = new System.Drawing.Point(277, 112);
+            this.TemperatureLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.TemperatureLabel.Name = "TemperatureLabel";
+            this.TemperatureLabel.Size = new System.Drawing.Size(150, 50);
+            this.TemperatureLabel.TabIndex = 39;
+            this.TemperatureLabel.Text = "0";
+            this.TemperatureLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // TempratureChart
+            // 
+            this.TempratureChart.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.AlignmentOrientation = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentOrientations.None;
+            chartArea1.AlignmentStyle = System.Windows.Forms.DataVisualization.Charting.AreaAlignmentStyles.None;
+            chartArea1.AxisX.IsMarginVisible = false;
+            chartArea1.AxisX.LineColor = System.Drawing.Color.Empty;
+            chartArea1.AxisX.MajorGrid.Enabled = false;
+            chartArea1.AxisX.MajorTickMark.Enabled = false;
+            chartArea1.AxisX.Maximum = 10D;
+            chartArea1.AxisY.LineColor = System.Drawing.Color.Empty;
+            chartArea1.AxisY.MajorGrid.Enabled = false;
+            chartArea1.AxisY.MajorTickMark.Enabled = false;
+            chartArea1.AxisY.Maximum = 105D;
+            chartArea1.AxisY.Minimum = 0D;
+            chartArea1.BackColor = System.Drawing.Color.Transparent;
+            chartArea1.BorderWidth = 0;
+            chartArea1.InnerPlotPosition.Auto = false;
+            chartArea1.InnerPlotPosition.Height = 100F;
+            chartArea1.InnerPlotPosition.Width = 100F;
+            chartArea1.Name = "ChartArea1";
+            chartArea1.Position.Auto = false;
+            chartArea1.Position.Height = 100F;
+            chartArea1.Position.Width = 100F;
+            this.TempratureChart.ChartAreas.Add(chartArea1);
+            this.TempratureChart.Location = new System.Drawing.Point(430, 112);
+            this.TempratureChart.Margin = new System.Windows.Forms.Padding(0);
+            this.TempratureChart.Name = "TempratureChart";
+            series1.BackGradientStyle = System.Windows.Forms.DataVisualization.Charting.GradientStyle.TopBottom;
+            series1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            series1.BorderWidth = 3;
+            series1.ChartArea = "ChartArea1";
+            series1.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.SplineArea;
+            series1.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(15)))));
+            series1.Name = "Series1";
+            this.TempratureChart.Series.Add(series1);
+            this.TempratureChart.Size = new System.Drawing.Size(210, 50);
+            this.TempratureChart.TabIndex = 38;
+            this.TempratureChart.TabStop = false;
+            // 
+            // FanSpeedLabel
+            // 
+            this.FanSpeedLabel.BackColor = System.Drawing.Color.Transparent;
+            this.FanSpeedLabel.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.FanSpeedLabel.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(150)))), ((int)(((byte)(150)))), ((int)(((byte)(150)))));
+            this.FanSpeedLabel.Location = new System.Drawing.Point(277, 62);
+            this.FanSpeedLabel.Margin = new System.Windows.Forms.Padding(0);
+            this.FanSpeedLabel.Name = "FanSpeedLabel";
+            this.FanSpeedLabel.Size = new System.Drawing.Size(150, 50);
+            this.FanSpeedLabel.TabIndex = 37;
+            this.FanSpeedLabel.Text = "Off";
+            this.FanSpeedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // FanSpeedSlider
+            // 
+            this.FanSpeedSlider.BackColor = System.Drawing.Color.Transparent;
+            this.FanSpeedSlider.Double = false;
+            this.FanSpeedSlider.Location = new System.Drawing.Point(430, 71);
+            this.FanSpeedSlider.Margin = new System.Windows.Forms.Padding(0);
+            this.FanSpeedSlider.MaximumSize = new System.Drawing.Size(1000, 30);
+            this.FanSpeedSlider.MaxValue = 100D;
+            this.FanSpeedSlider.MinimumSize = new System.Drawing.Size(100, 30);
+            this.FanSpeedSlider.MinValue = 0D;
+            this.FanSpeedSlider.Name = "FanSpeedSlider";
+            this.FanSpeedSlider.Size = new System.Drawing.Size(200, 30);
+            this.FanSpeedSlider.TabIndex = 17;
+            this.FanSpeedSlider.Value = 0D;
+            this.FanSpeedSlider.ValueP = 0D;
+            this.FanSpeedSlider.Selecting += new System.EventHandler(this.FanSpeedSlider_Selecting);
+            this.FanSpeedSlider.Selected += new System.EventHandler(this.FanSpeedSlider_Selected);
+            // 
             // WarningLabel
             // 
             this.WarningLabel.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -211,26 +329,33 @@ namespace WoRCP.Tabs
             this.Load += new System.EventHandler(this.Peripherals_Load);
             this.VisibleChanged += new System.EventHandler(this.Peripherals_VisibleChanged);
             this.ControlContainer.ResumeLayout(false);
-            this.roundedPanel1.ResumeLayout(false);
-            this.roundedPanel1.PerformLayout();
-            this.collapsiblePanel1.ResumeLayout(false);
+            this.GPIOPinsPanel.ResumeLayout(false);
+            this.GPIOPinsPanel.PerformLayout();
+            this.GPIOCollapsablePanel.ResumeLayout(false);
+            this.FanSpeedPanelPanel.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.TempratureChart)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private WoRCP.UI.RoundedPanel roundedPanel1;
+        private WoRCP.UI.RoundedPanel GPIOPinsPanel;
         private System.Windows.Forms.FlowLayoutPanel ControlContainer;
         private System.Windows.Forms.Label GPIOLabel;
         private System.Windows.Forms.Label SelectedPinLabel;
         private System.Windows.Forms.Label WarningLabel;
         private System.Windows.Forms.FlowLayoutPanel PinArray;
-        private WoRCP.UI.CollapsiblePanel collapsiblePanel1;
+        private WoRCP.UI.CollapsiblePanel GPIOCollapsablePanel;
         private System.Windows.Forms.Label PinStateState;
         private WoRCP.UI.Toggle PinStateToggle;
         private System.Windows.Forms.Label PinModeState;
         private WoRCP.UI.Toggle PinModeToggle;
         private System.Windows.Forms.Label PinModeLabel;
+        private UI.CollapsiblePanel FanSpeedPanelPanel;
+        private System.Windows.Forms.Label TemperatureLabel;
+        private System.Windows.Forms.DataVisualization.Charting.Chart TempratureChart;
+        private System.Windows.Forms.Label FanSpeedLabel;
+        private UI.Slider FanSpeedSlider;
     }
 }
