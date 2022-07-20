@@ -49,6 +49,9 @@
     <Compile Include="Controls\CollapsiblePanel.designer.cs">
       <DependentUpon>CollapsiblePanel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Toggle.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\RoundedButton.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -65,12 +68,6 @@
     </Compile>
     <Compile Include="Controls\Slider.designer.cs">
       <DependentUpon>Slider.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Controls\Toggle.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="Controls\Toggle.designer.cs">
-      <DependentUpon>Toggle.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -89,9 +86,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\Slider.resx">
       <DependentUpon>Slider.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Controls\Toggle.resx">
-      <DependentUpon>Toggle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -66,6 +66,7 @@ namespace WoRCP
         private void DragMove(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left) { Left += e.X - lastPoint.X; Top += e.Y - lastPoint.Y; } }
         private void CloseButton_Click(object sender, EventArgs e)
         {
+            Program.crashed = false;
             if (File.Exists(Path.GetTempPath() + "list.txt")) { File.Delete(Path.GetTempPath() + "list.txt"); }
             Application.Exit();
         }
@@ -242,6 +243,5 @@ namespace WoRCP
             }
         }
         #endregion
-
     }
 }

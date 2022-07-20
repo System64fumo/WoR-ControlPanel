@@ -61,7 +61,7 @@ namespace WoRCP.Tabs
             SelectedPinLabel.Text = Language.Strings[29];
             GPIOCollapsablePanel.Title = Language.Strings[30];
             GPIOCollapsablePanel.LeftContent[0] = Language.Strings[31];
-            PinStateState.Text = Language.State(PinStateToggle.Toggled);
+            PinStateState.Text = Language.State(PinStateToggle.Checked);
             FanSpeedPanelPanel.Title = Language.Strings[94];
             FanSpeedPanelPanel.LeftContent[0] = Language.Strings[95];
             offText = Language.Strings[96];
@@ -252,24 +252,24 @@ namespace WoRCP.Tabs
             PinStateState.Text = gpio.Read(SelectedPin).ToString();
             if (gpio.Read(SelectedPin).ToString() == "High")
             {
-                PinStateToggle.Toggled = true;
+                PinStateToggle.Checked = true;
             }
             else
             {
-                PinStateToggle.Toggled = false;
+                PinStateToggle.Checked = false;
             }
 
             //Check if the pin is an Input or an Output
             PinModeState.Text = gpio.GetPinMode(SelectedPin).ToString();
             if (gpio.GetPinMode(SelectedPin).ToString() == "Output")
             {
-                PinModeToggle.Toggled = true;
+                PinModeToggle.Checked = true;
             }
             else
             {
-                PinModeToggle.Toggled = false;
+                PinModeToggle.Checked = false;
             }
-            PinStateToggle.Enabled = PinModeToggle.Toggled;
+            PinStateToggle.Enabled = PinModeToggle.Checked;
 
             //Pin theming
             button.Color = Theme.DarkAccent;
@@ -309,7 +309,7 @@ namespace WoRCP.Tabs
                 gpio.SetPinMode(SelectedPin, PinMode.Input);
             }
             PinModeState.Text = gpio.GetPinMode(SelectedPin).ToString();
-            PinStateToggle.Enabled = PinModeToggle.Toggled;
+            PinStateToggle.Enabled = PinModeToggle.Checked;
         }
         #endregion
 

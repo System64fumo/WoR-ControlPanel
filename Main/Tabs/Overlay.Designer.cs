@@ -204,8 +204,8 @@ namespace WoRCP.Tabs
             this.OverlayToggle.Name = "OverlayToggle";
             this.OverlayToggle.Size = new System.Drawing.Size(40, 20);
             this.OverlayToggle.TabIndex = 59;
-            this.OverlayToggle.Toggled = false;
-            this.OverlayToggle.ToggledEvent += new System.EventHandler(this.OverlayToggle_ToggledEvent);
+            this.OverlayToggle.Checked = false;
+            this.OverlayToggle.CheckedChanged += new System.EventHandler(this.OverlayToggle_ToggledEvent);
             // 
             // AlwaysOnTop
             // 
@@ -230,8 +230,8 @@ namespace WoRCP.Tabs
             this.AlwaysOnTopToggle.Name = "AlwaysOnTopToggle";
             this.AlwaysOnTopToggle.Size = new System.Drawing.Size(40, 20);
             this.AlwaysOnTopToggle.TabIndex = 48;
-            this.AlwaysOnTopToggle.Toggled = false;
-            this.AlwaysOnTopToggle.ToggledEvent += new System.EventHandler(this.AlwaysOnTopToggle_ToggledEvent);
+            this.AlwaysOnTopToggle.Checked = false;
+            this.AlwaysOnTopToggle.CheckedChanged += new System.EventHandler(this.AlwaysOnTopToggle_ToggledEvent);
             // 
             // collapsiblePanel3
             // 
@@ -271,8 +271,8 @@ namespace WoRCP.Tabs
             this.StyleToggle.Name = "StyleToggle";
             this.StyleToggle.Size = new System.Drawing.Size(40, 20);
             this.StyleToggle.TabIndex = 71;
-            this.StyleToggle.Toggled = false;
-            this.StyleToggle.ToggledEvent += new System.EventHandler(this.RoundedToggle_ToggledEvent);
+            this.StyleToggle.Checked = false;
+            this.StyleToggle.CheckedChanged += new System.EventHandler(this.RoundedToggle_ToggledEvent);
             // 
             // ChartsState
             // 
@@ -297,8 +297,8 @@ namespace WoRCP.Tabs
             this.ChartsToggle.Name = "ChartsToggle";
             this.ChartsToggle.Size = new System.Drawing.Size(40, 20);
             this.ChartsToggle.TabIndex = 65;
-            this.ChartsToggle.Toggled = false;
-            this.ChartsToggle.ToggledEvent += new System.EventHandler(this.ChartsToggle_ToggledEvent);
+            this.ChartsToggle.Checked = false;
+            this.ChartsToggle.CheckedChanged += new System.EventHandler(this.ChartsToggle_ToggledEvent);
             // 
             // Orientation
             // 
@@ -323,8 +323,8 @@ namespace WoRCP.Tabs
             this.OrientationToggle.Name = "OrientationToggle";
             this.OrientationToggle.Size = new System.Drawing.Size(40, 20);
             this.OrientationToggle.TabIndex = 58;
-            this.OrientationToggle.Toggled = false;
-            this.OrientationToggle.ToggledEvent += new System.EventHandler(this.OrientationToggle_ToggledEvent);
+            this.OrientationToggle.Checked = false;
+            this.OrientationToggle.CheckedChanged += new System.EventHandler(this.OrientationToggle_ToggledEvent);
             // 
             // StyleState
             // 
@@ -417,8 +417,8 @@ namespace WoRCP.Tabs
             this.TrayIconToggle.Name = "TrayIconToggle";
             this.TrayIconToggle.Size = new System.Drawing.Size(40, 20);
             this.TrayIconToggle.TabIndex = 68;
-            this.TrayIconToggle.Toggled = false;
-            this.TrayIconToggle.ToggledEvent += new System.EventHandler(this.TrayIconToggle_ToggledEvent);
+            this.TrayIconToggle.Checked = false;
+            this.TrayIconToggle.CheckedChanged += new System.EventHandler(this.TrayIconToggle_ToggledEvent);
             // 
             // TempWarningState
             // 
@@ -444,8 +444,8 @@ namespace WoRCP.Tabs
             this.TempWarningToggle.Name = "TempWarningToggle";
             this.TempWarningToggle.Size = new System.Drawing.Size(40, 20);
             this.TempWarningToggle.TabIndex = 65;
-            this.TempWarningToggle.Toggled = false;
-            this.TempWarningToggle.ToggledEvent += new System.EventHandler(this.TempLimitToggle_ToggledEvent);
+            this.TempWarningToggle.Checked = false;
+            this.TempWarningToggle.CheckedChanged += new System.EventHandler(this.TempLimitToggle_ToggledEvent);
             // 
             // MinimizeToTrayState
             // 
@@ -471,8 +471,8 @@ namespace WoRCP.Tabs
             this.MinimizeToTrayToggle.Name = "MinimizeToTrayToggle";
             this.MinimizeToTrayToggle.Size = new System.Drawing.Size(40, 20);
             this.MinimizeToTrayToggle.TabIndex = 62;
-            this.MinimizeToTrayToggle.Toggled = false;
-            this.MinimizeToTrayToggle.ToggledEvent += new System.EventHandler(this.MinimizeToTrayToggle_ToggledEvent);
+            this.MinimizeToTrayToggle.Checked = false;
+            this.MinimizeToTrayToggle.CheckedChanged += new System.EventHandler(this.MinimizeToTrayToggle_ToggledEvent);
             // 
             // Overlay
             // 

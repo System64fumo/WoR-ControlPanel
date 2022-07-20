@@ -1,113 +1,34 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace WoRCP.UI
 {
-    public partial class Toggle : UserControl
+    public class Toggle : CheckBox
     {
-        //Main
-        #region Variables
-        private bool toggled;
-        Color color = Theme.Inactive;
-        Color knobcolor = Color.White;
-        public event EventHandler ToggledEvent;
-        #endregion
-
-        #region Properties
-        [Category("Advanced")]
-        public bool Toggled
-        {
-            get { return toggled; }
-            set
-            {
-                toggled = value;
-                if (toggled)
-                {
-                    color = Theme.Accent;
-                    ToggleKnob.Left = 23;
-                }
-                else
-                {
-                    color = Theme.Inactive;
-                    ToggleKnob.Left = 3;
-                }
-                if (!Enabled)
-                {
-                    color = Color.FromArgb(100, 100, 100);
-                }
-                Invalidate();
-            }
-        }
-        #endregion
-
-        #region Loading and initialization
         public Toggle()
         {
-            InitializeComponent();
+            SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
         }
-        #endregion
-
-        #region Toggle
-        private void toggle()
+        protected override void OnPaint(PaintEventArgs e)
         {
-            if (toggled)
+            this.OnPaintBackground(e);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            using (var path = new GraphicsPath())
             {
-                color = Theme.Inactive;
-                ToggleKnob.Left = 3;
+                //Draw toggle background
+                int h = this.Height - 1;
+                path.AddArc(0, 0, h, h, 90, 180);
+                path.AddArc(this.Width - h - 1, 0, h, h, -90, 180);
+                path.CloseFigure();
+                e.Graphics.FillPath(Checked ? new SolidBrush(Theme.BrightAccent) : Brushes.Transparent, path);
+                e.Graphics.DrawPath(new Pen(Checked ? new SolidBrush(Theme.BrightAccent) : new SolidBrush(Theme.Disabled)), path);
+
+                //Draw toggle circle
+                int pad = 6;
+                var rect = Checked ? new Rectangle(Width - h + (pad / 2) - 1, pad / 2, h - pad, h - pad) : new Rectangle(pad / 2, pad / 2, h - pad, h - pad);
+                e.Graphics.FillEllipse(Checked ? new SolidBrush(Color.FromArgb(Theme.Text.ToArgb() ^ 0xFFFFFF)) : new SolidBrush(Color.FromArgb(150, Theme.Text)), rect);
             }
-            else
-            {
-                color = Theme.Accent;
-                ToggleKnob.Left = 23;
-            }
-            toggled = !toggled;
-            Invalidate();
-            ToggledEvent?.Invoke(this, EventArgs.Empty);
         }
-        #endregion
-
-        //Events
-        #region Paint
-        private void ToggleKnob_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e, ToggleKnob.Width, ToggleKnob.Height, 7, knobcolor); }
-        private void Toggle_Paint(object sender, PaintEventArgs e) { RoundedCorners.Paint(e, 40, 20, Theme.ToggleRounding, color); }
-        #endregion
-
-        #region Click
-        private void Toggle_Click(object sender, EventArgs e) { toggle(); }
-        private void ToggleKnob_Click(object sender, EventArgs e) { toggle(); }
-        #endregion
-
-        #region Enabled Changed
-        private void Toggle_EnabledChanged(object sender, EventArgs e)
-        {
-            if (Enabled)
-            {
-                knobcolor = Color.White;
-                if (toggled) color = Theme.Accent;
-                else color = Theme.Inactive;
-                Invalidate();
-            }
-            else { knobcolor = Color.FromArgb(150, 150, 150); color = Color.FromArgb(100, 100, 100); Invalidate(); }
-        }
-        #endregion
-
-        #region Hover events
-
-        private void Toggle_MouseEnter(object sender, EventArgs e)
-        {
-            if (toggled) color = Theme.BrightAccent;
-            else color = Theme.BrightPanel;
-            Invalidate();
-        }
-
-        private void Toggle_MouseLeave(object sender, EventArgs e)
-        {
-            if (toggled) color = Theme.Accent;
-            else color = Theme.Inactive;
-            Invalidate();
-        }
-        #endregion
     }
 }

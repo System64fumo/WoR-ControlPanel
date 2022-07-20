@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
 namespace WoRCP.UI
@@ -9,7 +10,7 @@ namespace WoRCP.UI
     {
         //Main
         #region Variables
-        Color color = Color.White;
+        float OutlineSize = 5;
         Point lastPoint;
         double CurrentValueP = 50;
         double CurrentValue = 50;
@@ -100,7 +101,7 @@ namespace WoRCP.UI
 
         //Events
         #region Knob
-        private void SliderKnob_MouseDown(object sender, MouseEventArgs e) { if (Enabled == true) { lastPoint = new Point(e.X); color = Theme.DarkAccent; SliderKnob.Invalidate(); } }
+        private void SliderKnob_MouseDown(object sender, MouseEventArgs e) { if (Enabled == true) { OutlineSize = 6; lastPoint = new Point(e.X); SliderKnob.Invalidate(); } }
         private void SliderKnob_MouseMove(object sender, MouseEventArgs e)
         {
             if (Enabled == true)
@@ -134,7 +135,7 @@ namespace WoRCP.UI
         {
             if (Enabled == true)
             {
-                color = Theme.BrightAccent;
+                OutlineSize = 3.5f;
                 SliderKnob.Invalidate();
                 int x = Convert.ToInt32(SliderKnob.Location.ToString().Replace("{X=", "").Replace(",Y=" + SliderKnob.Location.Y.ToString() + "}", ""));
                 if (SliderFiller.Width >= SliderBG.Width) { SliderKnob.Left = SliderBG.Width; SliderFiller.Width = SliderBG.Width; }
@@ -154,17 +155,18 @@ namespace WoRCP.UI
             }
         }
 
-        private void SliderKnob_MouseLeave(object sender, EventArgs e) { if (Enabled) { color = Color.White; SliderKnob.Invalidate(); } }
-        private void SliderKnob_MouseEnter(object sender, EventArgs e) { if (Enabled) { color = Theme.BrightAccent; SliderKnob.Invalidate(); } }
+        private void SliderKnob_MouseLeave(object sender, EventArgs e) { if (Enabled) { OutlineSize = 5; SliderKnob.Invalidate(); } }
+        private void SliderKnob_MouseEnter(object sender, EventArgs e) { if (Enabled) { OutlineSize = 3.5f; SliderKnob.Invalidate(); } }
         private void SliderKnob_Paint(object sender, PaintEventArgs e)
         {
-            RoundedCorners.Paint(e, 20, 20, 11, color);
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             // Create pen.
-            Pen blackPen = new Pen(Color.FromArgb(25, 0, 0, 0), 1);
+            Pen pen = new Pen(Theme.BrightPanel, OutlineSize);
             // Create rectangle for circle.
             Rectangle rect = new Rectangle(0, 0, 19, 19);
+            e.Graphics.FillEllipse(new SolidBrush(Theme.BrightAccent), rect);
             // Draw circle.
-            e.Graphics.DrawEllipse(blackPen, rect);
+            e.Graphics.DrawArc(pen, (pen.Width / 2) - 1, (pen.Width / 2) - 1, 19 - pen.Width + 2, 19 - pen.Width + 2, 0, 360);
         }
         #endregion
 
@@ -172,8 +174,8 @@ namespace WoRCP.UI
         private void Resized(object sender, EventArgs e) { Value = CurrentValue; }
         private void Slider_EnabledChanged(object sender, EventArgs e)
         {
-            if (Enabled) { color = Color.White; SliderKnob.Invalidate(); SliderFiller.BackColor = Theme.Accent; }
-            else { color = Color.FromArgb(150, 150, 150); SliderKnob.Invalidate(); SliderFiller.BackColor = Color.FromArgb(100, 100, 100); }
+            if (Enabled) { SliderKnob.Invalidate(); SliderFiller.BackColor = Theme.Accent; }
+            else { SliderKnob.Invalidate(); SliderFiller.BackColor = Color.FromArgb(100, 100, 100); }
         }
 
         private void SliderBG_Paint(object sender, PaintEventArgs e)

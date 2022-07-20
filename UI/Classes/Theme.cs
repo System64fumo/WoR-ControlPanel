@@ -105,7 +105,7 @@ namespace WoRCP.UI
 
                 Accent = Color.FromArgb(r, g, b);
                 DarkAccent = Color.FromArgb(Math.Max(0, r - 25), Math.Max(0, g - 25), Math.Max(0, b - 25));
-                BrightAccent = Color.FromArgb(Math.Min(255, r + 25), Math.Min(255, g + 25), Math.Min(255, b + 25));
+                BrightAccent = Color.FromArgb(Math.Min(255, r + 50), Math.Min(255, g + 50), Math.Min(255, b + 50));
             }
         }
         #endregion

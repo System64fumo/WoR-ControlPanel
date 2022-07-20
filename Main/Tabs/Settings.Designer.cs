@@ -376,8 +376,8 @@ namespace WoRCP.Tabs
             this.ForceTurboToggle.Name = "ForceTurboToggle";
             this.ForceTurboToggle.Size = new System.Drawing.Size(40, 20);
             this.ForceTurboToggle.TabIndex = 31;
-            this.ForceTurboToggle.Toggled = false;
-            this.ForceTurboToggle.ToggledEvent += new System.EventHandler(this.ForceTurboToggle_ToggledEvent);
+            this.ForceTurboToggle.Checked = false;
+            this.ForceTurboToggle.CheckedChanged += new System.EventHandler(this.ForceTurboToggle_ToggledEvent);
             // 
             // ForceTurbo
             // 
@@ -505,7 +505,7 @@ namespace WoRCP.Tabs
             // DisplayPanel
             // 
             this.DisplayPanel.BackColor = System.Drawing.Color.Transparent;
-            this.DisplayPanel.Collapsed = false;
+            this.DisplayPanel.Collapsed = true;
             this.DisplayPanel.Color = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(27)))));
             this.DisplayPanel.Controls.Add(this.SplashToggle);
             this.DisplayPanel.Controls.Add(this.Desktop);
@@ -534,7 +534,7 @@ namespace WoRCP.Tabs
         "Disabled⠀⠀⠀⠀⠀⠀",
         "Disabled⠀⠀⠀⠀⠀⠀"};
             this.DisplayPanel.Rounding = 5;
-            this.DisplayPanel.Size = new System.Drawing.Size(640, 417);
+            this.DisplayPanel.Size = new System.Drawing.Size(640, 60);
             this.DisplayPanel.TabIndex = 61;
             this.DisplayPanel.Title = "Display";
             // 
@@ -548,8 +548,8 @@ namespace WoRCP.Tabs
             this.SplashToggle.Name = "SplashToggle";
             this.SplashToggle.Size = new System.Drawing.Size(40, 20);
             this.SplashToggle.TabIndex = 74;
-            this.SplashToggle.Toggled = false;
-            this.SplashToggle.ToggledEvent += new System.EventHandler(this.SplashToggle_ToggledEvent);
+            this.SplashToggle.Checked = false;
+            this.SplashToggle.CheckedChanged += new System.EventHandler(this.SplashToggle_ToggledEvent);
             // 
             // Desktop
             // 
@@ -697,8 +697,8 @@ namespace WoRCP.Tabs
             this.HotplugToggle.Name = "HotplugToggle";
             this.HotplugToggle.Size = new System.Drawing.Size(40, 20);
             this.HotplugToggle.TabIndex = 29;
-            this.HotplugToggle.Toggled = false;
-            this.HotplugToggle.ToggledEvent += new System.EventHandler(this.HotplugToggle_ToggledEvent);
+            this.HotplugToggle.Checked = false;
+            this.HotplugToggle.CheckedChanged += new System.EventHandler(this.HotplugToggle_ToggledEvent);
             // 
             // OverscanToggle
             // 
@@ -710,8 +710,8 @@ namespace WoRCP.Tabs
             this.OverscanToggle.Name = "OverscanToggle";
             this.OverscanToggle.Size = new System.Drawing.Size(40, 20);
             this.OverscanToggle.TabIndex = 17;
-            this.OverscanToggle.Toggled = false;
-            this.OverscanToggle.ToggledEvent += new System.EventHandler(this.OverscanToggle_ToggledEvent);
+            this.OverscanToggle.Checked = false;
+            this.OverscanToggle.CheckedChanged += new System.EventHandler(this.OverscanToggle_ToggledEvent);
             // 
             // OtherPanel
             // 
@@ -725,7 +725,7 @@ namespace WoRCP.Tabs
             this.OtherPanel.LeftContent = new string[] {
         "Config.txt",
         "Config.txt Documentation"};
-            this.OtherPanel.Location = new System.Drawing.Point(10, 757);
+            this.OtherPanel.Location = new System.Drawing.Point(10, 400);
             this.OtherPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
             this.OtherPanel.Name = "OtherPanel";
             this.OtherPanel.RightContent = new string[0];

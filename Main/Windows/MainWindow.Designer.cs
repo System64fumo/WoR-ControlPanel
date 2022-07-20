@@ -31,7 +31,6 @@ namespace WoRCP
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainWindow));
             this.SidePanel = new System.Windows.Forms.Panel();
-            this.Indicator = new WoRCP.UI.RoundedPanel();
             this.PerformanceButton = new System.Windows.Forms.Button();
             this.PeripheralsButton = new System.Windows.Forms.Button();
             this.AppstoreButton = new System.Windows.Forms.Button();
@@ -44,6 +43,7 @@ namespace WoRCP
             this.CloseButton = new System.Windows.Forms.Button();
             this.Tabcontainer = new System.Windows.Forms.Panel();
             this.RGBStrip = new System.Windows.Forms.PictureBox();
+            this.Indicator = new WoRCP.UI.RoundedPanel();
             this.SidePanel.SuspendLayout();
             this.TitleBar.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.RGBStrip)).BeginInit();
@@ -66,16 +66,6 @@ namespace WoRCP
             this.SidePanel.Size = new System.Drawing.Size(175, 500);
             this.SidePanel.TabIndex = 0;
             this.SidePanel.Tag = "Acrylic";
-            // 
-            // Indicator
-            // 
-            this.Indicator.BackColor = System.Drawing.Color.Transparent;
-            this.Indicator.color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
-            this.Indicator.Location = new System.Drawing.Point(0, 210);
-            this.Indicator.Name = "Indicator";
-            this.Indicator.rounding = 2;
-            this.Indicator.Size = new System.Drawing.Size(4, 30);
-            this.Indicator.TabIndex = 0;
             // 
             // PerformanceButton
             // 
@@ -263,9 +253,10 @@ namespace WoRCP
             // 
             // Tabcontainer
             // 
-            this.Tabcontainer.Location = new System.Drawing.Point(175, 27);
+            this.Tabcontainer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.Tabcontainer.Location = new System.Drawing.Point(175, 30);
             this.Tabcontainer.Name = "Tabcontainer";
-            this.Tabcontainer.Size = new System.Drawing.Size(660, 523);
+            this.Tabcontainer.Size = new System.Drawing.Size(660, 470);
             this.Tabcontainer.TabIndex = 6;
             // 
             // RGBStrip
@@ -277,6 +268,16 @@ namespace WoRCP
             this.RGBStrip.TabIndex = 0;
             this.RGBStrip.TabStop = false;
             this.RGBStrip.Visible = false;
+            // 
+            // Indicator
+            // 
+            this.Indicator.BackColor = System.Drawing.Color.Transparent;
+            this.Indicator.color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.Indicator.Location = new System.Drawing.Point(0, 210);
+            this.Indicator.Name = "Indicator";
+            this.Indicator.rounding = 2;
+            this.Indicator.Size = new System.Drawing.Size(4, 30);
+            this.Indicator.TabIndex = 0;
             // 
             // MainWindow
             // 

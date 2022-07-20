@@ -9,6 +9,7 @@
                     |__/     \__/ \______/ |__/  |__/       \______/ |__/      
 */
 using System;
+using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 using WoRCP.UI;
@@ -17,6 +18,8 @@ namespace WoRCP
 {
     class Program
     {
+        //Set this to true so that it always generates a log unless you close the program intentionally
+        public static bool crashed = true;
         [STAThread]
         static void Main()
         {
@@ -38,12 +41,15 @@ namespace WoRCP
             }
             finally
             {
-                MessageBox.Show("WoR Control panel has crashed unexpectedly.");
-                MessageBox.Show("A log has been created on your desktop" + Environment.NewLine + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt" + Environment.NewLine + "If you had any issues with WoRCP or your Pi" + Environment.NewLine + "please send this log to the developer");
-                StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt");
-                sw.WriteLine(LogOutput);
-                sw.Close();
-                // This code always executed even if application crashes.
+                if (crashed)
+                {
+                    MessageBox.Show("WoR Control panel has crashed unexpectedly.");
+                    MessageBox.Show("A log has been created on your desktop" + Environment.NewLine + Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt" + Environment.NewLine + "If you had any issues with WoRCP or your Pi" + Environment.NewLine + "please send this log to the developer");
+                    StreamWriter sw = new StreamWriter(Environment.GetFolderPath(Environment.SpecialFolder.Desktop) + @"\Log.txt");
+                    sw.WriteLine(LogOutput);
+                    sw.Close();
+                    //This code always executed even if application crashes.
+                }
             }
         }
 

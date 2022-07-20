@@ -64,7 +64,7 @@ namespace WoRCP.Tabs
             DisplayPanel.Title = Language.Strings[72];
             DisplayPanel.LeftContent[4] = Language.Strings[73];
             DisplayPanel.LeftContent[5] = Language.Strings[74];
-            DisplayPanel.LeftContent[5] = Language.Strings[75];
+            DisplayPanel.LeftContent[6] = Language.Strings[75];
 
             OtherPanel.Title = Language.Strings[76];
             OtherPanel.LeftContent[1] = Language.Strings[77];
@@ -196,22 +196,22 @@ namespace WoRCP.Tabs
                                     break;
                                 case 4: //Force_Turbo=
                                     ForceTurbo.Text = Language.State(Convert.ToBoolean(val));
-                                    ForceTurboToggle.Toggled = Convert.ToBoolean(val);
+                                    ForceTurboToggle.Checked = Convert.ToBoolean(val);
                                     break;
                                 case 5: //Temp_Limit=
                                         //TODO: Add temp limit GUI Option
                                     break;
                                 case 6: //Disable_Overscan=
                                     DisplayPanel.RightContent[4] = Language.State(!Convert.ToBoolean(val)) + Program.Spacing(6);
-                                    OverscanToggle.Toggled = !Convert.ToBoolean(val);
+                                    OverscanToggle.Checked = !Convert.ToBoolean(val);
                                     break;
                                 case 7: //Disable_Splash=
                                     DisplayPanel.RightContent[6] = Language.State(!Convert.ToBoolean(val)) + Program.Spacing(6);
-                                    SplashToggle.Toggled = !Convert.ToBoolean(val);
+                                    SplashToggle.Checked = !Convert.ToBoolean(val);
                                     break;
                                 case 8: //HDMI_Force_Hotplug=
                                     DisplayPanel.RightContent[5] = Language.State(Convert.ToBoolean(val)) + Program.Spacing(6);
-                                    HotplugToggle.Toggled = Convert.ToBoolean(val);
+                                    HotplugToggle.Checked = Convert.ToBoolean(val);
                                     break;
                             }
                         }
@@ -356,30 +356,30 @@ namespace WoRCP.Tabs
         #region Toggles
         private void ForceTurboToggle_ToggledEvent(object sender, EventArgs e)
         {
-            ForceTurbo.Text =  Language.State(ForceTurboToggle.Toggled);
-            ConfigUtility.Values[4] = Convert.ToInt32(ForceTurboToggle.Toggled).ToString();
+            ForceTurbo.Text =  Language.State(ForceTurboToggle.Checked);
+            ConfigUtility.Values[4] = Convert.ToInt32(ForceTurboToggle.Checked).ToString();
             SaveButton.Color = Theme.Accent;
         }
         private void OverscanToggle_ToggledEvent(object sender, EventArgs e)
         {
-            DisplayPanel.RightContent[4] = Language.State(OverscanToggle.Toggled) + Program.Spacing(6);
-            ConfigUtility.Values[6] = Convert.ToInt32(!OverscanToggle.Toggled).ToString();
+            DisplayPanel.RightContent[4] = Language.State(OverscanToggle.Checked) + Program.Spacing(6);
+            ConfigUtility.Values[6] = Convert.ToInt32(!OverscanToggle.Checked).ToString();
             SaveButton.Color = Theme.Accent;
             DisplayPanel.Invalidate();
         }
 
         private void HotplugToggle_ToggledEvent(object sender, EventArgs e)
         {
-            DisplayPanel.RightContent[5] = Language.State(HotplugToggle.Toggled) + Program.Spacing(6);
-            ConfigUtility.Values[8] = Convert.ToInt32(HotplugToggle.Toggled).ToString();
+            DisplayPanel.RightContent[5] = Language.State(HotplugToggle.Checked) + Program.Spacing(6);
+            ConfigUtility.Values[8] = Convert.ToInt32(HotplugToggle.Checked).ToString();
             SaveButton.Color = Theme.Accent;
             DisplayPanel.Invalidate();
         }
 
         private void SplashToggle_ToggledEvent(object sender, EventArgs e)
         {
-            DisplayPanel.RightContent[6] = Language.State(SplashToggle.Toggled) + Program.Spacing(6);
-            ConfigUtility.Values[7] = Convert.ToInt32(!SplashToggle.Toggled).ToString();
+            DisplayPanel.RightContent[6] = Language.State(SplashToggle.Checked) + Program.Spacing(6);
+            ConfigUtility.Values[7] = Convert.ToInt32(!SplashToggle.Checked).ToString();
             SaveButton.Color = Theme.Accent;
             DisplayPanel.Invalidate();
         }
@@ -401,12 +401,12 @@ namespace WoRCP.Tabs
                 if (armfreq >= 2.1) //Check if force turbo is required (TODO Fix for rpi 3)
                 {
                     ConfigUtility.Values[4] = "1"; ForceTurbo.Text = "Enabled";
-                    ForceTurboToggle.Toggled = true;
+                    ForceTurboToggle.Checked = true;
                 }
                 else
                 {
                     ConfigUtility.Values[4] = "0"; ForceTurbo.Text = "Disabled";
-                    ForceTurboToggle.Toggled = false;
+                    ForceTurboToggle.Checked = false;
                 }
                 ConfigUtility.Values[3] = Convert.ToInt32((armfreq - 1.5) * (armfreq * 6.5)).ToString();
                 OvervoltageSlider.Value = Convert.ToInt32(ConfigUtility.Values[3]);

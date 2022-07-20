@@ -23,13 +23,13 @@ namespace WoRCP.Tabs
             OpacitySlider.Value = Configuration.OverlayOpacity;
 
             //Toggles
-            OverlayToggle.Toggled = Configuration.OverlayEnabled;
-            ChartsToggle.Toggled = Configuration.OverlayMinimal;
-            StyleToggle.Toggled = Configuration.OverlayRounded;
-            AlwaysOnTopToggle.Toggled = Configuration.OverlayAlwaysOnTop;
-            OrientationToggle.Toggled = Configuration.OverlayPortrait;
-            TrayIconToggle.Toggled = ResourceReader.trayicon.Visible;
-            MinimizeToTrayToggle.Toggled = Configuration.MinimizeToTray;
+            OverlayToggle.Checked = Configuration.OverlayEnabled;
+            ChartsToggle.Checked = Configuration.OverlayMinimal;
+            StyleToggle.Checked = Configuration.OverlayRounded;
+            AlwaysOnTopToggle.Checked = Configuration.OverlayAlwaysOnTop;
+            OrientationToggle.Checked = Configuration.OverlayPortrait;
+            TrayIconToggle.Checked = ResourceReader.trayicon.Visible;
+            MinimizeToTrayToggle.Checked = Configuration.MinimizeToTray;
             MinimizeToTrayToggle.Enabled = Configuration.MinimizeToTray;
             TempWarningToggle.Enabled = (ConfigUtility.Values[5] != "0");
         }
@@ -114,10 +114,10 @@ namespace WoRCP.Tabs
         //Overlay
         public void OverlayToggle_ToggledEvent(object sender, EventArgs e)
         {
-            ResourceReader.timer.Enabled = TrayIconToggle.Toggled;
-            Configuration.OverlayEnabled = OverlayToggle.Toggled;
-            OverlayState.Text = Language.State(OverlayToggle.Toggled);
-            if (!OverlayToggle.Toggled)
+            ResourceReader.timer.Enabled = TrayIconToggle.Checked;
+            Configuration.OverlayEnabled = OverlayToggle.Checked;
+            OverlayState.Text = Language.State(OverlayToggle.Checked);
+            if (!OverlayToggle.Checked)
             {
 
                 Configuration.overlay.Enabled = false;
@@ -133,48 +133,48 @@ namespace WoRCP.Tabs
         //Information appearance
         private void ChartsToggle_ToggledEvent(object sender, EventArgs e)
         {
-            Configuration.OverlayMinimal = ChartsToggle.Toggled;
+            Configuration.OverlayMinimal = ChartsToggle.Checked;
             Configuration.overlay.ChartType();
             PositionChanged(Configuration.OverlayPos);
-            ChartsState.Text = Language.State(ChartsToggle.Toggled);
+            ChartsState.Text = Language.State(ChartsToggle.Checked);
         }
 
         //Always on top
         private void AlwaysOnTopToggle_ToggledEvent(object sender, EventArgs e)
         {
-            Configuration.overlay.TopMost = AlwaysOnTopToggle.Toggled;
-            Configuration.OverlayAlwaysOnTop = AlwaysOnTopToggle.Toggled;
-            AlwaysOnTop.Text = Language.State(AlwaysOnTopToggle.Toggled);
+            Configuration.overlay.TopMost = AlwaysOnTopToggle.Checked;
+            Configuration.OverlayAlwaysOnTop = AlwaysOnTopToggle.Checked;
+            AlwaysOnTop.Text = Language.State(AlwaysOnTopToggle.Checked);
         }
 
         //Orientation
         private void OrientationToggle_ToggledEvent(object sender, EventArgs e)
         {
-            Configuration.OverlayPortrait = OrientationToggle.Toggled;
+            Configuration.OverlayPortrait = OrientationToggle.Checked;
             Configuration.overlay.Orientation();
             PositionChanged(Configuration.OverlayPos);
-            Orientation.Text = Language.State(OrientationToggle.Toggled);
+            Orientation.Text = Language.State(OrientationToggle.Checked);
         }
 
         //Rounding appearance
         private void RoundedToggle_ToggledEvent(object sender, EventArgs e)
         {
-            Configuration.OverlayRounded = StyleToggle.Toggled;
+            Configuration.OverlayRounded = StyleToggle.Checked;
             Configuration.overlay.RoundCharts();
-            StyleState.Text = Language.State(StyleToggle.Toggled);
+            StyleState.Text = Language.State(StyleToggle.Checked);
         }
 
         //Tray icon
         private void TrayIconToggle_ToggledEvent(object sender, EventArgs e)
         {
-            ResourceReader.timer.Enabled = TrayIconToggle.Toggled;
-            ResourceReader.trayicon.Visible = TrayIconToggle.Toggled;
-            MinimizeToTrayToggle.Enabled = TrayIconToggle.Toggled;
-            TrayIconState.Text = Language.State(TrayIconToggle.Toggled);
-            if (!TrayIconToggle.Toggled)
+            ResourceReader.timer.Enabled = TrayIconToggle.Checked;
+            ResourceReader.trayicon.Visible = TrayIconToggle.Checked;
+            MinimizeToTrayToggle.Enabled = TrayIconToggle.Checked;
+            TrayIconState.Text = Language.State(TrayIconToggle.Checked);
+            if (!TrayIconToggle.Checked)
             {
                 MinimizeToTrayState.Text = "Disabled";
-                MinimizeToTrayToggle.Toggled = false;
+                MinimizeToTrayToggle.Checked = false;
                 Configuration.MinimizeToTray = false;
                 return;
             }
@@ -183,15 +183,15 @@ namespace WoRCP.Tabs
         //Minimize to tray
         private void MinimizeToTrayToggle_ToggledEvent(object sender, EventArgs e)
         {
-            Configuration.MinimizeToTray = MinimizeToTrayToggle.Toggled;
-            MinimizeToTrayState.Text = Language.State(MinimizeToTrayToggle.Toggled);
+            Configuration.MinimizeToTray = MinimizeToTrayToggle.Checked;
+            MinimizeToTrayState.Text = Language.State(MinimizeToTrayToggle.Checked);
         }
 
         //Temp warning
         private void TempLimitToggle_ToggledEvent(object sender, EventArgs e)
         {
-            Configuration.TrayTempWarning = TempWarningToggle.Toggled;
-            TempWarningState.Text = Language.State(TempWarningToggle.Toggled);
+            Configuration.TrayTempWarning = TempWarningToggle.Checked;
+            TempWarningState.Text = Language.State(TempWarningToggle.Checked);
         }
         #endregion
 

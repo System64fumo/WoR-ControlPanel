@@ -356,8 +356,8 @@ namespace WoRCP
             this.AdvancedOCToggle.Name = "AdvancedOCToggle";
             this.AdvancedOCToggle.Size = new System.Drawing.Size(40, 20);
             this.AdvancedOCToggle.TabIndex = 19;
-            this.AdvancedOCToggle.Toggled = false;
-            this.AdvancedOCToggle.ToggledEvent += new System.EventHandler(this.AdvancedOCToggle_ToggledEvent);
+            this.AdvancedOCToggle.Checked = false;
+            this.AdvancedOCToggle.CheckedChanged += new System.EventHandler(this.AdvancedOCToggle_ToggledEvent);
             // 
             // Debugger
             // 

@@ -65,7 +65,7 @@ namespace WoRCP
 
             collapsiblePanel4.Title = Language.Strings[90];
             collapsiblePanel4.LeftContent[0] = Language.Strings[91];
-            collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Toggled) + " " + Program.Spacing(5);
+            collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Checked) + " " + Program.Spacing(5);
 
         }
         #endregion
@@ -89,8 +89,8 @@ namespace WoRCP
         #region Toggles
         private void AdvancedOCToggle_ToggledEvent(object sender, EventArgs e)
         {
-            collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Toggled) + " " + Program.Spacing(5);
-            Configuration.AdvancedOC = AdvancedOCToggle.Toggled;
+            collapsiblePanel4.RightContent[0] = Language.State(AdvancedOCToggle.Checked) + " " + Program.Spacing(5);
+            Configuration.AdvancedOC = AdvancedOCToggle.Checked;
             MessageBox.Show(Language.Strings[92], Language.Strings[93], MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
         #endregion

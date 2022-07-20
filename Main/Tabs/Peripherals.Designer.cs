@@ -130,7 +130,7 @@ namespace WoRCP.Tabs
             this.GPIOCollapsablePanel.Name = "GPIOCollapsablePanel";
             this.GPIOCollapsablePanel.RightContent = new string[0];
             this.GPIOCollapsablePanel.Rounding = 5;
-            this.GPIOCollapsablePanel.Size = new System.Drawing.Size(640, 111);
+            this.GPIOCollapsablePanel.Size = new System.Drawing.Size(640, 110);
             this.GPIOCollapsablePanel.TabIndex = 1;
             this.GPIOCollapsablePanel.Title = "GPIO Controls";
             this.GPIOCollapsablePanel.CollapsedChanged += new System.EventHandler(this.GPIOCollapsablePanel_CollapsedChanged);
@@ -158,8 +158,8 @@ namespace WoRCP.Tabs
             this.PinModeToggle.Name = "PinModeToggle";
             this.PinModeToggle.Size = new System.Drawing.Size(40, 20);
             this.PinModeToggle.TabIndex = 31;
-            this.PinModeToggle.Toggled = false;
-            this.PinModeToggle.ToggledEvent += new System.EventHandler(this.PinModeToggle_ToggledEvent);
+            this.PinModeToggle.Checked = false;
+            this.PinModeToggle.CheckedChanged += new System.EventHandler(this.PinModeToggle_ToggledEvent);
             // 
             // PinModeLabel
             // 
@@ -195,8 +195,8 @@ namespace WoRCP.Tabs
             this.PinStateToggle.Name = "PinStateToggle";
             this.PinStateToggle.Size = new System.Drawing.Size(40, 20);
             this.PinStateToggle.TabIndex = 28;
-            this.PinStateToggle.Toggled = false;
-            this.PinStateToggle.ToggledEvent += new System.EventHandler(this.PinStateToggle_ToggledEvent);
+            this.PinStateToggle.Checked = false;
+            this.PinStateToggle.CheckedChanged += new System.EventHandler(this.PinStateToggle_ToggledEvent);
             // 
             // FanSpeedPanelPanel
             // 
@@ -211,8 +211,8 @@ namespace WoRCP.Tabs
             this.FanSpeedPanelPanel.LeftContent = new string[] {
         "Fan Speed",
         "Temperature"};
-            this.FanSpeedPanelPanel.Location = new System.Drawing.Point(10, 251);
-            this.FanSpeedPanelPanel.Margin = new System.Windows.Forms.Padding(10, 0, 0, 10);
+            this.FanSpeedPanelPanel.Location = new System.Drawing.Point(10, 260);
+            this.FanSpeedPanelPanel.Margin = new System.Windows.Forms.Padding(10, 10, 0, 10);
             this.FanSpeedPanelPanel.Name = "FanSpeedPanelPanel";
             this.FanSpeedPanelPanel.RightContent = new string[0];
             this.FanSpeedPanelPanel.Rounding = 5;
