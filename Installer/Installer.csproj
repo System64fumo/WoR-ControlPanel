@@ -59,8 +59,6 @@
     <Reference Include="System.Xml" />
     <Reference Include="WoRCP.UI">
       <HintPath>..\UI\bin\Release\WoRCP.UI.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
-      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>

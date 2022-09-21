@@ -376,7 +376,7 @@ namespace WoRCP.Tabs
             this.ForceTurboToggle.Name = "ForceTurboToggle";
             this.ForceTurboToggle.Size = new System.Drawing.Size(40, 20);
             this.ForceTurboToggle.TabIndex = 31;
-            this.ForceTurboToggle.Checked = false;
+            this.ForceTurboToggle.UseVisualStyleBackColor = false;
             this.ForceTurboToggle.CheckedChanged += new System.EventHandler(this.ForceTurboToggle_ToggledEvent);
             // 
             // ForceTurbo
@@ -548,7 +548,7 @@ namespace WoRCP.Tabs
             this.SplashToggle.Name = "SplashToggle";
             this.SplashToggle.Size = new System.Drawing.Size(40, 20);
             this.SplashToggle.TabIndex = 74;
-            this.SplashToggle.Checked = false;
+            this.SplashToggle.UseVisualStyleBackColor = false;
             this.SplashToggle.CheckedChanged += new System.EventHandler(this.SplashToggle_ToggledEvent);
             // 
             // Desktop
@@ -697,7 +697,7 @@ namespace WoRCP.Tabs
             this.HotplugToggle.Name = "HotplugToggle";
             this.HotplugToggle.Size = new System.Drawing.Size(40, 20);
             this.HotplugToggle.TabIndex = 29;
-            this.HotplugToggle.Checked = false;
+            this.HotplugToggle.UseVisualStyleBackColor = false;
             this.HotplugToggle.CheckedChanged += new System.EventHandler(this.HotplugToggle_ToggledEvent);
             // 
             // OverscanToggle
@@ -710,7 +710,7 @@ namespace WoRCP.Tabs
             this.OverscanToggle.Name = "OverscanToggle";
             this.OverscanToggle.Size = new System.Drawing.Size(40, 20);
             this.OverscanToggle.TabIndex = 17;
-            this.OverscanToggle.Checked = false;
+            this.OverscanToggle.UseVisualStyleBackColor = false;
             this.OverscanToggle.CheckedChanged += new System.EventHandler(this.OverscanToggle_ToggledEvent);
             // 
             // OtherPanel

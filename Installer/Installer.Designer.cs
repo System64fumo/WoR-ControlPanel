@@ -178,6 +178,7 @@ namespace Installer
             this.ChooseDirButton.BackColor = System.Drawing.Color.Transparent;
             this.ChooseDirButton.ButtonText = "☰";
             this.ChooseDirButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.ChooseDirButton.Glyph = false;
             this.ChooseDirButton.Location = new System.Drawing.Point(378, 1);
             this.ChooseDirButton.Margin = new System.Windows.Forms.Padding(0);
             this.ChooseDirButton.Name = "ChooseDirButton";
@@ -203,6 +204,7 @@ namespace Installer
             this.InstallButton.BackColor = System.Drawing.Color.Transparent;
             this.InstallButton.ButtonText = "Install";
             this.InstallButton.Color = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(65)))));
+            this.InstallButton.Glyph = false;
             this.InstallButton.Location = new System.Drawing.Point(530, 10);
             this.InstallButton.Margin = new System.Windows.Forms.Padding(0);
             this.InstallButton.Name = "InstallButton";

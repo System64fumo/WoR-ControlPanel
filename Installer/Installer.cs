@@ -1,8 +1,10 @@
 ﻿using Microsoft.Win32;
 using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
@@ -33,8 +35,9 @@ namespace Installer
         private Font font = new Font("Segoe UI", 32f);
         private SolidBrush DrawBrush;
         string AppName = "WoR ControlPanel";
-        string ServerVersion = "V0.0.0";
-        string LocalVersion = "V0.0.0";
+        string ServerVersion = string.Empty;
+        string LocalVersion = string.Empty;
+        string Version = string.Empty;
         #endregion
 
         #region initialization
@@ -63,47 +66,9 @@ namespace Installer
 
             DrawBrush = new SolidBrush(WoRCP.UI.Theme.Text);
 
-            await Task.Run(() =>
-            {
-                try //Get app version
-                {
-                    if (!Internet) return;
 
-                    using (WebClient wc = new WebClient())
-                    {
-                        wc.DownloadFile(new Uri(Assemblyver), Application.StartupPath + @"\Version.txt");
-                    }
-
-                    foreach (string line in File.ReadAllLines(Application.StartupPath + @"\Version.txt"))
-                    {
-                        if (line.Contains("[assembly: AssemblyVersion(") && !line.Contains("//"))
-                        {
-                            string version = line.Remove(0, 28).Remove(5, 5);
-                            int a = Convert.ToInt32(version.Remove(1));
-                            int b = Convert.ToInt32(version.Remove(0, 2).Remove(1, 2));
-                            int c = Convert.ToInt32(version.Remove(0, 4)) - 1;
-                            ServerVersion = "V" + a + "." + b + "." + c;
-                            AcrylicPanel.Invalidate();
-                        }
-                    }
-                    if (File.Exists(Application.StartupPath + @"\Version.txt"))
-                    {
-                        File.Delete(Application.StartupPath + @"\Version.txt");
-                    }
-                }
-                catch
-                {
-
-                }
-            });
-
-            // TODO: Add update code
-            /*if (UpdateAvailable)
-            {
-                BottomLabel.Text = "An update is available! " + LocalVersion + " -> " + ServerVersion;
-                InstallButton.ButtonText = "Update";
-                PathPanel.Visible = false;
-            }*/
+            //Enable later
+            //checkforupdate();
         }
         #endregion
 
@@ -128,7 +93,16 @@ namespace Installer
         #region Buttons
         private async void InstallButton_Click(object sender, EventArgs e)
         {
-            install();
+            /* Enable later
+            if (UpdateAvailable)
+            {
+                update();
+                return;
+            }*/
+            if (Installed)
+                uninstall();
+            else
+                install();
         }
 
         private void ChooseDirButton_Click(object sender, EventArgs e)
@@ -148,8 +122,10 @@ namespace Installer
             SizeF AppNameSize = e.Graphics.MeasureString(AppName, font);
             e.Graphics.DrawString(AppName, font, DrawBrush, AcrylicPanel.Width / 2 - AppNameSize.Width / 2 + 26, AcrylicPanel.Height / 2 - AppNameSize.Height / 2);
 
+            StringFormat stfm = new StringFormat();
+            stfm.Alignment = StringAlignment.Far;
             SizeF AppVersionSize = e.Graphics.MeasureString(ServerVersion, font);
-            e.Graphics.DrawString(ServerVersion, new Font("Segoe UI Semibold", 9f), DrawBrush, AcrylicPanel.Width / 2 + AppNameSize.Width / 2 - AppVersionSize.Width / 2 + 26, AcrylicPanel.Height / 2 - AppNameSize.Height / 2 + 50);
+            e.Graphics.DrawString(Version, new Font("Segoe UI Semibold", 9f), DrawBrush, AcrylicPanel.Width / 2 + AppNameSize.Width / 2 - AppVersionSize.Width / 2 + 65, AcrylicPanel.Height / 2 - AppNameSize.Height / 2 + 50,stfm);
 
             Image newImage = Properties.Resources.Icon;
             RectangleF srcRect = new RectangleF(0, 0, 96, 64);
@@ -159,76 +135,125 @@ namespace Installer
         }
         #endregion
 
+
+        //TODO: improve install/uninstall process
         //Methods
         #region Install/Uninstall
         private async void install()
         {
             try
             {
-                if (Installed) //Uninstall app
+                InstallButton.Enabled = false;
+                using (HttpClient client = new HttpClient())
                 {
-                    InstallButton.Enabled = false;
-                    Directory.Delete(PathTextbox.Text, true);
-                    InstallButton.ButtonText = "Install";
-                    InstallButton.Enabled = true;
-                    ChooseDirButton.Enabled = true;
-                    InstallButton.Color = WoRCP.UI.Theme.Accent;
-
-                    //Remove shortcut
-                    string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\WoRCP.lnk";
-                    if (File.Exists(path)) File.Delete(path);
+                    InstallButton.ButtonText = "Installing";
+                    InstallButton.Color = WoRCP.UI.Theme.BrightAccent;
+                    ChooseDirButton.Enabled = false;
+                    Uri uri = new Uri(Link);
+                    if (File.Exists(DownloadPath)) { File.Delete(DownloadPath); }
+                    await DownloadFileTaskAsync(client, uri, DownloadPath);
+                    ZipFile.ExtractToDirectory(DownloadPath, PathTextbox.Text);
+                    File.Delete(DownloadPath);
+                    InstallButton.ButtonText = "Uninstall";
                 }
-                else //Install app
+                if (CPUArch == "ARM64" && Convert.ToInt32(Build) >= 22504)
                 {
-                    InstallButton.Enabled = false;
-                    using (HttpClient client = new HttpClient())
+                    if (File.Exists(PathTextbox.Text + @"\WoRCP.exe"))
                     {
-                        InstallButton.ButtonText = "Installing";
-                        InstallButton.Color = WoRCP.UI.Theme.BrightAccent;
-                        ChooseDirButton.Enabled = false;
-                        Uri uri = new Uri(Link);
-                        if (File.Exists(DownloadPath)) { File.Delete(DownloadPath); }
-                        await DownloadFileTaskAsync(client, uri, DownloadPath);
-                        ZipFile.ExtractToDirectory(DownloadPath, PathTextbox.Text);
-                        File.Delete(DownloadPath);
-                        InstallButton.ButtonText = "Uninstall";
+                        File.Delete(PathTextbox.Text + @"\WoRCP.exe");
+                        FileInfo fi = new FileInfo(PathTextbox.Text + @"\WoRCParm64.exe");
+                        fi.MoveTo(PathTextbox.Text + @"\WoRCP.exe");
                     }
-                    if (CPUArch == "ARM64" && Convert.ToInt32(Build) >= 22504)
-                    {
-                        if (File.Exists(PathTextbox.Text + @"\WoRCP.exe"))
-                        {
-                            File.Delete(PathTextbox.Text + @"\WoRCP.exe");
-                            FileInfo fi = new FileInfo(PathTextbox.Text + @"\WoRCParm64.exe");
-                            fi.MoveTo(PathTextbox.Text + @"\WoRCP.exe");
-                        }
-                    }
-                    else
-                    {
-                        if (File.Exists(PathTextbox.Text + @"\WoRCParm64.exe"))
-                        {
-                            File.Delete(PathTextbox.Text + @"\WoRCParm64.exe");
-                        }
-                    }
-                    //Create shortcut
-                    IShellLink link = (IShellLink)new ShellLink();
-                    link.SetPath(PathTextbox.Text + @"\WoRCP.exe");
-                    IPersistFile file = (IPersistFile)link;
-                    string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
-                    file.Save(Path.Combine(desktopPath, "WoRCP.lnk"), false);
-
-
-                    InstallButton.Enabled = true;
-                    InstallButton.Color = Color.FromArgb(235, 0, 65);
                 }
-                Installed = !Installed;
+                else
+                {
+                    if (File.Exists(PathTextbox.Text + @"\WoRCParm64.exe"))
+                    {
+                        File.Delete(PathTextbox.Text + @"\WoRCParm64.exe");
+                    }
+                }
+                //Create shortcut
+                IShellLink link = (IShellLink)new ShellLink();
+                link.SetPath(PathTextbox.Text + @"\WoRCP.exe");
+                IPersistFile file = (IPersistFile)link;
+                string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
+                file.Save(Path.Combine(desktopPath, "WoRCP.lnk"), false);
+
+
+                InstallButton.Enabled = true;
+                InstallButton.Color = Color.FromArgb(235, 0, 65);
+                Installed = true;
             }
             catch (Exception ex)
             {
                 InstallButton.ButtonText = "Error";
                 InstallButton.Enabled = false;
+                Installed = false;
                 InstallButton.Color = Color.FromArgb(235, 0, 65);
                 MessageBox.Show(ex.ToString());
             }
+        }
+        private async void uninstall()
+        {
+            InstallButton.Enabled = false;
+            Directory.Delete(PathTextbox.Text, true);
+            InstallButton.ButtonText = "Install";
+            InstallButton.Enabled = true;
+            ChooseDirButton.Enabled = true;
+            InstallButton.Color = WoRCP.UI.Theme.Accent;
+            Installed = false;
+
+            //Remove shortcut
+            string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\WoRCP.lnk";
+            if (File.Exists(path)) File.Delete(path);
+        }
+
+        #endregion
+
+        //TODO: finish writing
+        #region Updates
+        private async void checkforupdate()
+        {
+            if (!Internet) return;
+            await Task.Run(() =>
+            {
+                try //Get app version
+                {
+                    var versionInfo = FileVersionInfo.GetVersionInfo(PathTextbox.Text + @"\WoRCP.exe");
+                    string LocalVersion = versionInfo.FileVersion.Replace(".", "");
+
+                    System.Net.WebClient wc = new System.Net.WebClient();
+                    string[] webData = wc.DownloadString(Assemblyver).Split('\n');
+                    foreach (string line in webData)
+                        if (line.Contains("AssemblyVersion"))
+                            ServerVersion = line;
+
+                    ServerVersion = ServerVersion.Split('"')[1].Replace(".", "");
+
+                    UpdateAvailable = Convert.ToInt32(ServerVersion) - 10 > Convert.ToInt32(LocalVersion);
+
+                    Version = "v0." + (Convert.ToInt32(ServerVersion) - 10).ToString().Insert(1,".").Remove(3);
+                    UpdateAvailable = true;
+
+                    if (!UpdateAvailable) return;
+                    Version = $"Local: v{LocalVersion.ToString().Insert(1, ".").Insert(3, ".").Remove(5)} -> Server: {Version}";
+                    InstallButton.ButtonText = "Update";
+                    InstallButton.Color = Color.LightSeaGreen;
+                    AcrylicPanel.Invalidate();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message,"Error");
+                }
+            });
+        }
+        private async void update()
+        {
+            Console.WriteLine("Updating...");
+            uninstall();
+            install();
+            checkforupdate();
+            Console.WriteLine("Updated.");
         }
         #endregion
 
