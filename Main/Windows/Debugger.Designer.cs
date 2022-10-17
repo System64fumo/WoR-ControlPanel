@@ -30,10 +30,6 @@ namespace WoRCP
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.TitleBar = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
-            this.MinimizeButton = new System.Windows.Forms.Button();
-            this.CloseButton = new System.Windows.Forms.Button();
             this.LogUpdater = new System.Windows.Forms.Timer(this.components);
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.ThemePanel = new WoRCP.UI.CollapsiblePanel();
@@ -51,70 +47,12 @@ namespace WoRCP
             this.LogTextBox = new System.Windows.Forms.TextBox();
             this.collapsiblePanel4 = new WoRCP.UI.CollapsiblePanel();
             this.AdvancedOCToggle = new WoRCP.UI.Toggle();
-            this.TitleBar.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.ThemePanel.SuspendLayout();
             this.collapsiblePanel3.SuspendLayout();
             this.roundedPanel1.SuspendLayout();
             this.collapsiblePanel4.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // TitleBar
-            // 
-            this.TitleBar.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.TitleBar.Controls.Add(this.label1);
-            this.TitleBar.Controls.Add(this.MinimizeButton);
-            this.TitleBar.Controls.Add(this.CloseButton);
-            this.TitleBar.Dock = System.Windows.Forms.DockStyle.Top;
-            this.TitleBar.Location = new System.Drawing.Point(0, 0);
-            this.TitleBar.Name = "TitleBar";
-            this.TitleBar.Size = new System.Drawing.Size(600, 30);
-            this.TitleBar.TabIndex = 2;
-            this.TitleBar.MouseDown += new System.Windows.Forms.MouseEventHandler(this.DragStart);
-            this.TitleBar.MouseMove += new System.Windows.Forms.MouseEventHandler(this.DragMove);
-            // 
-            // label1
-            // 
-            this.label1.Dock = System.Windows.Forms.DockStyle.Left;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(0, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(120, 30);
-            this.label1.TabIndex = 2;
-            this.label1.Text = " WoR CP Debugger";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // MinimizeButton
-            // 
-            this.MinimizeButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.MinimizeButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.MinimizeButton.FlatAppearance.BorderSize = 0;
-            this.MinimizeButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.MinimizeButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.MinimizeButton.Location = new System.Drawing.Point(510, 0);
-            this.MinimizeButton.Name = "MinimizeButton";
-            this.MinimizeButton.Size = new System.Drawing.Size(45, 30);
-            this.MinimizeButton.TabIndex = 1;
-            this.MinimizeButton.Text = "";
-            this.MinimizeButton.UseVisualStyleBackColor = true;
-            this.MinimizeButton.Click += new System.EventHandler(this.MinimizeButton_Click);
-            // 
-            // CloseButton
-            // 
-            this.CloseButton.Dock = System.Windows.Forms.DockStyle.Right;
-            this.CloseButton.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.CloseButton.FlatAppearance.BorderSize = 0;
-            this.CloseButton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(148)))), ((int)(((byte)(20)))), ((int)(((byte)(33)))));
-            this.CloseButton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(232)))), ((int)(((byte)(17)))), ((int)(((byte)(35)))));
-            this.CloseButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CloseButton.Font = new System.Drawing.Font("Segoe Fluent Icons", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.CloseButton.Location = new System.Drawing.Point(555, 0);
-            this.CloseButton.Name = "CloseButton";
-            this.CloseButton.Size = new System.Drawing.Size(45, 30);
-            this.CloseButton.TabIndex = 0;
-            this.CloseButton.Text = "";
-            this.CloseButton.UseVisualStyleBackColor = true;
-            this.CloseButton.Click += new System.EventHandler(this.CloseButton_Click);
             // 
             // LogUpdater
             // 
@@ -124,16 +62,14 @@ namespace WoRCP
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
             this.flowLayoutPanel1.AutoScroll = true;
             this.flowLayoutPanel1.Controls.Add(this.ThemePanel);
             this.flowLayoutPanel1.Controls.Add(this.collapsiblePanel3);
             this.flowLayoutPanel1.Controls.Add(this.collapsiblePanel4);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 30);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(621, 478);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(621, 479);
             this.flowLayoutPanel1.TabIndex = 15;
             // 
             // ThemePanel
@@ -356,23 +292,23 @@ namespace WoRCP
             this.AdvancedOCToggle.Name = "AdvancedOCToggle";
             this.AdvancedOCToggle.Size = new System.Drawing.Size(40, 20);
             this.AdvancedOCToggle.TabIndex = 19;
-            this.AdvancedOCToggle.Checked = false;
+            this.AdvancedOCToggle.UseVisualStyleBackColor = false;
             this.AdvancedOCToggle.CheckedChanged += new System.EventHandler(this.AdvancedOCToggle_ToggledEvent);
             // 
             // Debugger
             // 
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.ClientSize = new System.Drawing.Size(600, 506);
+            this.ClientSize = new System.Drawing.Size(600, 478);
             this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.TitleBar);
             this.ForeColor = System.Drawing.Color.White;
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "Debugger";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Debugger";
             this.Load += new System.EventHandler(this.Debugger_Load);
-            this.TitleBar.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ThemePanel.ResumeLayout(false);
             this.collapsiblePanel3.ResumeLayout(false);
@@ -384,11 +320,6 @@ namespace WoRCP
         }
 
         #endregion
-
-        private System.Windows.Forms.Panel TitleBar;
-        private System.Windows.Forms.Button MinimizeButton;
-        private System.Windows.Forms.Button CloseButton;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox LogTextBox;
         private System.Windows.Forms.Timer LogUpdater;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;

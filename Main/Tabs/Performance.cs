@@ -24,6 +24,7 @@ namespace WoRCP.Tabs
             ResourceReader.timer.Enabled = true;
 
             //Setup
+            MemoryChart.ChartAreas[0].AxisY.Maximum = Configuration.Totalmemory;
             UpdateCharts(sender, EventArgs.Empty);
             ResourceReader.timer.Tick += UpdateCharts;
             Program.Log("[Info] Charts Initialized succesfully");

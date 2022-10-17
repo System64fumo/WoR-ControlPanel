@@ -10,7 +10,11 @@ namespace WoRCP
     {
         //Main
         #region Loading and Initialization
-        public Debugger() { InitializeComponent(); }
+        public Debugger()
+        {
+            InitializeComponent();
+            Theme.Initialize(this);
+        }
         private void Debugger_Load(object sender, EventArgs e)
         {
             //Set the Form's language
@@ -27,10 +31,6 @@ namespace WoRCP
             ThemePanel.RightContent[6] = getRGB(Theme.Inactive) + spacing;
             ThemePanel.RightContent[7] = getRGB(Theme.Panel) + spacing;
             ThemePanel.RightContent[8] = getRGB(Theme.Background) + spacing;
-
-            //Change titlebar glyphs
-            MinimizeButton.Font = new Font(Theme.glyphs.Name, 9.75f);
-            CloseButton.Font = new Font(Theme.glyphs.Name, 9.75f);
 
             //Read config
             LogTextBox.Text = Program.LogOutput;

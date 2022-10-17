@@ -174,17 +174,25 @@ namespace WoRCP.UI
         #endregion
 
         #region Initialization
-        public static void Initialize(Form mainform, Control acrylicpanel = null)
+        public static void Initialize(Form mainform, Control control = null, int value = 3)
         {
             Read();
             Set(mainform);
-            WindowUtils.ChangeAppTheme(mainform, !ThemeMode);
+            WindowUtils.SetWindowAttribute(mainform.Handle,WindowUtils.ParameterTypes.DWMWINDOWATTRIBUTE.DWMWA_USE_IMMERSIVE_DARK_MODE, Convert.ToInt32(!ThemeMode));
 
             //Change icons to match windows 10/11's iconography
             if (Convert.ToInt32(Build) >= 22000) glyphs = new Font("Segoe Fluent Icons", 16f);
 
-            //Check if acrylic is enabled
-            if (acrylicpanel != null && Transparency) WindowUtils.EnableAcrylic(mainform, acrylicpanel, true);
+            if (control != null && value > 1)
+            {
+                WindowUtils.SetWindowAttribute(mainform.Handle, WindowUtils.ParameterTypes.DWMWINDOWATTRIBUTE.DWMWA_SYSTEMBACKDROP_TYPE, value);
+                control.BackColor = Color.FromArgb(control.BackColor.R, control.BackColor.G, WithinRange(control.BackColor.B + 1));
+                mainform.TransparencyKey = control.BackColor;
+            }
+
+
+
+            //WindowUtils.EnableAcrylic(mainform, control, true);
         }
         #endregion
 

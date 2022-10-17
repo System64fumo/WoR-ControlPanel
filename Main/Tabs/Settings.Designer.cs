@@ -492,7 +492,7 @@ namespace WoRCP.Tabs
             this.CPUSlider.Location = new System.Drawing.Point(430, 71);
             this.CPUSlider.Margin = new System.Windows.Forms.Padding(0);
             this.CPUSlider.MaximumSize = new System.Drawing.Size(1000, 30);
-            this.CPUSlider.MaxValue = 2.4D;
+            this.CPUSlider.MaxValue = 2.3D;
             this.CPUSlider.MinimumSize = new System.Drawing.Size(100, 30);
             this.CPUSlider.MinValue = 0.6D;
             this.CPUSlider.Name = "CPUSlider";

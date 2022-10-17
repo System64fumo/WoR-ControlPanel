@@ -164,7 +164,10 @@ namespace WoRCP.UI
             Pen pen = new Pen(Theme.BrightPanel, OutlineSize);
             // Create rectangle for circle.
             Rectangle rect = new Rectangle(0, 0, 19, 19);
-            e.Graphics.FillEllipse(new SolidBrush(Theme.BrightAccent), rect);
+            if (Enabled)
+                e.Graphics.FillEllipse(new SolidBrush(Theme.BrightAccent), rect);
+            else
+                e.Graphics.FillEllipse(new SolidBrush(Theme.Disabled), rect);
             // Draw circle.
             e.Graphics.DrawArc(pen, (pen.Width / 2) - 1, (pen.Width / 2) - 1, 19 - pen.Width + 2, 19 - pen.Width + 2, 0, 360);
         }
@@ -174,8 +177,15 @@ namespace WoRCP.UI
         private void Resized(object sender, EventArgs e) { Value = CurrentValue; }
         private void Slider_EnabledChanged(object sender, EventArgs e)
         {
-            if (Enabled) { SliderKnob.Invalidate(); SliderFiller.BackColor = Theme.Accent; }
-            else { SliderKnob.Invalidate(); SliderFiller.BackColor = Color.FromArgb(100, 100, 100); }
+            if (Enabled)
+            {
+                SliderFiller.BackColor = Theme.Accent;
+            }
+            else
+            {
+                SliderFiller.BackColor = Color.FromArgb(100, 100, 100);
+            }
+            SliderKnob.Invalidate();
         }
 
         private void SliderBG_Paint(object sender, PaintEventArgs e)

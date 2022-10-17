@@ -329,7 +329,7 @@ namespace WoRCP.Tabs
             chartArea4.AxisY.LineColor = System.Drawing.Color.Empty;
             chartArea4.AxisY.MajorGrid.Enabled = false;
             chartArea4.AxisY.MajorTickMark.Enabled = false;
-            chartArea4.AxisY.Maximum = 105D;
+            chartArea4.AxisY.Maximum = 100D;
             chartArea4.AxisY.Minimum = 0D;
             chartArea4.BackColor = System.Drawing.Color.Transparent;
             chartArea4.BorderWidth = 0;

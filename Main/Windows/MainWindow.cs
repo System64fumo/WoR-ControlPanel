@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.IO;
 using System.Windows.Forms;
 using WoRCP.Tabs;
@@ -13,6 +14,7 @@ namespace WoRCP
         #region Variables
         private SolidBrush drawBrush;
         private bool PreviousThemeMode;
+        private string PreviousTabName;
         #endregion
 
         #region Loading and Initialization
@@ -49,28 +51,23 @@ namespace WoRCP
 
             //Theming
             drawBrush = new SolidBrush(Theme.Text);
-            CloseButton.Font = new Font(Theme.glyphs.Name, 9.75f);
-            MinimizeButton.Font = new Font(Theme.glyphs.Name, 9.75f);
             ResourceReader.changeTrayIcon();
             ChangeIcon();
 
             //Load the default tab
-            LoadTab(new Performance(), 210);
+            LoadTab(new Performance(), PerformanceButton);
         }
         #endregion
 
         #region Titlebar
-
-        Point lastPoint;
-        private void DragStart(object sender, MouseEventArgs e) { lastPoint = new Point(e.X, e.Y); }
-        private void DragMove(object sender, MouseEventArgs e) { if (e.Button == MouseButtons.Left) { Left += e.X - lastPoint.X; Top += e.Y - lastPoint.Y; } }
-        private void CloseButton_Click(object sender, EventArgs e)
+        private void MainWindow_FormClosing(object sender, FormClosingEventArgs e)
         {
             Program.crashed = false;
             if (File.Exists(Path.GetTempPath() + "list.txt")) { File.Delete(Path.GetTempPath() + "list.txt"); }
             Application.Exit();
         }
-        private void MinimizeButton_Click(object sender, EventArgs e)
+
+        private void OnMinimize()
         {
             if (Configuration.MinimizeToTray)
             {
@@ -80,6 +77,16 @@ namespace WoRCP
             {
                 WindowState = FormWindowState.Minimized;
             }
+        }
+        protected override void WndProc(ref Message m)
+        {
+            // Trap WM_SYSCOMMAND, SC_MINIMIZE
+            if (m.Msg == 0x112 && m.WParam.ToInt32() == 0xf020)
+            {
+                OnMinimize();
+                return;        // NOTE: delete if you still want the default behavior
+            }
+            base.WndProc(ref m);
         }
         #endregion
 
@@ -119,29 +126,35 @@ namespace WoRCP
         #endregion
 
         #region Tab switcher
-        private void LoadTab(UserControl userctrl, int topInPixels)
+        private void LoadTab(UserControl userctrl, Control button)
         {
             try //Try to load the tabs
             {
+                //Check if the previous tab is the same as the new tab
+                if (PreviousTabName == userctrl.Name) return;
+
                 Program.Log("[Info] Loading" + userctrl.Name + " tab");
+                PreviousTabName = userctrl.Name;
+
+                //Subtle animation
+                Indicator.Top += (button.Top + 10 - Indicator.Top) / 2;
+
+                //Check if the loaded tab requires the resource reader
                 if (Configuration.OverlayEnabled || ResourceReader.trayicon.Visible) ResourceReader.timer.Enabled = true;
                 else ResourceReader.timer.Enabled = false;
-                Theme.Set(userctrl);
-                if (Tabcontainer.Controls.Count > 0)
-                {
-                    foreach (UserControl uc in Tabcontainer.Controls)
-                    {
-                        if (uc.ToString() != userctrl.ToString())
-                        {
-                            uc.Visible = false;
-                            uc.Dispose();
-                        }
-                    }
-                }
 
+
+                //Check if the tab containes more than 1 tab
+                if (Tabcontainer.Controls.Count > 0)
+                    Tabcontainer.Controls.Clear();
+
+                //Position the indicator accordingly
+                Indicator.Top = button.Top + 10;
+
+                //Load the tab
+                Theme.Set(userctrl);
                 Tabcontainer.Controls.Add(userctrl);
                 userctrl.Visible = true;
-                Indicator.Top = topInPixels;
                 userctrl.Dock = DockStyle.Fill;
             }
             catch (Exception ex) //If a tab could not be loaded
@@ -163,12 +176,12 @@ namespace WoRCP
         #endregion
 
         #region Tab buttons
-        private void PerformanceButton_Click(object sender, EventArgs e) { LoadTab(new Performance(), 210); }
-        private void GPIOButton_Click(object sender, EventArgs e) { LoadTab(new Peripherals(), 260); }
-        private void AppstoreButton_Click(object sender, EventArgs e) { LoadTab(new Appstore(), 310); }
-        private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), 360); }
-        private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), 410); }
-        private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), 460); }
+        private void PerformanceButton_Click(object sender, EventArgs e) { LoadTab(new Performance(), PerformanceButton); }
+        private void GPIOButton_Click(object sender, EventArgs e) { LoadTab(new Peripherals(), PeripheralsButton); }
+        private void AppstoreButton_Click(object sender, EventArgs e) { LoadTab(new Appstore(), AppstoreButton); }
+        private void AboutButton_Click(object sender, EventArgs e) { LoadTab(new About(), AboutButton); }
+        private void OverlayButton_Click(object sender, EventArgs e) { LoadTab(new Overlay(), OverlayButton); }
+        private void SettingsButton_Click(object sender, EventArgs e) { LoadTab(new Settings(), SettingsButton); }
 
         #endregion
 
@@ -215,32 +228,10 @@ namespace WoRCP
             if (PreviousThemeMode != Theme.ThemeMode)
             {
                 drawBrush = new SolidBrush(Theme.Text);
-                Theme.Initialize(this);
+                Theme.Initialize(this,SidePanel, 1 + Convert.ToInt32(Theme.Transparency));
                 Theme.Set(Tabcontainer);
             }
             PreviousThemeMode = Theme.ThemeMode;
-
-            //Make the sidepanel have acrylic when the window is in focus
-            if (Theme.Transparency)
-            {
-                //TODO: Add animation
-                SidePanel.BackColor = Theme.Panel;
-                Theme.CurrentAccent = WindowUtils.ACCENT.ENABLE_ACRYLICBLURBEHIND;
-                WindowUtils.EnableAcrylic(this, SidePanel, true);
-            }
-        }
-
-        private void MainWindow_Deactivate(object sender, EventArgs e)
-        {
-            //Make the sidepanel opaque when the window is no longer in focus
-            if (Theme.Transparency)
-            {
-                //TODO: Add animation
-                SidePanel.BackColor = Theme.Panel;
-                Theme.CurrentAccent = WindowUtils.ACCENT.DISABLED;
-                WindowUtils.EnableAcrylic(this, SidePanel);
-                TransparencyKey = Color.Empty;
-            }
         }
         #endregion
     }

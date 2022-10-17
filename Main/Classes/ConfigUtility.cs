@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Windows.Forms;
 using WoRCP;
 
 class ConfigUtility //This class contains everything that's related to config.txt
@@ -95,6 +96,8 @@ class ConfigUtility //This class contains everything that's related to config.tx
             sw.WriteLine(i); //Save the new config.txt
         }
         sw.Close();
+
+        MessageBox.Show("Your configuration file has changed.\nPlease reboot your Pi in order for your changes to take effect.","Config has changed");
     }
     #endregion
 }

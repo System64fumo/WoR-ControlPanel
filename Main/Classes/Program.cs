@@ -29,7 +29,7 @@ namespace WoRCP
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 MainWindow Window = new MainWindow();
-                Theme.Initialize(Window);   //Initialize theme
+                Theme.Initialize(Window, Window.SidePanel, 1 + Convert.ToInt32(Theme.Transparency));   //Initialize theme
                 Configuration.Initialize(); //Initializes the config
                 Language.Initialize();      //Initialize the language
                 checkSettings();            //Check the settings file

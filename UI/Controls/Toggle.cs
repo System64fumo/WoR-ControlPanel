@@ -21,8 +21,17 @@ namespace WoRCP.UI
                 path.AddArc(0, 0, h, h, 90, 180);
                 path.AddArc(this.Width - h - 1, 0, h, h, -90, 180);
                 path.CloseFigure();
-                e.Graphics.FillPath(Checked ? new SolidBrush(Theme.BrightAccent) : Brushes.Transparent, path);
-                e.Graphics.DrawPath(new Pen(Checked ? new SolidBrush(Theme.BrightAccent) : new SolidBrush(Theme.Disabled)), path);
+                if (Enabled)
+                {
+                    e.Graphics.FillPath(Checked ? new SolidBrush(Theme.BrightAccent) : Brushes.Transparent, path);
+                    e.Graphics.DrawPath(new Pen(Checked ? new SolidBrush(Theme.BrightAccent) : new SolidBrush(Theme.Disabled)), path);
+                }
+                else
+                {
+                    e.Graphics.FillPath(Checked ? new SolidBrush(Theme.Disabled) : Brushes.Transparent, path);
+                    e.Graphics.DrawPath(new Pen(Checked ? new SolidBrush(Theme.Disabled) : new SolidBrush(Theme.Disabled)), path);
+                }
+
 
                 //Draw toggle circle
                 int pad = 6;

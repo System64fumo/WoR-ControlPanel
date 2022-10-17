@@ -7,46 +7,75 @@ namespace WoRCP.UI
 {
     public class WindowUtils
     {
+        #region Paramater Types
+        public class ParameterTypes
+        {
+
+            /*[Flags]
+            enum DWM_SYSTEMBACKDROP_TYPE
+            {
+                DWMSBT_MAINWINDOW = 2, // Mica
+                DWMSBT_TRANSIENTWINDOW = 3, // Acrylic
+                DWMSBT_TABBEDWINDOW = 4 // Tabbed
+            }*/
+
+
+            [Flags]
+            public enum DWMWINDOWATTRIBUTE
+            {
+                DWMWA_NCRENDERING_ENABLED,
+                DWMWA_NCRENDERING_POLICY,
+                DWMWA_TRANSITIONS_FORCEDISABLED,
+                DWMWA_ALLOW_NCPAINT,
+                DWMWA_CAPTION_BUTTON_BOUNDS,
+                DWMWA_NONCLIENT_RTL_LAYOUT,
+                DWMWA_FORCE_ICONIC_REPRESENTATION,
+                DWMWA_FLIP3D_POLICY,
+                DWMWA_EXTENDED_FRAME_BOUNDS,
+                DWMWA_HAS_ICONIC_BITMAP,
+                DWMWA_DISALLOW_PEEK,
+                DWMWA_EXCLUDED_FROM_PEEK,
+                DWMWA_CLOAK,
+                DWMWA_CLOAKED,
+                DWMWA_FREEZE_REPRESENTATION,
+                DWMWA_PASSIVE_UPDATE_MODE,
+                DWMWA_USE_HOSTBACKDROPBRUSH,
+                DWMWA_USE_IMMERSIVE_DARK_MODE = 20,
+                DWMWA_WINDOW_CORNER_PREFERENCE = 33,
+                DWMWA_BORDER_COLOR,
+                DWMWA_CAPTION_COLOR,
+                DWMWA_TEXT_COLOR,
+                DWMWA_VISIBLE_FRAME_BORDER_THICKNESS,
+                DWMWA_SYSTEMBACKDROP_TYPE,
+                DWMWA_LAST
+            }
+
+            [StructLayout(LayoutKind.Sequential)]
+            public struct MARGINS
+            {
+                public int cxLeftWidth;      // width of left border that retains its size
+                public int cxRightWidth;     // width of right border that retains its size
+                public int cyTopHeight;      // height of top border that retains its size
+                public int cyBottomHeight;   // height of bottom border that retains its size
+            };
+        }
+        #endregion
+
         #region Imports
-        [DllImport("DwmApi")]
-        private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attr, int[] attrValue, int attrSize);
+
+        [DllImport("DwmApi.dll")]
+        static extern int DwmExtendFrameIntoClientArea(IntPtr hwnd, ref ParameterTypes.MARGINS pMarInset);
+
+        [DllImport("dwmapi.dll")]
+        static extern int DwmSetWindowAttribute(IntPtr hwnd, ParameterTypes.DWMWINDOWATTRIBUTE dwAttribute, ref int pvAttribute, int cbAttribute);
+
+        public static int ExtendFrame(IntPtr hwnd, ParameterTypes.MARGINS margins) => DwmExtendFrameIntoClientArea(hwnd, ref margins);
+
+        public static int SetWindowAttribute(IntPtr hwnd, ParameterTypes.DWMWINDOWATTRIBUTE attribute, int parameter)
+            => DwmSetWindowAttribute(hwnd, attribute, ref parameter, Marshal.SizeOf<int>());
+
         [DllImport("user32.dll")]
         private static extern int SetWindowCompositionAttribute(HandleRef hWnd, in WindowCompositionAttributeData data);
-        #endregion
-
-        #region Titlebar
-        public static void FlipTitlebar(Form form, bool value)
-        {
-            DwmSetWindowAttribute(form.Handle, 6, new[] { Convert.ToInt32(value) }, 4);
-        }
-        public static void ChangeTitlebarBackColor(Form form, int r, int g, int b)
-        {
-            DwmSetWindowAttribute(form.Handle, 35, new[] { r + (g * 256) + (b * 256 * 256) }, 4);
-        }
-        public static void ChangeTitlebarForeColor(Form form, int r, int g, int b)
-        {
-            DwmSetWindowAttribute(form.Handle, 36, new[] { r + (g * 256) + (b * 256 * 256) }, 4);
-        }
-        #endregion
-
-        #region Form
-        public static void ChangeAppTheme(Form form, bool value)
-        {
-            if (DwmSetWindowAttribute(form.Handle, 19, new[] { Convert.ToInt32(value) }, 4) != 0)
-            {
-                DwmSetWindowAttribute(form.Handle, 20, new[] { Convert.ToInt32(value) }, 4);
-            }
-        }
-
-        public static void ChangeRounding(Form form, bool value)
-        {
-            DwmSetWindowAttribute(form.Handle, 33, new[] { Convert.ToInt32(!value) }, 4);
-        }
-
-        public static void ChangeBorderColor(Form form, int r, int g, int b)
-        {
-            DwmSetWindowAttribute(form.Handle, 34, new[] { r + (g * 256) + (b * 256 * 256) }, 4);
-        }
         #endregion
 
         #region Acrylic
@@ -71,9 +100,7 @@ namespace WoRCP.UI
                     });
             }
             if (changekey)
-            {
                 window.TransparencyKey = panelcolor;
-            }
         }
 
         private static uint ToRGBA(Color color)

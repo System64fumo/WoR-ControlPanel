@@ -136,7 +136,10 @@ namespace WoRCP.Tabs
             }
             catch (Exception ex)
             {
-                Program.Log("[Error] Unable to get wallpaper.");
+                //Program.Log("[Error] Unable to get wallpaper.");
+                Image Wallpaper = new Bitmap(Image.FromFile($@"C:\Windows\Web\Wallpaper\Windows\img0.jpg"), new Size(Desktop.Width - 10, Desktop.Height - 10));
+                Desktop.BackgroundImage = ImageManipulation.OverlayImage(Wallpaper, Desktop.BackgroundImage, 5, 5, 0, 0);
+                Wallpaper.Dispose();
                 Program.Log("[Exception] " + ex);
             }
         }
@@ -274,8 +277,6 @@ namespace WoRCP.Tabs
             int forceturbo = Convert.ToInt32(ConfigUtility.Values[4]);
             int templimit = Convert.ToInt32(ConfigUtility.Values[5]);
 
-
-
             //Check if pi is overclocked or not
             if (armfreq == Convert.ToInt32(ConfigUtility.StockValues[0]))  //Stock
             {
@@ -284,16 +285,15 @@ namespace WoRCP.Tabs
             }
             else if (armfreq > Convert.ToInt32(ConfigUtility.StockValues[0])) //Overclocked
             {
-                PiLabel.Text = Language.Strings[57] +"(" + armfreq / 1000.0 + "GHz)";
+                PiLabel.Text =  $"{Language.Strings[57]} ({armfreq / 1000.0}GHz)";
                 OverclockingPanel.Icon = "";
             }
             else if (armfreq < Convert.ToInt32(ConfigUtility.StockValues[0])) //Underclocked
             {
-                PiLabel.Text = Language.Strings[58] + "(" + armfreq / 1000.0 + "GHz)";
+                PiLabel.Text = $"{Language.Strings[58]} ({armfreq / 1000.0}GHz)";
                 OverclockingPanel.Icon = "";
             }
             OverclockingPanel.Invalidate();
-            Configuration.DeviceModel = "Raspberry Pi 4 Model B";
             if (armfreq > 2300 && Configuration.DeviceModel == "Raspberry Pi 4 Model B")
             {
                 Issues.Text = Language.Strings[69];
@@ -408,7 +408,7 @@ namespace WoRCP.Tabs
                     ConfigUtility.Values[4] = "0"; ForceTurbo.Text = "Disabled";
                     ForceTurboToggle.Checked = false;
                 }
-                ConfigUtility.Values[3] = Convert.ToInt32((armfreq - 1.5) * (armfreq * 6.5)).ToString();
+                ConfigUtility.Values[3] = Convert.ToInt32((armfreq - 1.5) * (armfreq * 6)).ToString();
                 OvervoltageSlider.Value = Convert.ToInt32(ConfigUtility.Values[3]);
                 Overvoltage.Text = ConfigUtility.Values[3];
 

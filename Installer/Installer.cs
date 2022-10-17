@@ -4,8 +4,6 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
-using System.Linq;
-using System.Net;
 using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Reflection;
@@ -49,12 +47,6 @@ namespace Installer
 
         private async void Installer_Load(object sender, EventArgs e)
         {
-            if (Program.silent)
-            {
-                this.Hide();
-                this.ShowInTaskbar = false;
-                this.Visible = false;
-            }
             //Check if the application is installed
             if (Directory.Exists(PathTextbox.Text))
             {
@@ -66,9 +58,16 @@ namespace Installer
 
             DrawBrush = new SolidBrush(WoRCP.UI.Theme.Text);
 
-
             //Enable later
             //checkforupdate();
+
+            //Check if the installer should autoinstall worcp
+            if (!Program.silent)
+                return;
+            if (Installed)
+                uninstall();
+            else
+                install();
         }
         #endregion
 
@@ -135,7 +134,6 @@ namespace Installer
         }
         #endregion
 
-
         //TODO: improve install/uninstall process
         //Methods
         #region Install/Uninstall
@@ -150,7 +148,7 @@ namespace Installer
                     InstallButton.Color = WoRCP.UI.Theme.BrightAccent;
                     ChooseDirButton.Enabled = false;
                     Uri uri = new Uri(Link);
-                    if (File.Exists(DownloadPath)) { File.Delete(DownloadPath); }
+                    if (File.Exists(DownloadPath)) File.Delete(DownloadPath);
                     await DownloadFileTaskAsync(client, uri, DownloadPath);
                     ZipFile.ExtractToDirectory(DownloadPath, PathTextbox.Text);
                     File.Delete(DownloadPath);
@@ -168,9 +166,7 @@ namespace Installer
                 else
                 {
                     if (File.Exists(PathTextbox.Text + @"\WoRCParm64.exe"))
-                    {
                         File.Delete(PathTextbox.Text + @"\WoRCParm64.exe");
-                    }
                 }
                 //Create shortcut
                 IShellLink link = (IShellLink)new ShellLink();
@@ -178,7 +174,7 @@ namespace Installer
                 IPersistFile file = (IPersistFile)link;
                 string desktopPath = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory);
                 file.Save(Path.Combine(desktopPath, "WoRCP.lnk"), false);
-
+                file.Save(@"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\WoRCP.lnk", false);
 
                 InstallButton.Enabled = true;
                 InstallButton.Color = Color.FromArgb(235, 0, 65);
@@ -204,8 +200,10 @@ namespace Installer
             Installed = false;
 
             //Remove shortcut
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory) + @"\WoRCP.lnk";
-            if (File.Exists(path)) File.Delete(path);
+            string desktopshortcut =  $@"{Environment.GetFolderPath(Environment.SpecialFolder.DesktopDirectory)}\WoRCP.lnk";
+            string startshortcut = @"C:\ProgramData\Microsoft\Windows\Start Menu\Programs\WoRCP.lnk";
+            if (File.Exists(desktopshortcut)) File.Delete(startshortcut);
+            if (File.Exists(startshortcut)) File.Delete(startshortcut);
         }
 
         #endregion

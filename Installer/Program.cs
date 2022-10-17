@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Globalization;
-using System.IO;
-using System.Reflection;
 using System.Windows.Forms;
 using WoRCP.UI;
 
@@ -16,13 +13,22 @@ namespace Installer
         {
             foreach (string i in args)
             {
-                Console.WriteLine(i);
-                if (i.Contains("/s")) silent = true;
+                if (i.Contains("--silent")) silent = true;
             }
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             WoRCPInstaller window = new WoRCPInstaller();
-            Theme.Initialize(window,window.AcrylicPanel);
+            if (silent)
+            {
+                window.Hide();
+                window.Visible = false;
+                window.ShowInTaskbar = false;
+            }
+            else
+            {
+                Theme.Initialize(window, window.AcrylicPanel, 2);
+            }
+
             Application.Run(window);
 
         }
